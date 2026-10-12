@@ -192,13 +192,68 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
 .hood{background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:6px 12px}
 .hood b{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;flex:none}
 .hood code{flex:1 1 300px;min-width:0;font-family:var(--mono);font-size:11.5px;overflow-wrap:anywhere}
-.colo{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+.foot{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
 .toasts{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:6px;z-index:20;max-width:min(400px,calc(100% - 32px))}
 .toast{background:var(--fg);color:var(--bg);padding:8px 12px;border-radius:8px;font-size:13px;box-shadow:var(--shadow)}
 #layer:empty{display:none}
 #layer{position:fixed;inset:0;background:rgba(8,24,28,.45);display:grid;place-items:center;padding:16px;z-index:10}
 .dlg{background:var(--surface);border-radius:10px;box-shadow:var(--shadow);max-width:600px;width:100%;max-height:100%;overflow:auto;padding:18px 20px;display:grid;gap:12px}
 .dlg h2{font-size:16px}
+/* colofon */
+@property --ca{syntax:'<angle>';inherits:false;initial-value:0deg}
+.dlg.colo{max-width:640px;padding:0;gap:0;display:flex;flex-direction:column;position:relative;overflow:hidden;isolation:isolate;border:1px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,conic-gradient(from var(--ca,0deg),var(--accent),var(--violet),var(--amber),var(--green),var(--accent)) border-box;animation:clBorder 8s linear infinite}
+.colo .cfx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1;border-radius:inherit}
+.colo .cin{overflow:auto;min-height:0;flex:1}
+.colo .aur{position:absolute;inset:-40%;z-index:-1;pointer-events:none;opacity:.32;filter:blur(40px);background:radial-gradient(closest-side at 30% 30%,var(--accent),transparent 70%),radial-gradient(closest-side at 70% 40%,var(--violet),transparent 70%),radial-gradient(closest-side at 50% 75%,var(--amber),transparent 70%);animation:clAur 18s ease-in-out infinite alternate}
+.colo .sp{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:0;pointer-events:none;z-index:0;animation:clSp 6s ease-in-out infinite}
+.colo .chead{display:flex;gap:16px;align-items:center;padding:18px 18px 4px}
+.colo .seal{flex:none;width:96px;height:96px;position:relative}
+.colo .seal svg.ring{position:absolute;inset:0;animation:clSpin 28s linear infinite}
+.colo .seal text{font:600 8.4px var(--mono,monospace);letter-spacing:.18em;fill:var(--accent)}
+.colo .seal svg.core{position:absolute;inset:22px;width:52px;height:52px}
+.colo .seal .draw{stroke-dasharray:120;stroke-dashoffset:120;animation:clDraw 1.6s .3s ease-out forwards}
+.colo h2.ct{font-size:24px;margin:0;font-weight:700;letter-spacing:-.01em;background:linear-gradient(100deg,var(--fg) 20%,var(--accent) 40%,var(--violet) 50%,var(--fg) 70%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:clShine 6s ease-in-out infinite}
+.colo .csub{color:var(--muted);font-size:12.5px;margin-top:2px}
+.colo .mb{padding:10px 18px 4px}
+.colo dl{display:grid;grid-template-columns:132px minmax(0,1fr);gap:9px 14px;margin:0;font-size:13px}
+.colo dt{color:var(--muted)}
+.colo dd{margin:0;display:flex;flex-direction:column;gap:1px;overflow-wrap:anywhere}
+.colo dd small{color:var(--muted);font-size:12px}
+.colo dd ul{list-style:disc;margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.colo dd li{display:list-item;border:0;padding:0}
+.colo dd a{color:var(--accent)}
+.colo .sel{user-select:all;font-family:var(--mono);font-size:12px}
+.colo .cl{opacity:0;transform:translateY(8px);animation:clIn .55s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i)*85ms + 250ms)}
+.colo .cnote{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;color:var(--muted);font-size:12px}
+.colo .cfoot{display:flex;justify-content:flex-end;padding:10px 18px 16px}
+@media (max-width:560px){.colo .chead{flex-direction:column;align-items:flex-start}.colo dl{grid-template-columns:1fr;gap:2px}.colo dd{margin-bottom:8px}}
+@media (prefers-reduced-motion:reduce){.dlg.colo,.colo .aur,.colo .sp,.colo .seal svg.ring,.colo h2.ct{animation:none}.colo .cl{animation:none;opacity:1;transform:none}.colo .seal .draw{animation:none;stroke-dashoffset:0}}
+@keyframes clBorder{to{--ca:360deg}}
+@keyframes clAur{0%{transform:translate(-6%,-4%) rotate(0deg) scale(1)}100%{transform:translate(6%,5%) rotate(25deg) scale(1.12)}}
+@keyframes clSp{0%{opacity:0;transform:translateY(10px) scale(.6)}30%{opacity:.8}100%{opacity:0;transform:translateY(-60px) scale(1.2)}}
+@keyframes clSpin{to{transform:rotate(360deg)}}
+@keyframes clDraw{to{stroke-dashoffset:0}}
+@keyframes clShine{0%{background-position:100% 0}100%{background-position:0 0}}
+@keyframes clIn{to{opacity:1;transform:none}}
+
+
+/* koppelen aan zaak en dossier */
+.lkw{position:relative}
+.lki{width:100%;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.lkl{position:absolute;left:0;right:0;top:calc(100% + 3px);z-index:6;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:4px;display:grid;gap:2px;max-height:280px;overflow:auto}
+.lkl li[role="option"]{display:grid;gap:1px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12.5px}
+.lkl li b{font-weight:500;min-width:0}.lkl li small{color:var(--muted);font-size:11.5px}.lkl li .mono{font-size:11px}
+.lkl li[aria-selected="true"],.lkl li[role="option"]:hover{background:var(--accent-soft)}
+.lkl mark{background:var(--amber-soft);color:inherit;font-weight:600;border-radius:2px}
+.lkm{padding:6px 8px;color:var(--muted);font-size:12.5px}
+.lkm.busy::before{content:"";display:inline-block;width:10px;height:10px;margin-right:7px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:lkSpin .7s linear infinite;vertical-align:-1px}
+@keyframes lkSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.lkm.busy::before{animation:none}}
+.lkd{display:grid;gap:5px}
+.lkc{display:flex;align-items:center;gap:7px;padding:3px 3px 3px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-size:12.5px}.lkc>span{flex:1;min-width:0;display:grid}.lkc small{color:var(--muted);font-size:11.5px}.lkc svg{color:var(--accent);flex:none}
+.lkc button{width:26px;height:26px;flex:none;display:grid;place-items:center;border-radius:5px;color:var(--muted);font-size:16px;line-height:1}.lkc button:hover{background:var(--red-soft);color:var(--red)}
+.lks{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:12px;color:var(--muted)}
+.lks button{display:inline-flex;gap:4px;align-items:center;padding:1px 8px;border:1px dashed var(--accent);border-radius:99px;color:var(--accent);font-size:12px}.lks button:hover{background:var(--accent-soft)}
 .dlg .rowb{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .dlg textarea{width:100%;min-height:110px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-family:var(--serif)}
 .to-list{display:grid;gap:2px;border:1px solid var(--line);border-radius:6px;max-height:150px;overflow:auto}
@@ -220,7 +275,7 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
   <div class="regie" id="regie"></div>
   <div id="win"></div>
   <div class="hood" id="hood"></div>
-  <div class="colo" id="colo"></div>
+  <div class="foot" id="foot"></div>
 </div>
 <div id="layer"></div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
@@ -258,6 +313,7 @@ var IC={
   book:'<path d="M5 4.5h11.5a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="11.8" cy="10" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 16c.6-1.8 1.8-2.7 3.3-2.7s2.7.9 3.3 2.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
   star:'<path d="M12 3.8l2.5 5.2 5.7.7-4.2 3.9 1.1 5.6L12 16.4l-5.1 2.8 1.1-5.6-4.2-3.9 5.7-.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>',
   copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  case:'<rect x="3.5" y="7.5" width="17" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3.5 12.5h17" fill="none" stroke="currentColor" stroke-width="1.8"/>',
   pers:'<circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
 };
 function ic(k,s){s=s||16;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>'}
@@ -267,7 +323,26 @@ function toast(m){var e=document.createElement('div');e.className='toast';e.text
 var ME={name:'Sanne de Vries',mail:'sanne.devries@haarlem.gemeente.org',org:'Gemeente Haarlem',team:'Team Vergunningen',func:'Vergunningverlener',phone:'023 555 0102'};
 var WINDOW=10;
 var CLASSES={verg:'Vergunningverlening',proj:'Ruimtelijke projecten',bedr:'Interne bedrijfsvoering',inter:'Intergemeentelijke samenwerking'};
-var DOSS=['','P-2026-031 · Herinrichting Houtplein','Z-2026-004417 · Omgevingsvergunning Kleverlaan 12','W-2026-014 · Woo-verzoek herinrichting Houtplein'];
+var ZAKEN=[
+ ['Z-2026-004417','Omgevingsvergunning dakopbouw Kleverlaan 12','Omgevingsvergunning','Afgehandeld'],
+ ['Z-2026-006233','Bezwaar omgevingsvergunning Kleverlaan 12','Bezwaar','In behandeling'],
+ ['Z-2026-004502','Omgevingsvergunning Kleverlaan 14','Omgevingsvergunning','Ontvangen'],
+ ['Z-2026-005120','Evenementenvergunning circuit 2027','Evenementenvergunning','In behandeling'],
+ ['Z-2026-006120','Woo-verzoek herinrichting Houtplein','Woo-verzoek','In behandeling'],
+ ['Z-2026-002210','Parkeervergunning Houtplein-oost','Parkeervergunning','Afgehandeld'],
+ ['Z-2025-011873','Kapvergunning Houtplein','Omgevingsvergunning','Afgehandeld'],
+ ['Z-2026-006340','Melding openbare ruimte Kleverlaan','Melding','Ontvangen'],
+ ['Z-2026-003981','Bezwaar leges dakkapel Kleverlaan 30','Bezwaar','In behandeling']];
+var DOSSIERS=[
+ ['P-2026-031','Herinrichting Houtplein','Projectdossier'],
+ ['W-2026-014','Woo-verzoek herinrichting Houtplein','Woo-dossier'],
+ ['W-2026-011','Woo-verzoek parkeerbeleid','Woo-dossier'],
+ ['B-2026-007','Legesverordening 2026','Beleidsdossier'],
+ ['P-2026-018','Evenementenbeleid kustgemeenten','Projectdossier'],
+ ['O-2026-003','Overleg vergunningverleners Zuid-Kennemerland','Overlegdossier']];
+var LSUG={m1:{d:['W-2026-014','P-2026-031']},m2:{z:'Z-2026-004502'},m5:{z:'Z-2026-005120',d:['P-2026-018']},m9:{d:['B-2026-007']}};
+function zaakOf(nr){return ZAKEN.filter(function(r){return r[0]===nr})[0]}
+function dosOf(nr){return DOSSIERS.filter(function(r){return r[0]===nr})[0]}
 var VERTR=['Openbaar','Intern','Vertrouwelijk'];
 var FOLDERS=[['inbox','Postvak IN','inbox'],['houtplein','Houtplein','folder'],['sent','Verzonden items','sent'],['pers','Persoonlijk','lock']];
 function M(o){o.pid=o.pid||'nl.haarlem.io:'+hex(4,o.id.length*977+o.age*31)+'-'+hex(4,o.id.charCodeAt(0)*7+3)+'-'+hex(4,o.id.length*13+o.age);
@@ -318,7 +393,7 @@ var MAILS=[
    body:['Geachte aanvrager,','Wij hebben uw aanvraag ontvangen. U hoort binnen acht weken of de vergunning wordt verleend.','Met vriendelijke groet, Sanne de Vries, Team Vergunningen']}),
  M({id:'m13',folder:'pers',age:12,from:P('Ellen de Vries','ellen.devries@mail.example'),to:[ME],subj:'Foto\'s van de vakantie',aard:'persoonlijk',enc:true,sorted:true,body:['Hier zijn de foto\'s.']})
 ];
-MAILS.forEach(function(m){m.aard=m.aard||null;m.klass=m.klass||(m.sug&&m.sug.klass)||'';m.dos=m.dos!=null?m.dos:(m.sug&&m.sug.dos)||0;m.vertr=m.vertr||'Intern';m.enc=!!m.enc;
+MAILS.forEach(function(m){m.aard=m.aard||null;m.klass=m.klass||(m.sug&&m.sug.klass)||'';m.zaak=m.dos===2?'Z-2026-006233':m.id==='m12'?'Z-2026-004502':'';m.doss=m.dos===1?['P-2026-031']:m.dos===3?['W-2026-014']:m.id==='m11'?['B-2026-007']:[];m.vertr=m.vertr||'Intern';m.enc=!!m.enc;
   m.atts.forEach(function(a,i){a.pid='nl.haarlem.io:'+hex(4,m.id.length*97+i*11)+'-'+hex(4,i*7919+m.age*13)+'-'+hex(4,m.id.charCodeAt(1)+i)})});
 var BY={};MAILS.forEach(function(m){BY[m.id]=m});
 
@@ -338,7 +413,7 @@ var S={view:'post',client:'olc',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',
   nr:{f:'from',op:'contains',v:'',act:'fileinto',arg:'Houtplein'},
   flow:null,role:'mw',reqs:[{id:'q1',by:'Juridische Zaken',who:'R. Hendriks (oud-medewerker)',why:'Onderzoek naar een klacht over integriteit. De persoonlijke berichten kunnen zakelijke berichten bevatten die ten onrechte als persoonlijk zijn aangemerkt.',per:'01-03-2026 tot 30-06-2026',state:'open'}],
   keylog:[{t:'2026-06-02T10:14',who:'Gemeentesecretaris',what:'Sleutelbeleid vastgesteld: alleen de gemeentesecretaris geeft toegang, voor een omschreven periode en reden.'}],
-  gabq:'',modal:null,gq:'',gorg:'',gsel:null,gme:false,fav:{'noor.bakker@haarlem.gemeente.org':true},
+  gabq:'',modal:null,colo:false,lk:{k:null,q:'',i:0,busy:false},gq:'',gorg:'',gsel:null,gme:false,fav:{'noor.bakker@haarlem.gemeente.org':true},
   wire:'IMAP SELECT INBOX → OK · ELSA levert de postbus uit het register en de objectopslag'};
 
 /* ---------- afleidingen ---------- */
@@ -348,7 +423,7 @@ function open(m){return !m.sorted&&!m.aard&&left(m)>0}
 function auto(m){if(!m.aard&&left(m)<=0){m.aard='zakelijk';m.sorted=true;m.auto=true;if(!m.klass&&m.sug)m.klass=m.sug.klass||'';m.hist.push('Na tien dagen automatisch zakelijk')}}
 function recvd(m){return new Date(NOW0.getTime()-m.age*DAY)}
 function inFolder(f){return MAILS.filter(function(m){return m.folder===f&&!m.gone})}
-function hit(m,q){if(!q)return true;q=q.toLowerCase();var hay=[t(m.subj),m.from.name,m.from.mail,m.body.map(t).join(' '),m.atts.map(function(a){return t(a.n)}).join(' '),m.dos?t(DOSS[m.dos]):'',m.klass?t(CLASSES[m.klass]):''].join(' ').toLowerCase();
+function hit(m,q){if(!q)return true;q=q.toLowerCase();var hay=[t(m.subj),m.from.name,m.from.mail,m.body.map(t).join(' '),m.atts.map(function(a){return t(a.n)}).join(' '),[m.zaak,m.zaak?t(zaakOf(m.zaak)[1]):''].concat(m.doss,m.doss.map(function(d){return t(dosOf(d)[1])})).join(' '),m.klass?t(CLASSES[m.klass]):''].join(' ').toLowerCase();
   return q.split(/\s+/).every(function(w){return hay.indexOf(w)>=0})}
 function status(m){
   if(m.aard==='persoonlijk')return '<span class="pill p-violet">'+ic('lock',11)+esc(t('Persoonlijk, versleuteld'))+'</span>';
@@ -372,6 +447,24 @@ function listHtml(){
 }
 function tag(m){var k=m.aard==='persoonlijk'?['violet','Persoonlijk']:m.aard==='zakelijk'?['green','Zakelijk']:['amber','Te scheiden'];
   return '<span class="tag t-'+k[0]+'" title="'+esc(t('Label van ELSA, als IMAP-trefwoord'))+'">'+esc(t(k[1]))+'</span>'}
+function hl(s,q){q=(q||'').trim();var i=q?s.toLowerCase().indexOf(q.toLowerCase()):-1;return i<0?esc(s):esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+q.length))+'</mark>'+esc(s.slice(i+q.length))}
+function lkItems(k,q){var m=BY[S.sel];q=(q||'').trim().toLowerCase();if(q.length<2)return [];
+  return (k==='zaak'?ZAKEN:DOSSIERS).filter(function(r){if(k==='dos'&&m&&m.doss.indexOf(r[0])>=0)return false;return [r[0],r[1],t(r[1]),t(r[2])].join(' ').toLowerCase().indexOf(q)>=0}).slice(0,6)}
+function lookup(k){
+  var L=S.lk,on=L.k===k,q=on?L.q:'',open=on&&q.trim().length>=2,it=open&&!L.busy?lkItems(k,q):[],id='lk-'+k,lb=id+'-l';
+  var h='<div class="lkw"><input type="text" id="'+id+'" class="lki" data-lk="'+k+'" role="combobox" aria-autocomplete="list" aria-expanded="'+open+'" aria-controls="'+lb+'"'+(it.length?' aria-activedescendant="'+lb+'-'+L.i+'"':'')+' value="'+esc(q)+'" autocomplete="off" spellcheck="false" placeholder="'+esc(t(k==='zaak'?'Typ een zaaknummer of omschrijving':'Typ een dossiernummer of naam'))+'">';
+  if(open){h+='<ul class="lkl" id="'+lb+'" role="listbox" aria-label="'+esc(t(k==='zaak'?'Zaken':'Dossiers'))+'">';
+    if(L.busy)h+='<li class="lkm busy" role="presentation">'+esc(t(k==='zaak'?'Zoeken in het zaaksysteem…':'Zoeken in het register…'))+'</li>';
+    else if(!it.length)h+='<li class="lkm" role="presentation">'+esc(t(k==='zaak'?'Geen zaak gevonden. Zaken komen uit het zaaksysteem; een nieuwe zaak maak je daar aan.':'Geen dossier gevonden.'))+'</li>';
+    else h+=it.map(function(r,i){return '<li role="option" id="'+lb+'-'+i+'" aria-selected="'+(i===L.i)+'" data-act="lkpick" data-k="'+k+'" data-v="'+r[0]+'"><b>'+hl(t(r[1]),q)+'</b><small><span class="mono">'+hl(r[0],q)+'</span> · '+esc(t(r[2]))+(r[3]?' · '+esc(t(r[3])):'')+'</small></li>'}).join('');
+    h+='</ul>'}
+  return h+'</div>'}
+function lkChip(k,nr){var r=k==='zaak'?zaakOf(nr):dosOf(nr);
+  return '<div class="lkc">'+ic(k==='zaak'?'case':'folder',15)+'<span><span>'+esc(r?t(r[1]):nr)+'</span><small><span class="mono">'+esc(nr)+'</span>'+esc(r?' · '+t(r[2])+(r[3]?' · '+t(r[3]):''):'')+'</small></span><button type="button" data-act="lkdel" data-k="'+k+'" data-v="'+nr+'" title="'+esc(t('Ontkoppelen'))+'" aria-label="'+esc(t('Ontkoppelen'))+': '+nr+'">×</button></div>'}
+function lkSug(m){var g=LSUG[m.id];if(!g)return '';var b=[];
+  if(g.z&&!m.zaak)b.push('<button type="button" data-act="lkpick" data-k="zaak" data-v="'+g.z+'">'+ic('case',13)+esc(g.z)+'</button>');
+  (g.d||[]).forEach(function(d){if(m.doss.indexOf(d)<0)b.push('<button type="button" data-act="lkpick" data-k="dos" data-v="'+d+'">'+ic('folder',13)+esc(d)+'</button>')});
+  return b.length?'<div class="lks"><span>'+esc(t('Voorstel'))+':</span>'+b.join('')+'</div>':''}
 function elsaBar(m){
   var o=open(m),pers=m.aard==='persoonlijk',sg=m.sug;
   var h='<div class="el"><div class="h">'+status(m)+'</div><p class="mono">'+esc(m.pid)+'</p>';
@@ -383,7 +476,9 @@ function elsaBar(m){
     h+='<p class="hint">'+esc(t('Versleuteld met jouw persoonlijke sleutel. Alleen jij kunt het lezen. Toegang voor iemand anders kan alleen de gemeentesecretaris geven, en dat wordt vastgelegd.'))+'</p>';
   }else{
     h+='<div class="meta"><div class="fld"><label for="f-klass">'+esc(t('Classificatie'))+'</label><select id="f-klass" data-f="klass"><option value="">'+esc(t('Kies'))+'</option>'+Object.keys(CLASSES).map(function(k){return '<option value="'+k+'"'+(m.klass===k?' selected':'')+'>'+esc(t(CLASSES[k]))+'</option>'}).join('')+'</select></div>'
-      +'<div class="fld"><label for="f-dos">'+esc(t('Dossier of zaak'))+'</label><select id="f-dos" data-f="dos">'+DOSS.map(function(d,i){return '<option value="'+i+'"'+(m.dos===i?' selected':'')+'>'+esc(i?t(d):t('Geen'))+'</option>'}).join('')+'</select></div>'
+      +lkSug(m)
+      +'<div class="fld"><label for="lk-zaak">'+esc(t('Zaak'))+'</label><div class="lkd">'+(m.zaak?lkChip('zaak',m.zaak):lookup('zaak'))+'</div><p class="hint">'+esc(t('De zaak komt uit het zaaksysteem, dat leidend blijft. ELSA legt alleen de koppeling vast, als kenmerk.'))+'</p></div>'
+      +'<div class="fld"><label for="lk-dos">'+esc(t('Dossiers'))+'</label><div class="lkd">'+m.doss.map(function(d){return lkChip('dos',d)}).join('')+lookup('dos')+'</div><p class="hint">'+esc(t('Een bericht kan in meer dossiers zitten. Het dossier verwijst naar het bericht; er wordt niets gekopieerd.'))+'</p></div>'
       +'<div class="fld"><label for="f-vertr">'+esc(t('Vertrouwelijkheid'))+'</label><select id="f-vertr" data-f="vertr">'+VERTR.map(function(v){return '<option value="'+v+'"'+(m.vertr===v?' selected':'')+'>'+esc(t(v))+'</option>'}).join('')+'</select></div>'
       +'<div class="fld"><span>'+esc(t('Bewaartermijn'))+'</span><div class="ro">'+esc(m.klass?t(m.klass==='bedr'?'1 jaar na ontvangst':m.klass==='proj'?'Blijvend bewaren':'10 jaar na afsluiting'):t('Volgt uit de classificatie'))+'</div></div></div>'
       +(!m.klass?'<div class="note n-amber">'+ic('warn')+'<span>'+esc(t('Vul de classificatie aan. Daarmee ligt de bewaartermijn vast en is het bericht terug te vinden voor een Woo-verzoek.'))+'</span></div>':'')
@@ -561,9 +656,29 @@ function archView(){
     +'<div><b>'+esc(t('Andere mailprovider'))+'</b><span>'+esc(t('Vervangt een andere dienst Exchange, dan verandert alleen de aanvoer naar Kafka. Register, opslag en IMAP blijven gelijk.'))+'</span></div></div></div></div>';
 }
 
+/* ---------- colofon ---------- */
+function colofonHtml(){
+  var i=0,r=function(dt,dd){var o='<dt class="cl" style="--i:'+i+'">'+esc(t(dt))+'</dt><dd class="cl" style="--i:'+i+'">'+dd+'</dd>';i++;return o},T=function(s){return esc(t(s))};
+  var sp=[[12,78,0],[28,88,1.4],[46,82,2.6],[63,90,.8],[80,80,3.4],[92,70,2]].map(function(x){return '<span class="sp" style="left:'+x[0]+'%;top:'+x[1]+'%;animation-delay:'+x[2]+'s"></span>'}).join('');
+  return '<div class="dlg colo" role="dialog" aria-modal="true" aria-labelledby="clt"><div class="cfx"><div class="aur"></div>'+sp+'</div><div class="cin"><div class="chead"><div class="seal" aria-hidden="true"><svg class="ring" viewBox="0 0 96 96"><defs><path id="clc" d="M48,48 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><circle cx="48" cy="48" r="46" fill="none" stroke="var(--line)" stroke-width="1"/><text><textPath href="#clc" textLength="236" lengthAdjust="spacing">IMAP · SIEVE · CARDDAV · EUPL · XENA · ELSA · </textPath></text></svg>'
+    +'<svg class="core" viewBox="0 0 24 24"><rect class="draw" x="3" y="5" width="18" height="12" rx="1.6" fill="none" stroke="var(--accent)" stroke-width="1.6"/><path class="draw" d="M3.6 6l8.4 6 8.4-6" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/><path class="draw" d="M6 20h12" fill="none" stroke="var(--violet)" stroke-width="1.8" stroke-linecap="round"/></svg></div>'
+    +'<div><h2 id="clt" class="ct">'+T('Colofon')+'</h2><div class="csub">ELSA · Electronic Letters &amp; Storage Archive</div><div class="csub">'+esc(t('Interactieve demo, versie {0}',DEMO.v))+' · '+esc(DEMO.d)+'</div></div></div><div class="mb"><dl>'
+    +r('Gemaakt door','<span>Erik Hoekstra</span><small>'+T('Programma-architect en senior consultant')+'</small><small>'+T('Afdeling i-Ontwikkeling, Gemeente Haarlem')+'</small>')
+    +r('Met assistentie van','<span>Claude Opus 5.5</span><small>Anthropic</small>')
+    +r('Contact','<span>ehoekstra@haarlem.nl</span><span>erik@erikhoekstra.com</span>')
+    +r('Ten behoeve van','<ul><li>'+T('Het gesprek over archiveren van e-mail aan de bron, zonder kopie bij de leverancier van de mailserver')+'</li><li>'+T('Het Common Ground-team en het samenwerkingsverband OWC')+'</li><li>'+T('Medewerkers, informatiebeheerders en architecten van de gemeenten Haarlem en Zandvoort')+'</li></ul>')
+    +r('Naam','<span>ELSA: Electronic Letters &amp; Storage Archive</span><small>'+T('E-mailarchivering binnen XENA')+'</small>')
+    +r('Achtergrond','<span>'+T('XENA, archiefwaardige opslag voor de medewerker')+'</span><small>'+T('De architectuurvisie waarop deze demo is gebaseerd')+'</small>')
+    +r('Copyright','<span>© 2026 '+T('Gemeente Haarlem')+'</span>')
+    +r('Licentie','<span>'+T('Vrij te gebruiken, aan te passen en te verspreiden onder de European Union Public Licence (EUPL) 1.2.')+'</span><a href="https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12" target="_blank" rel="noopener">'+T('Tekst van de licentie')+'</a>')
+    +'</dl><div class="cnote cl" style="--i:'+i+'">'+T('Een demo, geen product. Alle voorbeeldgegevens zijn verzonnen: personen, adressen, dossiers en zaaknummers bestaan niet. De demo toont wat de architectuur mogelijk maakt; een deel van de functies is toekomstbeeld.')+'</div></div>'
+    +'<div class="cfoot"><button type="button" class="btn pri" data-act="coloX">'+T('Sluiten')+'</button></div></div></div>';
+}
+
 /* ---------- opstellen ---------- */
 function modal(){
-  var L=document.getElementById('layer');if(!S.modal){L.innerHTML='';return}
+  var L=document.getElementById('layer');if(S.colo){if(!L.querySelector('.colo')){L.innerHTML=colofonHtml();L.querySelector('[data-act="coloX"]').focus()}return}
+  if(!S.modal){L.innerHTML='';return}
   var m=S.modal,book=[[ME.name,ME.mail]].concat(GAB.map(function(r){return [r[0],r[1],r[2]]})).filter(function(r){return r[1]!==ME.mail});
   var q=(m.to||'').toLowerCase(),sug=q.length>1?book.filter(function(r){return (r[0]+' '+r[1]).toLowerCase().indexOf(q)>=0}).slice(0,5):[];
   L.innerHTML='<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="ct"><h2 id="ct">'+esc(t('Nieuw bericht'))+'</h2>'
@@ -580,7 +695,7 @@ function modal(){
 var VIEWS=[['post','Postbus'],['flow','Doorstroom'],['filt','Filters'],['gab','Adresboek'],['keys','Sleutels'],['arch','Achter ELSA']];
 function render(){
   MAILS.forEach(auto);
-  document.getElementById('top').innerHTML='<div class="ttl"><h1>ELSA<small>Electronic Letters &amp; Storage Archive</small></h1><div class="sub">'+esc(t('E-mail archiveren in XENA: elk bericht in het register, gewoon lezen in je eigen mailprogramma.'))+'</div></div>'
+  document.getElementById('top').innerHTML='<div class="ttl"><h1>ELSA<small>Electronic Letters &amp; Storage Archive</small></h1><div class="sub">'+esc(t('E-mail archiveren in XENA: elk bericht in het register, gewoon lezen in je eigen mailprogramma.'))+' <span>'+esc(t('Versie {0}',DEMO.v))+'</span> · <span>'+esc(DEMO.d)+'</span> · <button type="button" class="linkbtn" data-act="colofon">'+esc(t('Colofon'))+'</button></div></div>'
     +'<div class="seg" role="group" aria-label="'+esc(t('Weergave'))+'">'+VIEWS.map(function(v){return '<button type="button" data-act="view" data-v="'+v[0]+'" aria-pressed="'+(S.view===v[0])+'">'+esc(t(v[1]))+'</button>'}).join('')+'</div>'
     +'<select class="lang" id="lang" aria-label="Taal / Language">'+Object.keys(LANGS).filter(function(l){return l==='nl'||I18N[l]}).map(function(l){return '<option value="'+l+'"'+(l===LANG?' selected':'')+'>'+LANGS[l]+'</option>'}).join('')+'</select>';
   document.getElementById('regie').innerHTML='<b>'+esc(t('Demo'))+'</b><span>'+esc(t('Spring vooruit in de tijd om te zien wat er na tien dagen gebeurt.'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Tijd'))+'">'+[[0,'Vandaag'],[4,'Over 4 dagen'],[10,'Over 10 dagen']].map(function(d){return '<button type="button" data-act="skip" data-v="'+d[0]+'" aria-pressed="'+(S.skip===d[0])+'">'+esc(t(d[1]))+'</button>'}).join('')+'</div>'
@@ -588,7 +703,7 @@ function render(){
     +'<span>'+esc(t('{0} berichten nog te scheiden',MAILS.filter(function(m){return !m.gone&&open(m)}).length))+'</span>';
   document.getElementById('win').innerHTML=({post:postView,flow:flowView,filt:filterView,gab:gabView,keys:keyView,arch:archView})[S.view]();
   document.getElementById('hood').innerHTML='<b>'+esc(t('Onder de motorkap'))+'</b><code>'+esc(S.wire)+'</code>';
-  document.getElementById('colo').innerHTML='<span>ELSA · '+esc(t('demo versie {0}, {1}',DEMO.v,DEMO.d))+'</span><span>'+esc(t('Onderdeel van XENA, naast de opslag, MIRA en TINA.'))+'</span><span>'+esc(t('Alle voorbeeldgegevens zijn verzonnen.'))+'</span>';
+  document.getElementById('foot').innerHTML='<span>ELSA · '+esc(t('demo versie {0}, {1}',DEMO.v,DEMO.d))+'</span><span>'+esc(t('Onderdeel van XENA, naast de opslag, MIRA en TINA.'))+'</span><span>'+esc(t('Alle voorbeeldgegevens zijn verzonnen.'))+'</span>';
   modal();
 }
 function w(s){S.wire=s}
@@ -610,12 +725,22 @@ var A={
   skip:function(e){S.skip=+e.dataset.v;w(S.skip?wt('Demo: {0} dagen later',S.skip)+' · '+wt('ELSA zet niet-gescheiden berichten na tien dagen op zakelijk'):'—');render()},
   compose:function(){S.modal={to:'',sj:'',bd:''};render()},
   cclose:function(){S.modal=null;render()},
+  colofon:function(){S.colo=true;render()},
+  coloX:function(){S.colo=false;render()},
+  lkpick:function(e){var m=BY[S.sel],k=e.dataset.k,v=e.dataset.v;if(!m)return;
+    if(k==='zaak'){m.zaak=v;m.hist.push('Gekoppeld aan een zaak');w('POST /zaken/api/v1/zaakinformatieobjecten → 201 · '+wt('zaak {0} als kenmerk in het register',v)+' · '+wt('het zaaksysteem blijft leidend'));toast(t('Gekoppeld aan zaak {0}.',v))}
+    else{if(m.doss.indexOf(v)<0)m.doss.push(v);m.hist.push('Opgenomen in een dossier');w('Register: '+wt('verwijzing {0} → {1}',v,m.pid)+' · '+wt('geen kopie'));toast(t('Opgenomen in dossier {0}.',v))}
+    S.lk={k:null,q:'',i:0,busy:false};render()},
+  lkdel:function(e){var m=BY[S.sel],k=e.dataset.k,v=e.dataset.v;if(!m)return;
+    if(k==='zaak'){m.zaak='';w('DELETE /zaken/api/v1/zaakinformatieobjecten/… → 204 · '+wt('kenmerk verwijderd uit het register'))}
+    else{m.doss=m.doss.filter(function(d){return d!==v});w('Register: '+wt('verwijzing {0} → {1} ingetrokken',v,m.pid))}
+    m.hist.push('Ontkoppeld');toast(t('Ontkoppeld van {0}.',v));render();var f=document.getElementById('lk-'+k);if(f)f.focus()},
   pick:function(e){S.modal.to=e.dataset.v;S.modal.focus='c-sj';render()},
   send:function(){var m=S.modal;['to','sj','bd'].forEach(function(k){var el=document.getElementById('c-'+k);if(el)m[k]=el.value});
     if(!m.to||m.to.indexOf('@')<0){toast(t('Vul een e-mailadres in.'));return}
     var g=GAB.filter(function(r){return r[1]===m.to})[0];
     var n=M({id:'s'+Date.now(),folder:'sent',age:0,from:ME,to:[P(g?g[0]:m.to,m.to)],subj:m.sj||t('(geen onderwerp)'),aard:'zakelijk',sorted:true,body:[m.bd||''],read:true});
-    n.klass='';n.dos=0;n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
+    n.klass='';n.zaak='';n.doss=[];n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
     w('SMTP → Exchange Online · transport rule → Kafka · NiFi → register '+n.pid+' · IMAP APPEND "Verzonden items" → '+wt('ontdubbeld op Message-ID'));toast(t('Verzonden. Het bericht staat in ELSA onder Verzonden items.'));render()},
   flow:function(){S.flow={step:-1};var go=function(){S.flow.step++;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();if(S.flow.step<FLOW.length-1)setTimeout(go,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450)};go()},
   rdel:function(e){S.rules.splice(+e.dataset.i,1);w('ManageSieve PUTSCRIPT "elsa" → OK');render()},
@@ -635,13 +760,27 @@ var A={
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';
     S.keylog.push({t:now().toISOString(),who:'Gemeentesecretaris',what:tx});w('POST /keyvault/grants → '+(v==='ok'?'201 · '+wt('tijdelijke toegang, gelogd'):v==='no'?'200 · '+wt('geweigerd, gelogd'):'201 · '+wt('delegatie, gelogd')));render()}
 };
-document.addEventListener('click',function(ev){var e=ev.target.closest&&ev.target.closest('[data-act]');if(!e||e.disabled)return;var f=A[e.dataset.act];if(f)f(e)});
-document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&S.modal){S.modal=null;render()}});
+document.addEventListener('click',function(ev){if(ev.target.id==='layer'&&S.colo){S.colo=false;render();return}
+  var e=ev.target.closest&&ev.target.closest('[data-act]');if(S.lk.k&&!(ev.target.closest&&ev.target.closest('.lkw'))){S.lk={k:null,q:'',i:0,busy:false};if(!e){render();return}}
+  if(!e||e.disabled)return;var f=A[e.dataset.act];if(f)f(e)});
+document.addEventListener('keydown',function(ev){var e=ev.target;
+  if(e&&e.dataset&&e.dataset.lk&&S.lk.k===e.dataset.lk){var it=S.lk.busy?[]:lkItems(S.lk.k,S.lk.q),k=e.dataset.lk;
+    if((ev.key==='ArrowDown'||ev.key==='ArrowUp')&&it.length){ev.preventDefault();S.lk.i=(S.lk.i+(ev.key==='ArrowDown'?1:it.length-1))%it.length;render();lkFocus();return}
+    if(ev.key==='Enter'&&it.length){ev.preventDefault();A.lkpick({dataset:{k:k,v:it[S.lk.i][0]}});var f=document.getElementById('lk-'+k);if(f)f.focus();return}
+    if(ev.key==='Escape'){S.lk={k:null,q:'',i:0,busy:false};render();var g=document.getElementById('lk-'+k);if(g)g.focus();return}}
+  if(ev.key==='Escape'&&S.colo){S.colo=false;render();return}
+  if(ev.key==='Escape'&&S.modal){S.modal=null;render()}});
+var lkT=null;
+function lkFocus(){var f=document.getElementById('lk-'+S.lk.k);if(f){f.focus();var n=f.value.length;f.setSelectionRange(n,n)}}
 document.addEventListener('submit',function(ev){if(ev.target.id!=='rform')return;ev.preventDefault();var r=Object.assign({},S.nr),err=ruleCheck(r);
   if(err){w('ManageSieve PUTSCRIPT "elsa" → NO · '+t(err));render();return}
   r.id='r'+Date.now();S.rules.push(r);S.nr={f:'from',op:'contains',v:'',act:'fileinto',arg:'Houtplein'};w('ManageSieve CHECKSCRIPT → OK · PUTSCRIPT "elsa" → OK');toast(t('Filter toegevoegd.'));render()});
 document.addEventListener('input',function(ev){var e=ev.target;
   if(e.id==='q'){S.q=e.value;var p=e.selectionStart;var L=MAILS.filter(function(m){return !m.gone&&m.folder!=='pers'&&hit(m,S.q)});w(S.q?'IMAP UID SEARCH TEXT "'+S.q+'" → '+wt('zoekindex van ELSA')+' · '+wt('{0} berichten',L.length):'IMAP SELECT INBOX → OK');render();var q=document.getElementById('q');q.focus();q.setSelectionRange(p,p);return}
+  if(e.dataset&&e.dataset.lk){var k=e.dataset.lk;S.lk={k:k,q:e.value,i:0,busy:e.value.trim().length>=2};render();lkFocus();clearTimeout(lkT);
+    if(S.lk.busy)lkT=setTimeout(function(){if(S.lk.k!==k)return;S.lk.busy=false;var n=lkItems(k,S.lk.q).length,had=document.activeElement&&document.activeElement.id==='lk-'+k;
+      w(k==='zaak'?'GET /zaken/api/v1/zaken?identificatie__icontains / omschrijving: "'+S.lk.q.trim()+'" (ZGW Zaken API) → '+wt('{0} zaken',n):'GET /register/dossiers?q="'+S.lk.q.trim()+'" → '+wt('{0} dossiers',n)+' · '+wt('alleen dossiers waar je bij mag'));render();if(had)lkFocus()},matchMedia('(prefers-reduced-motion: reduce)').matches?0:280);
+    return}
   if(e.id==='apq'){S.gq=e.value;S.gsel=null;var n=e.selectionStart;w(S.gq?'CardDAV REPORT addressbook-query /gab/ (FN, TITLE, ORG contains "'+S.gq+'")':'—');render();var a=document.getElementById('apq');if(a){a.focus();a.setSelectionRange(n,n)}return}
   if(e.id==='gabq'){S.gabq=e.value;render();var g=document.getElementById('gabq');g.focus();g.setSelectionRange(e.value.length,e.value.length);return}
   if(e.id==='nr-v'||e.id==='nr-arg'&&e.tagName==='INPUT'){S.nr[e.dataset.nr]=e.value;return}
@@ -654,10 +793,10 @@ document.addEventListener('change',function(ev){var e=ev.target;
   if(e.dataset&&e.dataset.f){var m2=BY[S.sel],k=e.dataset.f;m2[k]=k==='dos'?+e.value:e.value;m2.hist.push('Metagegevens aangevuld');w('PROPPATCH register '+m2.pid+' → '+k+' · '+wt('bijgewerkt'));render();return}
   if(e.dataset&&e.dataset.nr){S.nr[e.dataset.nr]=e.value;if(e.tagName==='INPUT')return;if(e.dataset.nr==='act')S.nr.arg=e.value==='fileinto'?'Houtplein':e.value==='redirect'?'':e.value==='vacation'?t('Ik ben afwezig tot maandag.'):'';render();return}
   if(e.dataset&&e.dataset.sh){S.share[e.dataset.sh]=e.checked;if(S.inGab)w('CardDAV PUT /gab/haarlem/s.devries.vcf → 204 · '+wt('alleen de gekozen velden'));render()}});
-var EXTRA=['Na tien dagen automatisch zakelijk','Aangemerkt als persoonlijk en versleuteld','Aangemerkt als zakelijk','Versleuteld als vertrouwelijk','Metagegevens aangevuld','Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.','Verzoek van Juridische Zaken geweigerd.','Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.','Gemeentesecretaris'];
+var EXTRA=['Gekoppeld aan een zaak','Opgenomen in een dossier','Ontkoppeld','Na tien dagen automatisch zakelijk','Aangemerkt als persoonlijk en versleuteld','Aangemerkt als zakelijk','Versleuteld als vertrouwelijk','Metagegevens aangevuld','Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.','Verzoek van Juridische Zaken geweigerd.','Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.','Gemeentesecretaris'];
 window.__elsa={strings:function(){var o=EXTRA.slice();
   MAILS.forEach(function(m){o.push(m.subj);o=o.concat(m.body);m.atts.forEach(function(a){o.push(a.n)});if(m.sug)o.push(m.sug.why);o=o.concat(m.hist)});
-  Object.keys(CLASSES).forEach(function(k){o.push(CLASSES[k])});o=o.concat(DOSS.filter(Boolean),VERTR);FOLDERS.forEach(function(f){o.push(f[1])});
+  Object.keys(CLASSES).forEach(function(k){o.push(CLASSES[k])});ZAKEN.forEach(function(r){o.push(r[1],r[2],r[3])});DOSSIERS.forEach(function(r){o.push(r[1],r[2])});o=o.concat(VERTR);FOLDERS.forEach(function(f){o.push(f[1])});
   FLOW.forEach(function(f){o.push(f[0],f[1],f[3])});Object.keys(FLD).forEach(function(k){o.push(FLD[k])});Object.keys(OPS).forEach(function(k){o.push(OPS[k])});Object.keys(ACTS).forEach(function(k){o.push(ACTS[k])});
   GAB.forEach(function(r){o.push(r[2],r[3],r[4])});o=o.concat(ORGS);S.reqs.forEach(function(r){o.push(r.by,r.who,r.why)});S.keylog.forEach(function(l){o.push(l.who,l.what)});VIEWS.forEach(function(v){o.push(v[1])});return o}};
 (function(){var l='';try{l=localStorage.getItem('elsa.lang')||''}catch(e){}var h=(location.hash||'').slice(1).toLowerCase();if(LANGS[h])l=h;setLang(l||'nl')})();

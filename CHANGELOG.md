@@ -2,6 +2,12 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 5 · 12-10-2026
+- Een zakelijk bericht koppel je aan een zaak en aan een of meer dossiers. De zaak komt uit het zaaksysteem, dat leidend blijft; ELSA legt de koppeling vast als kenmerk. Een dossier verwijst naar het bericht, zonder kopie.
+- Zaken en dossiers zoek je op met een invulveld dat al tijdens het typen voorstellen toont, met toetsenbordbediening. In de demo is het opzoeken nagebootst.
+- Voorstellen voor een zaak of dossier op basis van het bericht.
+- Colofon onder de titel, zoals in de andere demo's.
+
 ## Versie 4 · 12-10-2026
 - Het gemeentelijk adresboek staat in het paneel van de assistent: zoeken op naam, functie of afdeling, filteren op gemeente, de mensen bij het geopende bericht, favorieten (als verwijzing, geen kopie), een vermelding openen, een bericht beginnen of het adres kopiëren.
 - Je eigen vermelding beheren in het paneel: opnemen of intrekken, kiezen wat je deelt, met een voorbeeld van hoe collega's je zien.
