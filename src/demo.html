@@ -259,13 +259,62 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
 .to-list{display:grid;gap:2px;border:1px solid var(--line);border-radius:6px;max-height:150px;overflow:auto}
 .to-list button{padding:5px 9px;text-align:left;font-size:13px}.to-list button:hover{background:var(--sel)}.to-list small{color:var(--muted)}
 
+.xarch{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+.xarch>div{display:grid;gap:0;align-content:start}.xarch h2{font-size:17px}.xarch .lead{margin:4px 0 12px}.xarch .gchips{margin-bottom:4px}
+.layer{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;background:var(--surface2)}
+.layer.key{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
+.layer h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin:0 0 8px}
+.layer .hint{margin-top:8px}
+.boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.layer.key .bx{background:var(--surface)}
+.conn{display:flex;justify-content:center;padding:6px 0;position:relative}
+.conn::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line)}
+.conn button{position:relative;background:var(--surface);border:1px solid var(--accent);color:var(--accent);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:500}
+.conn button:hover{background:var(--accent-soft)}
+.sq{display:grid;gap:8px;margin:12px 0 4px;counter-reset:none}
+.sq li{display:flex;gap:10px;align-items:flex-start}
+.sq .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:600}
+.sq li>div{display:grid;gap:3px;justify-items:start}.sq p{font-size:13px}
+.tgrp{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;margin-top:12px}
+.tgrp>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:9px 12px;background:var(--surface2);border-bottom:1px solid var(--line)}
+.tgrp>header b{font-weight:600}
+.tgrp>header>span:not(.pill){font-size:12px;color:var(--muted);flex:1 1 260px}
+.tgrp>div:not(.trow):not(.tw0){padding:10px 12px}
+.tgrp ul{padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:13px;list-style:disc}
+.tw0{overflow-x:auto}
+.tt{border-collapse:collapse;font-size:13px;width:100%;min-width:560px}
+.tt th,.tt td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tt th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+.tt tr.hl td{background:var(--accent-soft)}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:4px 14px;padding:7px 12px;border-bottom:1px solid var(--line);font-size:13px}
+.trow:last-child{border-bottom:0}
+.trow.hd{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+.trow .fn{font-weight:500}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:8px;align-content:start;background:var(--surface);font-size:13px}
+.opt.pick{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
+.opt header{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.opt h3{font-size:14px;flex:1;min-width:0}
+.opt .ok{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:700;flex:none}
+.pm{display:grid;gap:4px}.pm li{display:flex;gap:7px;align-items:baseline}.pm li::before{flex:none;font-weight:700;width:12px}
+.pm.plus li::before{content:"+";color:var(--green)}.pm.min li::before{content:"−";color:var(--red)}
+.gsteps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.gstep{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:12.5px}
+.gstep.out{border-style:dashed}
+.gstep .gnum{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.gstep .gnum .pill{text-transform:none;letter-spacing:0;font-size:11px}
+.gstep h3{font-size:14px;font-weight:600;margin:4px 0 0}
+.gstep .when{font-size:11.5px;color:var(--muted)}
+.gstep dl{display:flex;flex-direction:column;gap:6px}.gstep dt{font-size:11px;color:var(--muted);font-weight:600}.gstep dd{margin:0}
+.gms{margin-top:auto;display:flex;gap:8px;align-items:flex-start;border-top:1px dashed var(--line);padding-top:8px;font-weight:500}
+.gms .dia{flex:none;width:9px;height:9px;background:var(--accent);transform:rotate(45deg);margin-top:4px}
+.gtwo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.gtwo p{font-size:13px}.tgrp .gtwo{padding:10px 12px}
 @media (max-width:1200px){.mc,.mc.nopane{grid-template-columns:170px 260px minmax(0,1fr)}.mc .ap{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);max-height:none}}
 @media (max-width:1000px){
   .mc,.mc.nopane{grid-template-columns:minmax(0,1fr)}
   .fold{display:flex;flex-wrap:wrap;gap:2px;border-right:0;border-bottom:1px solid var(--line);padding:6px}
   .fold h4,.fold .gr{display:none}.fold button{width:auto;padding:5px 10px;border-radius:6px}
   .list{border-right:0;border-bottom:1px solid var(--line);max-height:300px}.read-p{max-height:none}
-  .cols,.arch{grid-template-columns:minmax(0,1fr)}
+  .cols,.arch,.xarch,.opts,.gtwo{grid-template-columns:minmax(0,1fr)}
   .page{padding:16px}
 }
 </style>
@@ -640,20 +689,150 @@ function keyView(){
 }
 
 /* ---------- architectuur ---------- */
+/* ---------- architectuur ---------- */
+var LANES={wp:['Werkplek','p-grey'],aan:['Aanvoer','p-amber'],nifi:['NiFi','p-violet'],reg:['Register','p-blue'],obj:['Objectopslag','p-green'],imap:['IMAP-server','p-blue'],dav:['Nextcloud Files','p-green']};
+var SEQ=[
+ {t:'Een bericht komt binnen',s:[
+  ['aan','Exchange Online ontvangt het bericht via SMTP. Een transport rule stuurt het als EML door naar Kafka en laat geen kopie achter in de postbus.'],
+  ['nifi','NiFi leest het bericht uit Kafka, berekent de hash en kijkt op Message-ID of het er al is. Een verzonden bericht komt zo maar één keer binnen.'],
+  ['obj','De EML komt één keer in de objectopslag. Het object verandert daarna nooit meer.'],
+  ['reg','Het register legt het bericht vast: Message-ID, afzender, ontvangers, datum en de aard "nog te scheiden", met tien dagen bedenktijd.'],
+  ['nifi','De tekst gaat naar de zoekindex. Bijlagen worden eigen objecten, verbonden met het bericht.'],
+  ['imap','NiFi levert het bericht af bij de IMAP-server (LMTP). De IMAP-server bewaart geen tweede kopie: hij verwijst naar het object en houdt alleen UID, map en vlaggen bij.']]},
+ {t:'Lezen in het mailprogramma',s:[
+  ['wp','Outlook of Thunderbird hoort via IMAP IDLE dat er iets nieuws is en vraagt het bericht op.'],
+  ['imap','De IMAP-server kent de UID en de map, en haalt de inhoud bij de opslag.'],
+  ['obj','De opslag levert de EML. Is het bericht persoonlijk, dan ontsleutelt de IMAP-server het met de sleutel van de gebruiker, die pas na aanmelding vrijkomt.'],
+  ['imap','Gelezen, vlag en label staan alleen in de IMAP-server. Leesstatus is geen archiefgegeven en komt niet in het register.']]},
+ {t:'Hetzelfde bericht in Nextcloud Files',s:[
+  ['wp','De medewerker opent in Files de map E-mail, en daarin een dossier of een maand.'],
+  ['dav','Files toont een virtuele map. De inhoud komt uit het register, niet uit een eigen kopie (PROPFIND).'],
+  ['reg','Het register geeft de berichten en de rechten. Alleen zakelijke berichten waar de medewerker bij mag. Persoonlijke berichten staan er nooit in.'],
+  ['obj','Openen haalt dezelfde EML uit de opslag (GET). Er is geen tweede exemplaar.'],
+  ['dav','Alleen lezen. Een bericht wijzigen of verwijderen via WebDAV wordt geweigerd (403): een EML is af.']]},
+ {t:'Persoonlijk maken',s:[
+  ['wp','De medewerker kiest Persoonlijk in het paneel, of sleept het bericht naar de map Persoonlijk.'],
+  ['imap','IMAP MOVE naar Persoonlijk. De IMAP-server meldt de keuze aan ELSA.'],
+  ['reg','Het register legt de aard persoonlijk vast, met wie en wanneer. Het bericht valt buiten het zoekbereik voor de Woo.'],
+  ['obj','Het object wordt opnieuw opgeslagen, versleuteld met de persoonlijke sleutel. De onversleutelde versie vervalt. Dat kan, omdat de bewaarvergrendeling pas ingaat als een bericht zakelijk is.'],
+  ['dav','Het bericht verdwijnt uit de virtuele mappen in Files, en de tekst uit de zoekindex.']]},
+ {t:'Zoeken voor een Woo-verzoek',s:[
+  ['wp','De Woo-coördinator zoekt via SharePoint of Teams, of in Files.'],
+  ['reg','De zoekindex van ELSA geeft alleen zakelijke berichten. Vertrouwelijke berichten alleen aan wie daar recht op heeft.'],
+  ['reg','Gevonden berichten gaan per verwijzing naar het Woo-dossier in XENA. Er wordt niets gekopieerd.'],
+  ['dav','Het Woo-dossier is in Files een map met dezelfde berichten. Na beoordeling gaat de openbare versie naar TINA.']]}
+];
 function archView(){
-  var bx=function(b,s,c){return '<div class="bx'+(c?' '+c:'')+'"><b>'+esc(t(b))+'</b>'+(s?'<small>'+esc(t(s))+'</small>':'')+'</div>'};
-  return '<div class="win"><div class="page"><h2>'+esc(t('Achter ELSA'))+'</h2><p class="lead">'+esc(t('Optie 3 uit het programma Open Overheid: de mail staat volledig in eigen beheer. Exchange Online verzendt en ontvangt; ELSA bewaart. Zo kan de mailprovider later worden vervangen zonder dat het archief verhuist.'))+'</p>'
-    +'<div class="arch"><div class="zone"><span>'+esc(t('Werkplek'))+'</span>'+bx('Mailprogramma','Outlook, Thunderbird of een ander programma','u')+bx('SharePoint of Teams','Zoeken voor de Woo','u')+'</div>'
-    +'<div class="zone"><span>Exchange Online Cloud</span>'+bx('Exchange Online','Verzenden en ontvangen via SMTP')+bx('Transport rules','Elk bericht als EML door, zonder kopie')+'</div>'
-    +'<div class="zone"><span>'+esc(t('Berichtenwachtrij'))+'</span>'+bx('Kafka','Buffert en garandeert aflevering')+'</div>'
-    +'<div class="zone"><span>'+esc(t('Private cloud (XENA)'))+'</span>'+bx('Apache NiFi','Orchestrator')+bx('IMAP4 en Sieve','Toegang voor het mailprogramma')+bx('Zoekmachine','')+bx('Sleutelkluis','Sleutelbeheer')+bx('Database','Metagegevens (register)')+bx('Bestanden','Objectopslag')+'</div></div>'
-    +'<ol class="flow"><li><i>1</i><span>'+esc(t('Het mailprogramma verstuurt een nieuw bericht via SMTP naar Exchange Online.'))+'</span></li><li><i>2</i><span>'+esc(t('Een transport rule stuurt elk bericht, in en uit, als EML door naar Kafka.'))+'</span></li><li><i>3</i><span>'+esc(t('NiFi slaat het bericht real time op (binnen een seconde): metagegevens in het register, de inhoud in de objectopslag, de tekst in de zoekmachine.'))+'</span></li><li><i>4</i><span>'+esc(t('Het mailprogramma haalt berichten op via IMAP4. Inzien, verplaatsen en versleutelen gaan via ELSA; filters draaien als Sieve.'))+'</span></li><li><i>5</i><span>'+esc(t('Voor de Woo wordt gezocht via SharePoint of Teams, in de zoekmachine van ELSA, buiten de persoonlijke berichten.'))+'</span></li></ol>'
-    +'<h3 style="font-size:14px">'+esc(t('Open punten'))+'</h3><div class="open">'
-    +'<div><b>'+esc(t('IMAP-server'))+'</b><span>'+esc(t('In de schets staat GreenMail. Dat is een testserver. Voor productie ligt een volwaardige IMAP-server met Sieve voor de hand, bijvoorbeeld Dovecot met Pigeonhole.'))+'</span></div>'
-    +'<div><b>'+esc(t('Verwijderen in het mailprogramma'))+'</b><span>'+esc(t('Een mailprogramma verwacht dat verwijderen lukt. ELSA haalt het bericht uit de map, maar het object blijft bewaard zolang de bewaartermijn loopt.'))+'</span></div>'
-    +'<div><b>'+esc(t('Agenda en contacten'))+'</b><span>'+esc(t('IMAP gaat alleen over mail. De agenda blijft voorlopig in Exchange; het adresboek gaat via CardDAV.'))+'</span></div>'
-    +'<div><b>'+esc(t('Dubbele berichten'))+'</b><span>'+esc(t('Een verzonden bericht komt twee keer binnen: via de transport rule en als kopie uit het mailprogramma. ELSA ontdubbelt op Message-ID.'))+'</span></div>'
-    +'<div><b>'+esc(t('Andere mailprovider'))+'</b><span>'+esc(t('Vervangt een andere dienst Exchange, dan verandert alleen de aanvoer naar Kafka. Register, opslag en IMAP blijven gelijk.'))+'</span></div></div></div></div>';
+  var a=S.ah||0,q=SEQ[a];
+  var bx=function(b,s){return '<div class="bx"><b>'+esc(t(b))+'</b>'+(s?'<small>'+esc(t(s))+'</small>':'')+'</div>'};
+  var layer=function(cls,h,note,boxes){return '<div class="layer '+cls+'"><h3>'+esc(t(h))+'</h3><div class="boxes">'+boxes+'</div>'+(note?'<p class="hint">'+esc(t(note))+'</p>':'')+'</div>'};
+  var conn=function(i,lab){return '<div class="conn"><button type="button" data-act="ah" data-i="'+i+'">'+esc(t(lab))+'</button></div>'};
+  var left='<div><h2>'+esc(t('Van verzenden tot archief'))+'</h2><p class="lead">'+esc(t('Exchange Online verzendt en ontvangt; ELSA bewaart. Alles na de aanvoer staat in de Nextcloud-stack van XENA. Zo kan de mailprovider later worden vervangen zonder dat het archief verhuist.'))+'</p>'
+    +layer('l1','Werkplek','Op de werkplek staan geen sleutels en geen archiefgegevens. Wat de medewerker ziet, komt via een van de ingangen.',
+      bx('Mailprogramma','Outlook, Thunderbird of een ander programma, via IMAP')+bx('Assistent','Extensie of COM-invoegtoepassing, via de API van ELSA')+bx('Nextcloud Files','In de browser of de bureaubladapp, via WebDAV')+bx('SharePoint of Teams','Zoeken voor de Woo'))
+    +conn(0,'Elk bericht als EML · bekijk de stappen')
+    +layer('l2','Aanvoer, vervangbaar','Vervangt een andere dienst Exchange, dan verandert alleen deze laag.',
+      bx('Exchange Online','Verzenden en ontvangen via SMTP')+bx('Transport rules','Elk bericht als EML door, zonder kopie')+bx('Kafka','Buffert en garandeert aflevering'))
+    +conn(0,'Eén keer verwerken · bekijk de stappen')
+    +layer('l3','Verwerking','',
+      bx('Apache NiFi','Ontdubbelen, vastleggen, opslaan, indexeren en afleveren'))
+    +conn(2,'Twee ingangen op hetzelfde object · bekijk de stappen')
+    +layer('l4 key','Nextcloud-stack van XENA','Er is één exemplaar van elk bericht. De ingangen verwijzen ernaar; geen ervan houdt een eigen kopie.',
+      bx('Register','Metagegevens, aard, zaak en dossiers, rechten')+bx('Objectopslag','Eén EML per bericht, onveranderlijk, met bewaarvergrendeling')+bx('Zoekindex','Alleen zakelijke berichten')+bx('Sleutelkluis','Dossiersleutels en persoonlijke sleutels')
+      +bx('IMAP-server','IMAP4 en ManageSieve: mappen, vlaggen en filters per gebruiker')+bx('Nextcloud Files','WebDAV: dezelfde berichten als bestand, alleen lezen')+bx('CardDAV','Het gemeentelijk adresboek')+bx('API van ELSA','REST, voor de assistent'))+'</div>';
+  var right='<div><h2>'+esc(t('Wat er gebeurt bij een handeling'))+'</h2><p class="lead">'+esc(t('Kies een handeling. De stappen laten zien welk onderdeel wat doet.'))+'</p>'
+    +'<div class="gchips" role="group" aria-label="'+esc(t('Handeling'))+'">'+SEQ.map(function(x,i){return '<button type="button" data-act="ah" data-i="'+i+'" aria-pressed="'+(a===i)+'">'+esc(t(x.t))+'</button>'}).join('')+'</div>'
+    +'<ol class="sq">'+q.s.map(function(st,i){return '<li><span class="n">'+(i+1)+'</span><div><span class="pill '+LANES[st[0]][1]+'">'+esc(t(LANES[st[0]][0]))+'</span><p>'+esc(t(st[1]))+'</p></div></li>'}).join('')+'</ol>'
+    +'<section class="tgrp"><header><b>'+esc(t('Eén bericht, drie plekken die ernaar kijken'))+'</b></header><div class="tw0"><table class="tt"><thead><tr><th></th><th>'+esc(t('IMAP-server'))+'</th><th>Nextcloud Files</th><th>'+esc(t('Register'))+'</th></tr></thead><tbody>'
+    +[['Inhoud (EML)','verwijst naar het object','verwijst naar het object','beschrijft het object'],
+      ['Map','de mappen van de medewerker','virtuele map: dossier, zaak of maand','dossier en zaak, als verwijzing'],
+      ['Gelezen, vlag, label','ja, per gebruiker','nee','nee; labels worden afgeleid'],
+      ['Wat je kunt wijzigen','verplaatsen, vlaggen, uit de map halen','niets: alleen lezen','aard, classificatie, koppelingen'],
+      ['Persoonlijk bericht','alleen voor de eigenaar, ontsleuteld','nooit','alleen de aard en de sleutelverwijzing']]
+      .map(function(r){return '<tr><td><b>'+esc(t(r[0]))+'</b></td><td>'+esc(t(r[1]))+'</td><td>'+esc(t(r[2]))+'</td><td>'+esc(t(r[3]))+'</td></tr>'}).join('')+'</tbody></table></div>'
+    +'<p class="hint" style="padding:0 12px 10px">'+esc(t('Omdat een EML nooit verandert, kunnen twee ingangen hetzelfde object delen zonder dat ze elkaar in de weg zitten. Ze verschillen alleen in metagegevens, en die hebben elk een eigen eigenaar.'))+'</p></section></div>';
+  return '<div class="win"><div class="page xarch">'+left+right+'</div>'
+    +'<div class="page" style="padding-top:0"><h3 style="font-size:14px">'+esc(t('Open punten'))+'</h3><div class="open">'
+    +[['Verwijderen in het mailprogramma','Een mailprogramma verwacht dat verwijderen lukt. ELSA haalt het bericht uit de map, maar het object blijft bewaard zolang de bewaartermijn loopt.'],
+      ['Agenda en contacten','IMAP gaat alleen over mail. De agenda blijft voorlopig in Exchange; het adresboek gaat via CardDAV.'],
+      ['Persoonlijke sleutel in de IMAP-server','Om een persoonlijk bericht te tonen, moet de IMAP-server de sleutel van de gebruiker kunnen gebruiken, en alleen in diens sessie. Dat vraagt een koppeling met de sleutelkluis die nog moet worden ontworpen.'],
+      ['Dubbele berichten','Een verzonden bericht komt twee keer binnen: via de transport rule en als kopie uit het mailprogramma. ELSA ontdubbelt op Message-ID.'],
+      ['Andere mailprovider','Vervangt een andere dienst Exchange, dan verandert alleen de aanvoer naar Kafka. Register, opslag en IMAP blijven gelijk.']]
+      .map(function(o){return '<div><b>'+esc(t(o[0]))+'</b><span>'+esc(t(o[1]))+'</span></div>'}).join('')+'</div></div></div>';
+}
+
+/* ---------- techniek ---------- */
+var OPTS=[
+ {k:'A',t:'Twee opslagen naast elkaar',d:'Een gewone IMAP-server met eigen opslag op schijf, en daarnaast een kopie van elk bericht in Nextcloud.',plus:['Elke IMAP-server kan het, ook Dovecot zonder aanpassing.','Snel en beproefd.'],min:['Twee exemplaren van elk bericht, die uit elkaar kunnen gaan.','Verwijderen, versleutelen en bewaren moeten op twee plekken kloppen.'],v:'Niet doen',c:'p-red'},
+ {k:'B',t:'De IMAP-server schrijft in Nextcloud',d:'De IMAP-server bewaart zijn berichten als bestanden in Nextcloud Files, via WebDAV.',plus:['Eén opslag, die Nextcloud beheert.'],min:['Elke IMAP-handeling wordt een WebDAV-aanroep: traag bij grote postbussen.','Nextcloud wordt een knelpunt voor de mail.','Bestanden in Nextcloud zijn te wijzigen; een archief moet dat niet zijn.'],v:'Liever niet',c:'p-amber'},
+ {k:'C',t:'Eén object in de opslag, twee ingangen',d:'Het bericht staat één keer in de objectopslag van XENA, beschreven in het register. De IMAP-server en Nextcloud Files verwijzen er allebei naar.',plus:['Eén exemplaar, onveranderlijk, met bewaarvergrendeling.','Elke ingang doet waar hij goed in is: IMAP voor de postbus, WebDAV voor het dossier.','Past bij hoe XENA documenten al behandelt.'],min:['De IMAP-server heeft een eigen opslagkoppeling nodig.','Nextcloud heeft een app nodig die de virtuele map E-mail uit het register toont.'],v:'Voorkeur',c:'p-green'}
+];
+var SRV=[
+ ['Licentie','Apache 2.0','AGPL-3.0, met een betaalde editie','MIT en LGPL 2.1'],
+ ['Taal','Java (vanaf 3.9 Java 21)','Rust','C'],
+ ['IMAP, SMTP, LMTP','ja','ja, ook IMAP4rev2','IMAP en LMTP; SMTP via Postfix'],
+ ['Sieve en ManageSieve','ja; ManageSieve nog experimenteel','ja','ja, via Pigeonhole: het meest beproefd'],
+ ['JMAP','experimenteel','ja','nee'],
+ ['Objectopslag (S3)','ja, via een vervangbare BlobStore','ja','alleen in Dovecot Pro (obox)'],
+ ['Metagegevens','Cassandra of PostgreSQL','PostgreSQL, FoundationDB en andere','bestanden op schijf'],
+ ['Zoekindex','OpenSearch','OpenSearch, Elasticsearch of ingebouwd','eigen plugins (Solr, Flatcurve)'],
+ ['CardDAV, CalDAV, WebDAV','nee','ja','nee'],
+ ['Eigen opslag aankoppelen','Java-interface in een modulair ontwerp','in de code van het project, in Rust','opslagplugin in C, ingewikkeld'],
+ ['Past bij de XENA-stack','goed: Java, MinIO en OpenSearch','redelijk: dezelfde opslag, andere taal','voor optie A, niet voor C']
+];
+var BUILD=[
+ ['Opslagkoppeling','De IMAP-server leest de inhoud uit de XENA-objectopslag, via het register. Bij Apache James is dat een eigen BlobStore.'],
+ ['Afleveren vanuit NiFi','NiFi levert elk bericht bij de IMAP-server af, met een verwijzing naar het object in plaats van de inhoud.'],
+ ['Toets op filters','Bij elk opgeslagen Sieve-script: geen discard, geen fileinto naar Persoonlijk, redirect alleen binnen de aangesloten gemeenten.'],
+ ['Sleutel per sessie','De persoonlijke sleutel komt pas vrij na aanmelding, alleen voor de sessie van de eigenaar.'],
+ ['Labels uit het register','Te scheiden, Zakelijk en Persoonlijk volgen uit het register en verschijnen als IMAP-trefwoorden.'],
+ ['Verwijderen is uit de map halen','EXPUNGE haalt het bericht uit de map van de medewerker. Het object blijft, zolang de bewaartermijn loopt.'],
+ ['Nextcloud-app E-mail','Toont zakelijke berichten als virtuele mappen per dossier, zaak en maand. Alleen lezen.']
+];
+var STD=[
+ ['IMAP4rev2','RFC 9051','De postbus in het mailprogramma','IMAP-server'],
+ ['Sieve en ManageSieve','RFC 5228, RFC 5804','Filters van de medewerker','IMAP-server'],
+ ['Internet Message Format (EML)','RFC 5322','Het bericht zelf, zoals het wordt bewaard','Objectopslag'],
+ ['WebDAV','RFC 4918','Berichten als bestand, in dossiers','Nextcloud Files'],
+ ['CardDAV','RFC 6352','Het gemeentelijk adresboek','CardDAV-server'],
+ ['JMAP','RFC 8620, RFC 8621','Later: een moderne opvolger van IMAP voor webmail en apps','IMAP-server'],
+ ['ZGW Zaken API','VNG','Koppelen aan een zaak; het zaaksysteem blijft leidend','Zaaksysteem']
+];
+function techView(){
+  var li=function(a,c){return '<ul class="pm '+c+'">'+a.map(function(x){return '<li>'+esc(t(x))+'</li>'}).join('')+'</ul>'};
+  return '<div class="win"><div class="page"><h2>'+esc(t('IMAP naast WebDAV'))+'</h2><p class="lead">'+esc(t('De opslag van de e-mailarchivering komt in de nieuwe Nextcloud-stack. Nextcloud Files biedt WebDAV, geen IMAP. Er komt dus een IMAP-server naast. De vraag is waar de berichten dan staan.'))+'</p>'
+    +'<div class="opts">'+OPTS.map(function(o){return '<section class="opt'+(o.k==='C'?' pick':'')+'"><header><span class="ok">'+o.k+'</span><h3>'+esc(t(o.t))+'</h3><span class="pill '+o.c+'">'+esc(t(o.v))+'</span></header><p>'+esc(t(o.d))+'</p>'+li(o.plus,'plus')+li(o.min,'min')+'</section>'}).join('')+'</div>'
+    +'<p class="hint">'+esc(t('Nextcloud bewaart bestanden in de objectopslag onder een eigen intern nummer, niet onder hun naam. Een andere toepassing kan die objecten dus niet zomaar delen. Daarom loopt het delen in optie C via het register, en niet via de opslag van Nextcloud zelf.'))+'</p>'
+    +'<section class="tgrp"><header><b>'+esc(t('Bestaande open source IMAP-servers'))+'</b><span>'+esc(t('Stand oktober 2026, op basis van de documentatie van de projecten. Niet getoetst in een proefopstelling.'))+'</span></header><div class="tw0"><table class="tt"><thead><tr><th></th><th>Apache James</th><th>Stalwart</th><th>Dovecot CE</th></tr></thead><tbody>'
+    +SRV.map(function(r,i){return '<tr'+(i===SRV.length-1?' class="hl"':'')+'><td><b>'+esc(t(r[0]))+'</b></td><td>'+esc(t(r[1]))+'</td><td>'+esc(t(r[2]))+'</td><td>'+esc(t(r[3]))+'</td></tr>'}).join('')+'</tbody></table></div>'
+    +'<div class="gtwo"><div><p><b>'+esc(t('Eerste kandidaat: Apache James.'))+'</b> '+esc(t('Dezelfde taal en dezelfde bouwstenen als de rest van XENA, een ruime licentie en een opslaglaag die bedoeld is om te vervangen. Het risico zit in Sieve: ManageSieve staat in de documentatie nog als experimenteel, en ELSA leunt op filters.'))+'</p></div>'
+    +'<div><p><b>'+esc(t('Serieus alternatief: Stalwart.'))+'</b> '+esc(t('Het meest compleet uit de doos, met CardDAV voor het adresboek erbij. Maar een eigen opslagkoppeling betekent werken in de code van één bedrijf, en een deel van de functies zit in de betaalde editie.'))+'</p></div></div></section>'
+    +'<section class="tgrp"><header><b>'+esc(t('Wat er bij optie C moet worden gebouwd'))+'</b><span>'+esc(t('Geen eigen IMAP-server: alleen de koppelingen eromheen.'))+'</span></header>'
+    +'<div class="trow hd"><div>'+esc(t('Onderdeel'))+'</div><div>'+esc(t('Wat het doet'))+'</div></div>'
+    +BUILD.map(function(r){return '<div class="trow t2"><div class="fn">'+esc(t(r[0]))+'</div><div>'+esc(t(r[1]))+'</div></div>'}).join('')+'</section>'
+    +'<section class="tgrp"><header><b>'+esc(t('Open standaarden'))+'</b></header><div class="tw0"><table class="tt"><thead><tr><th>'+esc(t('Standaard'))+'</th><th>'+esc(t('Vastgelegd in'))+'</th><th>'+esc(t('Waarvoor'))+'</th><th>'+esc(t('Waar'))+'</th></tr></thead><tbody>'
+    +STD.map(function(r){return '<tr><td><b>'+esc(t(r[0]))+'</b></td><td class="mono">'+esc(r[1])+'</td><td>'+esc(t(r[2]))+'</td><td>'+esc(t(r[3]))+'</td></tr>'}).join('')+'</tbody></table></div></section></div></div>';
+}
+
+/* ---------- groeipad ---------- */
+var GP=[
+ {t:'Archief en zoeken',tv:'Eerst, naast de bestaande postbus',see:'Niets in het mailprogramma. De Woo-coördinator zoekt al in het archief, en zakelijke berichten staan in Files.',pf:'Transport rule naar Kafka, NiFi, register, objectopslag en zoekindex in de Nextcloud-stack. De app E-mail in Files.',mk:'Niets. Exchange houdt in deze stap nog een kopie in de postbus.',ms:'Alle mail vindbaar voor de Woo, zonder dat iemand anders gaat werken'},
+ {t:'Postbus uit ELSA',tv:'Met een proefgroep',see:'Het mailprogramma haalt de mail via IMAP uit ELSA. Scheiden binnen tien dagen. Filters als Sieve.',pf:'De IMAP-server met de opslagkoppeling, afleveren vanuit NiFi, de toets op filters.',mk:'Niets. Voor de proefgroep laat de transport rule geen kopie meer achter.',ms:'Geen kopie meer in Exchange, voor de proefgroep'},
+ {t:'Assistent en adresboek',tv:'De hele gemeente',see:'Het paneel in Thunderbird en Outlook (klassiek): scheiden, aanvullen, koppelen aan zaak en dossier. Het gemeentelijk adresboek.',pf:'De API van ELSA, CardDAV, opzoeken in het register en via de Zaken API.',mk:'Een zaaksysteem dat op omschrijving kan zoeken, of een eigen index van zaken.',ms:'Iedereen over, en andere gemeenten in het adresboek'},
+ {t:'Sleutels en openbaarheid',tv:'De hele gemeente',see:'Persoonlijk is versleuteld met een eigen sleutel. Gevonden berichten gaan naar het Woo-dossier en, na beoordeling, naar TINA.',pf:'De sleutelkluis met vrijgave per sessie, de procedure van de gemeentesecretaris, de koppeling met de Woo-dossiers in XENA.',mk:'Niets.',ms:'Persoonlijk is echt persoonlijk; elke zoekslag voor de Woo is na te gaan'},
+ {t:'Zonder Exchange',tv:'Later',see:'Niets, als het goed gaat.',pf:'Zelf mail verzenden en ontvangen, met spam- en virusfilter en DKIM, SPF en DMARC. Een agenda via CalDAV.',mk:'Een opvolger voor agenda en vrij/bezet, en mailprogramma\'s die daarmee overweg kunnen.',ms:'Mailprovider vervangen zonder dat het archief verhuist',out:true}
+];
+function groeiView(){
+  return '<div class="win"><div class="page"><h2>'+esc(t('In vijf stappen, waarvan vier zonder de markt'))+'</h2><p class="lead">'+esc(t('Concept. Dit is een volgorde, geen planning. Register en objectopslag staan er vanaf stap 1 en veranderen daarna niet meer: het archief verhuist nooit.'))+'</p>'
+    +'<div class="gsteps">'+GP.map(function(x,k){return '<section class="gstep'+(x.out?' out':'')+'"><div><div class="gnum">'+esc(t('stap {0}',k+1))+' · <span class="pill '+(x.out?'p-amber':'p-blue')+'">'+esc(t(x.out?'Samen met de markt':'Zelf te doen'))+'</span></div><h3>'+esc(t(x.t))+'</h3><div class="when">'+esc(t(x.tv))+'</div></div>'
+      +'<dl><div><dt>'+esc(t('Wat de medewerker merkt'))+'</dt><dd>'+esc(t(x.see))+'</dd></div><div><dt>'+esc(t('Wat het platform moet kunnen'))+'</dt><dd>'+esc(t(x.pf))+'</dd></div><div><dt>'+esc(t('Wat het van de markt vraagt'))+'</dt><dd>'+esc(t(x.mk))+'</dd></div></dl>'
+      +'<div class="gms"><span class="dia"></span><span>'+esc(t(x.ms))+'</span></div></section>'}).join('')+'</div>'
+    +'<div class="gtwo"><section class="tgrp"><header><b>'+esc(t('Waar het kan schuren'))+'</b></header><div><ul>'
+    +['In stap 1 staat de mail nog in Exchange. Dat is een tussenstap, geen eindbeeld: hij is er om te leren zonder dat iemand anders hoeft te werken.','Een postbus is iets anders dan een archief. Medewerkers verwachten snelheid, zoeken in de eigen mappen en offline werken. De proefgroep in stap 2 moet dat toetsen voordat iedereen overgaat.','De nieuwe Outlook heeft geen paneel. Hoe langer Outlook (klassiek) blijft, hoe beter; daarna blijven Thunderbird en de webmail van ELSA.']
+      .map(function(x){return '<li>'+esc(t(x))+'</li>'}).join('')+'</ul></div></section>'
+    +'<section class="tgrp"><header><b>'+esc(t('Verhouding tot Common Ground'))+'</b></header><div><ul>'
+    +['ELSA registreert geen zaken. Het zaaksysteem blijft leidend; ELSA legt de koppeling vast als kenmerk, via de Zaken API.','Gegevens bij de bron: het bericht staat één keer, en wie het nodig heeft, verwijst ernaar.','Open standaarden aan elke ingang: IMAP, Sieve, WebDAV, CardDAV. Elke voorziening is te vervangen zonder het archief te raken.']
+      .map(function(x){return '<li>'+esc(t(x))+'</li>'}).join('')+'</ul></div></section></div></div></div>';
 }
 
 /* ---------- colofon ---------- */
@@ -692,7 +871,7 @@ function modal(){
 }
 
 /* ---------- weergave ---------- */
-var VIEWS=[['post','Postbus'],['flow','Doorstroom'],['filt','Filters'],['gab','Adresboek'],['keys','Sleutels'],['arch','Achter ELSA']];
+var VIEWS=[['post','Postbus'],['flow','Doorstroom'],['filt','Filters'],['gab','Adresboek'],['keys','Sleutels'],['arch','Architectuur'],['tech','Techniek'],['groei','Groeipad']];
 function render(){
   MAILS.forEach(auto);
   document.getElementById('top').innerHTML='<div class="ttl"><h1>ELSA<small>Electronic Letters &amp; Storage Archive</small></h1><div class="sub">'+esc(t('E-mail archiveren in XENA: elk bericht in het register, gewoon lezen in je eigen mailprogramma.'))+' <span>'+esc(t('Versie {0}',DEMO.v))+'</span> · <span>'+esc(DEMO.d)+'</span> · <button type="button" class="linkbtn" data-act="colofon">'+esc(t('Colofon'))+'</button></div></div>'
@@ -701,7 +880,7 @@ function render(){
   document.getElementById('regie').innerHTML='<b>'+esc(t('Demo'))+'</b><span>'+esc(t('Spring vooruit in de tijd om te zien wat er na tien dagen gebeurt.'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Tijd'))+'">'+[[0,'Vandaag'],[4,'Over 4 dagen'],[10,'Over 10 dagen']].map(function(d){return '<button type="button" data-act="skip" data-v="'+d[0]+'" aria-pressed="'+(S.skip===d[0])+'">'+esc(t(d[1]))+'</button>'}).join('')+'</div>'
     +(S.view==='post'?'<span>'+esc(t('Mailprogramma'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Mailprogramma'))+'">'+[['tb','Thunderbird'],['olc','Outlook (klassiek)'],['oln','Nieuwe Outlook']].map(function(c){return '<button type="button" data-act="client" data-v="'+c[0]+'" aria-pressed="'+(S.client===c[0])+'">'+esc(t(c[1]))+'</button>'}).join('')+'</div>':'')
     +'<span>'+esc(t('{0} berichten nog te scheiden',MAILS.filter(function(m){return !m.gone&&open(m)}).length))+'</span>';
-  document.getElementById('win').innerHTML=({post:postView,flow:flowView,filt:filterView,gab:gabView,keys:keyView,arch:archView})[S.view]();
+  document.getElementById('win').innerHTML=({post:postView,flow:flowView,filt:filterView,gab:gabView,keys:keyView,arch:archView,tech:techView,groei:groeiView})[S.view]();
   document.getElementById('hood').innerHTML='<b>'+esc(t('Onder de motorkap'))+'</b><code>'+esc(S.wire)+'</code>';
   document.getElementById('foot').innerHTML='<span>ELSA · '+esc(t('demo versie {0}, {1}',DEMO.v,DEMO.d))+'</span><span>'+esc(t('Onderdeel van XENA, naast de opslag, MIRA en TINA.'))+'</span><span>'+esc(t('Alle voorbeeldgegevens zijn verzonnen.'))+'</span>';
   modal();
@@ -709,7 +888,7 @@ function render(){
 function w(s){S.wire=s}
 function wt(){return t.apply(null,arguments)}
 var A={
-  view:function(e){S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'ManageSieve GETSCRIPT "elsa" → OK':S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':'—');render()},
+  view:function(e){S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'ManageSieve GETSCRIPT "elsa" → OK':S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
   folder:function(e){S.folder=e.dataset.v;S.q='';var L=inFolder(S.folder);S.sel=L.length?L.slice().sort(function(a,b){return a.age-b.age})[0].id:null;w('IMAP SELECT "'+(S.folder==='inbox'?'INBOX':t(FOLDERS.filter(function(f){return f[0]===S.folder})[0][1]))+'" → '+wt('{0} berichten',L.length));render()},
   sel:function(e){var m=BY[e.dataset.id];S.sel=m.id;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;var was=m.read;m.read=true;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+(was?'':' · STORE +FLAGS (\\Seen)'));render()},
   aard:function(e){var m=BY[S.sel],v=e.dataset.v;m.aard=v;m.sorted=true;
@@ -746,6 +925,7 @@ var A={
   rdel:function(e){S.rules.splice(+e.dataset.i,1);w('ManageSieve PUTSCRIPT "elsa" → OK');render()},
   gab:function(e){S.inGab=e.dataset.v==='1';w('CardDAV '+(S.inGab?'PUT':'DELETE')+' /gab/haarlem/s.devries.vcf → '+(S.inGab?'201':'204')+' · '+wt('alleen de gekozen velden'));toast(t(S.inGab?'Je staat in het gemeentelijk adresboek.':'Je vermelding is ingetrokken.'));render()},
   role:function(e){S.role=e.dataset.v;render()},
+  ah:function(e){S.ah=+e.dataset.i;w(wt(SEQ[S.ah].t)+' · '+wt('{0} stappen',SEQ[S.ah].s.length));render();var x=document.querySelector('.sq');if(x&&e.closest('.conn'))x.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})},
   pm:function(e){S.pm=e.dataset.v;if(S.pm==='gab')w('CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',gabAll().length)+' · '+wt('alleen binnen gemeenten met de Office Assistent'));render()},
   gorg:function(e){S.gorg=S.gorg===e.dataset.v?'':e.dataset.v;S.gsel=null;w('CardDAV REPORT addressbook-query /gab/'+(S.gorg?place(S.gorg).toLowerCase()+'/':'')+' → '+wt('{0} vermeldingen',gabAll().filter(function(x){return !S.gorg||x.o===S.gorg}).length));render()},
   gsel:function(e){S.gsel=e.dataset.v;S.gme=false;var x=gabAll().filter(function(c){return c.m===S.gsel})[0];w('CardDAV GET /gab/'+place(x&&x.o||ME.org).toLowerCase()+'/'+S.gsel.split('@')[0]+'.vcf → 200 · '+wt('alleen de gedeelde velden'));render()},

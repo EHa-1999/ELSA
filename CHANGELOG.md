@@ -2,6 +2,12 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 6 · 12-10-2026
+- Achter ELSA is opgesplitst in Architectuur, Techniek en Groeipad, zoals in de andere demo's.
+- Architectuur: de lagen van werkplek tot Nextcloud-stack, en per handeling de stappen. Eén bericht in de objectopslag, met de IMAP-server en Nextcloud Files als twee ingangen.
+- Techniek: drie manieren om IMAP naast WebDAV te laten draaien, een vergelijking van Apache James, Stalwart en Dovecot, wat er moet worden gebouwd en de open standaarden.
+- Groeipad: vijf stappen, van archief en zoeken naast Exchange tot werken zonder Exchange.
+
 ## Versie 5 · 12-10-2026
 - Een zakelijk bericht koppel je aan een zaak en aan een of meer dossiers. De zaak komt uit het zaaksysteem, dat leidend blijft; ELSA legt de koppeling vast als kenmerk. Een dossier verwijst naar het bericht, zonder kopie.
 - Zaken en dossiers zoek je op met een invulveld dat al tijdens het typen voorstellen toont, met toetsenbordbediening. In de demo is het opzoeken nagebootst.

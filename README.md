@@ -17,7 +17,9 @@ Nederlandse versie: [README.nl.md](README.nl.md)
 | **Filters** | Sieve filters that run in ELSA itself, with the actions that are not allowed because they would bypass the separation. |
 | **Address book** | A municipal address book in which everyone decides whether and with which details they appear, shared via CardDAV. |
 | **Keys** | Personal messages are encrypted with a personal key. Only the municipal secretary can grant access or delegate that power, and everything is logged. |
-| **Behind ELSA** | The architecture (option 3, data fully under own control) and the open points. |
+| **Architecture** | The layers from workplace to the XENA Nextcloud stack, the steps per action, and the open points. One message in object storage, with the IMAP server and Nextcloud Files as two access routes. |
+| **Technology** | Three ways to run IMAP next to WebDAV, a comparison of Apache James, Stalwart and Dovecot, what needs to be built, and the open standards. |
+| **Growth path** | Five steps, from archiving and search next to Exchange to working without Exchange. |
 
 The buttons at the top let you jump ahead in time to see what happens after ten days.
 

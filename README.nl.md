@@ -15,7 +15,9 @@ ELSA hoort bij XENA, naast de demo van de opslag, MIRA (de assistent in het kant
 | **Filters** | Sieve-filters die in ELSA zelf draaien, met de acties die niet zijn toegestaan omdat ze de scheiding zouden omzeilen. |
 | **Adresboek** | Een gemeentelijk adresboek waarin iedereen zelf kiest of en met welke gegevens hij staat, gedeeld via CardDAV. |
 | **Sleutels** | Persoonlijke berichten zijn versleuteld met een eigen sleutel. Alleen de gemeentesecretaris kan toegang geven of die bevoegdheid delegeren, en alles wordt gelogd. |
-| **Achter ELSA** | De architectuur (optie 3, data volledig in eigen beheer) en de open punten. |
+| **Architectuur** | De lagen van werkplek tot de Nextcloud-stack van XENA, de stappen per handeling en de open punten. Eén bericht in de objectopslag, met de IMAP-server en Nextcloud Files als twee ingangen. |
+| **Techniek** | Drie manieren om IMAP naast WebDAV te laten draaien, een vergelijking van Apache James, Stalwart en Dovecot, wat er moet worden gebouwd en de open standaarden. |
+| **Groeipad** | Vijf stappen, van archief en zoeken naast Exchange tot werken zonder Exchange. |
 
 Met de knoppen bovenaan spring je vooruit in de tijd om te zien wat er na tien dagen gebeurt.
 
