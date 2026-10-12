@@ -321,7 +321,7 @@ var GAB=[
  ['Willem Brouwer','willem.brouwer@zandvoort.gemeente.org','Gemeente Zandvoort','Vergunningen','Vergunningverlener']];
 var ORGS=['Gemeente Haarlem','Gemeente Zandvoort','Gemeente Bloemendaal','Gemeente Velsen','Gemeente Heemstede'];
 
-var S={view:'post',client:'tb',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',skip:0,share:{name:true,mail:true,org:true,team:true,func:true,phone:false},inGab:false,
+var S={view:'post',client:'olc',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',skip:0,share:{name:true,mail:true,org:true,team:true,func:true,phone:false},inGab:false,
   rules:[{id:'r1',f:'from',op:'contains',v:'omgevingsloket',act:'fileinto',arg:'Postvak IN',ok:true},{id:'r2',f:'subject',op:'contains',v:'Houtplein',act:'fileinto',arg:'Houtplein',ok:true}],
   nr:{f:'from',op:'contains',v:'',act:'fileinto',arg:'Houtplein'},
   flow:null,role:'mw',reqs:[{id:'q1',by:'Juridische Zaken',who:'R. Hendriks (oud-medewerker)',why:'Onderzoek naar een klacht over integriteit. De persoonlijke berichten kunnen zakelijke berichten bevatten die ten onrechte als persoonlijk zijn aangemerkt.',per:'01-03-2026 tot 30-06-2026',state:'open'}],
@@ -356,7 +356,7 @@ function listHtml(){
   if(!L.length)return '<div class="list"><p class="empty">'+esc(S.q?t('Niets gevonden.'):t('Deze map is leeg.'))+'</p></div>';
   return '<div class="list" role="list">'+(S.q?'<p class="hint" style="padding:8px 12px">'+esc(t('{0} berichten in alle mappen behalve Persoonlijk',L.length))+'</p>':'')+L.map(function(m){
     return '<button type="button" role="listitem" class="mi'+(m.read?' read':'')+'" data-act="sel" data-id="'+m.id+'" aria-current="'+(S.sel===m.id)+'"><span class="r1"><b>'+esc(S.folder==='sent'&&!S.q?m.to[0].name:m.from.name)+'</b><time>'+(m.age<1&&S.skip===0?fmtT(recvd(m)):fmtD(recvd(m)))+'</time></span><span class="sj">'+esc(t(m.subj))+(m.atts.length?' <span class="hint" style="display:inline-flex;vertical-align:-2px">'+ic('clip',13)+'</span>':'')+'</span>'
-      +(m.enc&&m.aard==='persoonlijk'?'':'<span class="pv">'+esc(t(m.body[0]))+'</span>')+(S.client==='tb'?'<span class="st">'+tag(m)+'</span>':'')+'</button>'}).join('')+'</div>';
+      +(m.enc&&m.aard==='persoonlijk'?'':'<span class="pv">'+esc(t(m.body[0]))+'</span>')+(S.client!=='oln'?'<span class="st">'+tag(m)+'</span>':'')+'</button>'}).join('')+'</div>';
 }
 function tag(m){var k=m.aard==='persoonlijk'?['violet','Persoonlijk']:m.aard==='zakelijk'?['green','Zakelijk']:['amber','Te scheiden'];
   return '<span class="tag t-'+k[0]+'" title="'+esc(t('Label van ELSA, als IMAP-trefwoord'))+'">'+esc(t(k[1]))+'</span>'}
@@ -396,23 +396,23 @@ function apOvz(){
     +'<h4>'+esc(t('Zakelijk, nog zonder classificatie'))+' <b>'+nk+'</b></h4><p class="hint">'+esc(t('Na tien dagen wordt een bericht zakelijk. Vul daarna de classificatie aan, zodat de bewaartermijn vastligt.'))+'</p></div>';
 }
 function apHelp(){
-  return '<div class="apb"><p>'+esc(t('De assistent is een uitbreiding van het mailprogramma. Hij praat rechtstreeks met ELSA en werkt naast IMAP, niet in plaats daarvan.'))+'</p><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('Thunderbird: als extensie met een eigen paneel.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Webmail van ELSA: ingebouwd.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Outlook met een IMAP-account: geen paneel. Scheiden gaat dan door te verplaatsen naar de map Persoonlijk.'))+'</span></li></ul></div>';
+  return '<div class="apb"><p>'+esc(t('De assistent is een uitbreiding van het mailprogramma. Hij praat rechtstreeks met ELSA en werkt naast IMAP, niet in plaats daarvan.'))+'</p><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('Thunderbird: als extensie met een eigen paneel.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Webmail van ELSA: ingebouwd.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Outlook (klassiek) op Windows: als COM-invoegtoepassing met een eigen paneel. Labels worden lokale categorieën.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Nieuwe Outlook en Outlook op het web met een IMAP-account: geen paneel. Scheiden gaat dan door te verplaatsen naar de map Persoonlijk.'))+'</span></li></ul></div>';
 }
 function assistPanel(m){
-  if(S.client==='ol')return '<aside class="ap off" aria-label="'+esc(t('Assistent'))+'"><div class="apb"><h3>'+esc(t('Geen assistent in Outlook'))+'</h3><p>'+esc(t('Outlook laadt invoegtoepassingen alleen bij een Exchange- of Microsoft 365-account, niet bij een IMAP-account. Wat dan wel werkt:'))+'</p><ul class="lim"><li>'+ic('folder')+'<span>'+esc(t('Persoonlijk maken door het bericht naar de map Persoonlijk te slepen.'))+'</span></li><li>'+ic('clock')+'<span>'+esc(t('Een dagelijks overzicht van ELSA met de berichten die nog gescheiden moeten worden.'))+'</span></li><li>'+ic('mail')+'<span>'+esc(t('Metagegevens aanvullen in de webmail van ELSA.'))+'</span></li></ul><button type="button" class="btn" data-act="web">'+esc(t('Open ELSA in de browser'))+'</button></div></aside>';
+  if(S.client==='oln')return '<aside class="ap off" aria-label="'+esc(t('Assistent'))+'"><div class="apb"><h3>'+esc(t('Geen assistent in de nieuwe Outlook'))+'</h3><p>'+esc(t('De nieuwe Outlook en Outlook op het web laden webinvoegtoepassingen alleen bij een Microsoft-account, en COM-invoegtoepassingen werken daar niet. Wat dan wel werkt:'))+'</p><ul class="lim"><li>'+ic('folder')+'<span>'+esc(t('Persoonlijk maken door het bericht naar de map Persoonlijk te slepen.'))+'</span></li><li>'+ic('clock')+'<span>'+esc(t('Een dagelijks overzicht van ELSA met de berichten die nog gescheiden moeten worden.'))+'</span></li><li>'+ic('mail')+'<span>'+esc(t('Metagegevens aanvullen in de webmail van ELSA.'))+'</span></li></ul><button type="button" class="btn" data-act="web">'+esc(t('Open ELSA in de browser'))+'</button></div></aside>';
   var tab=S.pm,body=tab==='ovz'?apOvz():tab==='help'?apHelp():(m&&!m.gone?elsaBar(m):'<p class="hint apb">'+esc(t('Kies een bericht.'))+'</p>');
   return '<aside class="ap" aria-label="'+esc(t('Assistent'))+'"><div class="apm"><div class="aph">'+ic(PM.filter(function(p){return p[0]===tab})[0][2])+'<div><h3>'+esc(t(PM.filter(function(p){return p[0]===tab})[0][1]))+'</h3><p>'+esc(t('Assistent van ELSA'))+'</p></div></div>'+body+'</div>'
     +'<nav class="apr" aria-label="'+esc(t('Onderdelen van de assistent'))+'">'+PM.map(function(p){var n=p[0]==='ovz'?MAILS.filter(function(x){return !x.gone&&open(x)}).length:0;return '<button type="button" data-act="pm" data-v="'+p[0]+'" aria-selected="'+(tab===p[0])+'" title="'+esc(t(p[1]))+'" aria-label="'+esc(t(p[1]))+'">'+ic(p[2],18)+(n?'<i>'+n+'</i>':'')+'</button>'}).join('')+'</nav></aside>';
 }
 function postView(){
   var m=BY[S.sel],can=m&&!m.gone;
-  return '<div class="win"><div class="mc-top">'+ic('mail')+'<b>'+(S.client==='tb'?'Thunderbird':'Outlook')+'</b><span class="acc">'+esc(t('Account'))+': '+esc(ME.mail)+' · IMAP elsa.haarlem.gemeente.org</span></div>'
+  return '<div class="win"><div class="mc-top">'+ic('mail')+'<b>'+esc(t(({tb:'Thunderbird',olc:'Outlook (klassiek)',oln:'Nieuwe Outlook'})[S.client]))+'</b><span class="acc">'+esc(t('Account'))+': '+esc(ME.mail)+' · IMAP elsa.haarlem.gemeente.org</span></div>'
     +'<div class="mc-bar" role="toolbar" aria-label="'+esc(t('Acties'))+'"><button type="button" class="tb" data-act="compose">'+ic('plus')+esc(t('Nieuw bericht'))+'</button><span class="sep"></span>'
     +'<button type="button" class="tb" data-act="del"'+(can?'':' disabled')+'>'+ic('trash')+esc(t('Verwijderen'))+'</button>'
     +'<label class="tb" for="mv">'+ic('folder')+'<span>'+esc(t('Verplaatsen naar'))+'</span><select id="mv"'+(can?'':' disabled')+'><option value="">…</option>'+FOLDERS.filter(function(f){return !m||f[0]!==m.folder}).map(function(f){return '<option value="'+f[0]+'">'+esc(t(f[1]))+'</option>'}).join('')+'</select></label><span class="sep"></span>'
     +'<input type="search" id="q" value="'+esc(S.q)+'" placeholder="'+esc(t('Zoeken in alle mappen'))+'" aria-label="'+esc(t('Zoeken in alle mappen'))+'">'
-    +(S.client==='tb'?'<button type="button" class="tb" data-act="pane" aria-pressed="'+S.pane+'">'+ic('pers')+esc(t('Assistent'))+'</button>':'')+'</div>'
-    +'<div class="mc'+(S.pane||S.client==='ol'?'':' nopane')+'">'+folderBar()+listHtml()+readHtml()+(S.pane||S.client==='ol'?assistPanel(m):'')+'</div></div>';
+    +(S.client!=='oln'?'<button type="button" class="tb" data-act="pane" aria-pressed="'+S.pane+'">'+ic('pers')+esc(t('Assistent'))+'</button>':'')+'</div>'
+    +'<div class="mc'+(S.pane||S.client==='oln'?'':' nopane')+'">'+folderBar()+listHtml()+readHtml()+(S.pane||S.client==='oln'?assistPanel(m):'')+'</div></div>';
 }
 
 /* ---------- doorstroom ---------- */
@@ -539,7 +539,7 @@ function render(){
     +'<div class="seg" role="group" aria-label="'+esc(t('Weergave'))+'">'+VIEWS.map(function(v){return '<button type="button" data-act="view" data-v="'+v[0]+'" aria-pressed="'+(S.view===v[0])+'">'+esc(t(v[1]))+'</button>'}).join('')+'</div>'
     +'<select class="lang" id="lang" aria-label="Taal / Language">'+Object.keys(LANGS).filter(function(l){return l==='nl'||I18N[l]}).map(function(l){return '<option value="'+l+'"'+(l===LANG?' selected':'')+'>'+LANGS[l]+'</option>'}).join('')+'</select>';
   document.getElementById('regie').innerHTML='<b>'+esc(t('Demo'))+'</b><span>'+esc(t('Spring vooruit in de tijd om te zien wat er na tien dagen gebeurt.'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Tijd'))+'">'+[[0,'Vandaag'],[4,'Over 4 dagen'],[10,'Over 10 dagen']].map(function(d){return '<button type="button" data-act="skip" data-v="'+d[0]+'" aria-pressed="'+(S.skip===d[0])+'">'+esc(t(d[1]))+'</button>'}).join('')+'</div>'
-    +(S.view==='post'?'<span>'+esc(t('Mailprogramma'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Mailprogramma'))+'">'+[['tb','Thunderbird'],['ol','Outlook']].map(function(c){return '<button type="button" data-act="client" data-v="'+c[0]+'" aria-pressed="'+(S.client===c[0])+'">'+c[1]+'</button>'}).join('')+'</div>':'')
+    +(S.view==='post'?'<span>'+esc(t('Mailprogramma'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Mailprogramma'))+'">'+[['tb','Thunderbird'],['olc','Outlook (klassiek)'],['oln','Nieuwe Outlook']].map(function(c){return '<button type="button" data-act="client" data-v="'+c[0]+'" aria-pressed="'+(S.client===c[0])+'">'+esc(t(c[1]))+'</button>'}).join('')+'</div>':'')
     +'<span>'+esc(t('{0} berichten nog te scheiden',MAILS.filter(function(m){return !m.gone&&open(m)}).length))+'</span>';
   document.getElementById('win').innerHTML=({post:postView,flow:flowView,filt:filterView,gab:gabView,keys:keyView,arch:archView})[S.view]();
   document.getElementById('hood').innerHTML='<b>'+esc(t('Onder de motorkap'))+'</b><code>'+esc(S.wire)+'</code>';
@@ -578,7 +578,7 @@ var A={
   role:function(e){S.role=e.dataset.v;render()},
   pm:function(e){S.pm=e.dataset.v;render()},
   pane:function(){S.pane=!S.pane;render()},
-  client:function(e){S.client=e.dataset.v;w(S.client==='tb'?'Thunderbird: IMAP + '+wt('extensie van ELSA (REST, met het token van de gebruiker)'):'Outlook: IMAP · '+wt('geen invoegtoepassing mogelijk bij een IMAP-account'));render()},
+  client:function(e){S.client=e.dataset.v;w(S.client==='tb'?'Thunderbird: IMAP + '+wt('extensie van ELSA (REST, met het token van de gebruiker)'):S.client==='olc'?wt('Outlook (klassiek)')+': IMAP + '+wt('COM-invoegtoepassing van ELSA (REST, met het token van de gebruiker)')+' · '+wt('labels als lokale categorieën'):wt('Nieuwe Outlook')+': IMAP · '+wt('geen invoegtoepassing mogelijk bij een IMAP-account'));render()},
   web:function(){toast(t('In het echte systeem opent hier de webmail van ELSA, met hetzelfde paneel.'))},
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';
     S.keylog.push({t:now().toISOString(),who:'Gemeentesecretaris',what:tx});w('POST /keyvault/grants → '+(v==='ok'?'201 · '+wt('tijdelijke toegang, gelogd'):v==='no'?'200 · '+wt('geweigerd, gelogd'):'201 · '+wt('delegatie, gelogd')));render()}
