@@ -2,6 +2,11 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 4 · 12-10-2026
+- Het gemeentelijk adresboek staat in het paneel van de assistent: zoeken op naam, functie of afdeling, filteren op gemeente, de mensen bij het geopende bericht, favorieten (als verwijzing, geen kopie), een vermelding openen, een bericht beginnen of het adres kopiëren.
+- Je eigen vermelding beheren in het paneel: opnemen of intrekken, kiezen wat je deelt, met een voorbeeld van hoe collega's je zien.
+- Het adresboek is alleen zichtbaar binnen gemeenten die de Office Assistent gebruiken. Help legt uit hoe het werkt per mailprogramma (CardDAV in Thunderbird, alleen het paneel in Outlook).
+
 ## Versie 3 · 12-10-2026
 - Drie mailprogramma's: Thunderbird (extensie), Outlook (klassiek) op Windows met een COM-invoegtoepassing die labels als lokale categorieën zet, en de nieuwe Outlook zonder assistent.
 - Help legt uit waarom de nieuwe Outlook en Outlook op het web geen invoegtoepassing laden bij een IMAP-account.
