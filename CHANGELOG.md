@@ -2,6 +2,9 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 9 · 13-10-2026
+- Architectuur: werkplek en aanvoer staan naast elkaar. De aanvoer loopt uitsluitend tussen backendsystemen; de werkplek komt alleen bij de ingangen voor het lezen en werken, en verzendt via SMTP.
+
 ## Versie 8 · 13-10-2026
 - Een zakelijk bericht kan binnen de bedenktijd terug naar persoonlijk. De bewaarvergrendeling gaat pas in als de bedenktijd voorbij is.
 - Niet als het bericht aan een zaak of dossier is gekoppeld (eerst ontkoppelen), en nooit als het onder een lopend Woo-verzoek valt.

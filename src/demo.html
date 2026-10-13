@@ -262,6 +262,11 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
 
 .xarch{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
 .xarch>div{display:grid;gap:0;align-content:start}.xarch h2{font-size:17px}.xarch .lead{margin:4px 0 12px}.xarch .gchips{margin-bottom:4px}
+.xtop{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch}.xtop>.xcol:first-child>.layer{height:100%}
+.xtop .boxes{grid-template-columns:minmax(0,1fr)}.xcol{display:grid;align-content:start;min-width:0}
+.harrow{align-self:center;display:grid;justify-items:center;gap:2px;padding:0 8px;max-width:84px;text-align:center;font-size:11px;color:var(--muted)}.harrow b{font-size:20px;color:var(--accent);line-height:1}
+.xconn{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}.xconn>div:nth-child(2){width:100px}
+@media (max-width:640px){.xtop,.xconn{grid-template-columns:minmax(0,1fr)}.harrow{max-width:none;padding:6px 0}.harrow b{transform:rotate(90deg)}.xconn>div:nth-child(2){display:none}}
 .layer{border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;background:var(--surface2)}
 .layer.key{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
 .layer h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin:0 0 8px}
@@ -760,15 +765,16 @@ function archView(){
   var layer=function(cls,h,note,boxes){return '<div class="layer '+cls+'"><h3>'+esc(t(h))+'</h3><div class="boxes">'+boxes+'</div>'+(note?'<p class="hint">'+esc(t(note))+'</p>':'')+'</div>'};
   var conn=function(i,lab){return '<div class="conn"><button type="button" data-act="ah" data-i="'+i+'">'+esc(t(lab))+'</button></div>'};
   var left='<div><h2>'+esc(t('Van verzenden tot archief'))+'</h2><p class="lead">'+esc(t('Exchange Online verzendt en ontvangt; ELSA bewaart. Alles na de aanvoer staat in de Nextcloud-stack van XENA. Zo kan de mailprovider later worden vervangen zonder dat het archief verhuist.'))+'</p>'
+    +'<div class="xtop"><div class="xcol">'
     +layer('l1','Werkplek','Op de werkplek staan geen sleutels en geen archiefgegevens. Wat de medewerker ziet, komt via een van de ingangen.',
       bx('Mailprogramma','Outlook, Thunderbird of een ander programma, via IMAP')+bx('Assistent','Extensie of COM-invoegtoepassing, via de API van ELSA')+bx('Nextcloud Files','In de browser of de bureaubladapp, via WebDAV')+bx('SharePoint of Teams','Zoeken voor de Woo'))
-    +conn(0,'Elk bericht als EML · bekijk de stappen')
-    +layer('l2','Aanvoer, vervangbaar','Vervangt een andere dienst Exchange, dan verandert alleen deze laag.',
+    +'</div><div class="harrow" aria-hidden="true"><span>'+esc(t('verzenden via SMTP'))+'</span><b>→</b></div><div class="xcol">'
+    +layer('l2','Aanvoer, vervangbaar','Loopt uitsluitend tussen backendsystemen, niet via de werkplek. Vervangt een andere dienst Exchange, dan verandert alleen deze laag.',
       bx('Exchange Online','Verzenden en ontvangen via SMTP')+bx('Transport rules','Elk bericht als EML door, zonder kopie')+bx('Kafka','Buffert en garandeert aflevering'))
-    +conn(0,'Eén keer wegschrijven · bekijk de stappen')
+    +conn(0,'Elk bericht als EML · bekijk de stappen')
     +layer('l3','Brug','Het enige onderdeel dat er voor de mail bij komt. Daarna loopt een bericht langs dezelfde weg als een bestand op een netwerkschijf.',
       bx('Brug van Kafka naar Nextcloud','Ontdubbelen, uitpakken en wegschrijven. Geen eigen opslag.'))
-    +conn(2,'Twee ingangen voor het lezen · bekijk de stappen')
+    +'</div></div><div class="xconn"><div>'+conn(1,'Lezen en werken: IMAP, WebDAV en API · bekijk de stappen')+'</div><div></div><div>'+conn(0,'Eén keer wegschrijven · bekijk de stappen')+'</div></div>'
     +layer('l4 key','Nextcloud-stack van XENA','Er is één exemplaar van elk bericht. Metagegevens, bewaartermijn en zoekindex gaan zoals bij de netwerkschijven, via het register en de apps rond Nextcloud. Er is geen aparte orchestrator.',
       bx('Nextcloud','Schrijft elk bericht weg zoals een bestand, en meldt het aan het register')+bx('Register','Metagegevens, aard, zaak en dossiers, rechten. Zet de bewaartermijn op de opslag.')+bx('Objectopslag','Eén EML per bericht, onveranderlijk, met bewaarvergrendeling')+bx('Zoekindex','Volgt het register; alleen zakelijke berichten')+bx('Sleutelkluis','Dossiersleutels en persoonlijke sleutels')
       +bx('IMAP-server','IMAP4 en ManageSieve: mappen, vlaggen en filters per gebruiker')+bx('Nextcloud Files','WebDAV: zakelijke berichten als bestand, alleen lezen')+bx('CardDAV','Het gemeentelijk adresboek')+bx('API van ELSA','REST, voor de assistent'))+'</div>';
