@@ -13,7 +13,7 @@ Nederlandse versie: [README.nl.md](README.nl.md)
 | View | What you see |
 |---|---|
 | **Mailbox** | A mail program that reads from ELSA via IMAP. For each message the choice business or personal, with ten days to decide, completing the metadata and encryption. Deleting a business message removes it from the folder, but it stays archived. |
-| **Flow** | How a message travels via Exchange Online, a transport rule, Kafka and Apache NiFi into the register, the object storage and the search index within a second, with no copy left in Exchange. |
+| **Flow** | How a message travels via Exchange Online, a transport rule, Kafka and a small bridge into Nextcloud, and from there into the register, the object storage and the search index within a second, with no copy left in Exchange. |
 | **Filters** | Sieve filters that run in ELSA itself, with the actions that are not allowed because they would bypass the separation. |
 | **Address book** | A municipal address book in which everyone decides whether and with which details they appear, shared via CardDAV. |
 | **Keys** | Personal messages are encrypted with a personal key. Only the municipal secretary can grant access or delegate that power, and everything is logged. |

@@ -11,7 +11,7 @@ ELSA hoort bij XENA, naast de demo van de opslag, MIRA (de assistent in het kant
 | Weergave | Wat je ziet |
 |---|---|
 | **Postbus** | Een mailprogramma dat via IMAP uit ELSA leest. Per bericht de keuze zakelijk of persoonlijk, met tien dagen bedenktijd, metagegevens aanvullen en versleutelen. Verwijderen van een zakelijk bericht haalt het uit de map, maar het blijft bewaard. |
-| **Doorstroom** | Hoe een bericht via Exchange Online, een transport rule, Kafka en Apache NiFi binnen een seconde in het register, de objectopslag en de zoekindex komt, zonder kopie in Exchange. |
+| **Doorstroom** | Hoe een bericht via Exchange Online, een transport rule, Kafka en een kleine brug in Nextcloud, en van daar binnen een seconde in het register, de objectopslag en de zoekindex komt, zonder kopie in Exchange. |
 | **Filters** | Sieve-filters die in ELSA zelf draaien, met de acties die niet zijn toegestaan omdat ze de scheiding zouden omzeilen. |
 | **Adresboek** | Een gemeentelijk adresboek waarin iedereen zelf kiest of en met welke gegevens hij staat, gedeeld via CardDAV. |
 | **Sleutels** | Persoonlijke berichten zijn versleuteld met een eigen sleutel. Alleen de gemeentesecretaris kan toegang geven of die bevoegdheid delegeren, en alles wordt gelogd. |

@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 7 · 13-10-2026
+- Geen NiFi meer. Een kleine brug leest elk bericht uit Kafka en schrijft het in Nextcloud. Daarna loopt een bericht langs dezelfde weg als een bestand op een netwerkschijf: register, objectopslag, bewaartermijn en zoekindex via het register en de apps rond Nextcloud.
+- Bijgewerkt in Doorstroom, Architectuur, Techniek en Groeipad. Techniek legt uit waarom dit afwijkt van XENA Deel I en wat het kost.
+
 ## Versie 6 · 12-10-2026
 - Achter ELSA is opgesplitst in Architectuur, Techniek en Groeipad, zoals in de andere demo's.
 - Architectuur: de lagen van werkplek tot Nextcloud-stack, en per handeling de stappen. Eén bericht in de objectopslag, met de IMAP-server en Nextcloud Files als twee ingangen.
