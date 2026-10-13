@@ -2,6 +2,12 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 8 · 13-10-2026
+- Een zakelijk bericht kan binnen de bedenktijd terug naar persoonlijk. De bewaarvergrendeling gaat pas in als de bedenktijd voorbij is.
+- Niet als het bericht aan een zaak of dossier is gekoppeld (eerst ontkoppelen), en nooit als het onder een lopend Woo-verzoek valt.
+- Na de bedenktijd alleen op verzoek, met reden. De informatiebeheerder beslist met een tweede beoordelaar; bij toekenning wordt de vergrendelde versie onleesbaar gemaakt en houdt het register vast dat het bericht bestond. Nieuwe rol Informatiebeheerder onder Sleutels.
+- Afwezigheid: met het afwezigheidsbericht aan staat de bedenktijd stil. Nieuw voorbeeldbericht dat tijdens een vakantie automatisch zakelijk werd.
+
 ## Versie 7 · 13-10-2026
 - Geen NiFi meer. Een kleine brug leest elk bericht uit Kafka en schrijft het in Nextcloud. Daarna loopt een bericht langs dezelfde weg als een bestand op een netwerkschijf: register, objectopslag, bewaartermijn en zoekindex via het register en de apps rond Nextcloud.
 - Bijgewerkt in Doorstroom, Architectuur, Techniek en Groeipad. Techniek legt uit waarom dit afwijkt van XENA Deel I en wat het kost.
