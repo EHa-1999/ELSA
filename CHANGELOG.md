@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 11 · 13-10-2026
+- In lijn met de Office Assistent: het paneel is de Office Assistent in de mailomgeving, met de module E-mailarchivering. Architectuur toont de integratielaag tussen werkplek en ELSA; de assistent heeft geen token meer in het mailprogramma.
+- Techniek: tabel met wat elke mailomgeving levert, ook Outlook met een Exchange-postbus ter vergelijking. Dezelfde tabel staat in de demo van de Office Assistent.
+
 ## Versie 10 · 13-10-2026
 - Architectuur: productnamen veralgemeniseerd, zoals in MIRA. SharePoint of Teams heet nu Samenwerkomgeving (SharePoint, Teams, MijnBureau, LaSuite of een andere); het mailprogramma heet Mailomgeving.
 
