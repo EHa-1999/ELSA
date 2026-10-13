@@ -754,7 +754,7 @@ var SEQ=[
   ['obj','Het object wordt opnieuw opgeslagen, versleuteld met de persoonlijke sleutel. De onversleutelde versie vervalt. Dat kan, omdat de bewaarvergrendeling pas ingaat als een bericht zakelijk is.'],
   ['dav','Het bericht verdwijnt uit de virtuele mappen in Files, en de tekst uit de zoekindex.']]},
  {t:'Zoeken voor een Woo-verzoek',s:[
-  ['wp','De Woo-coördinator zoekt via SharePoint of Teams, of in Files.'],
+  ['wp','De Woo-coördinator zoekt in de samenwerkomgeving van de gemeente, of in Files.'],
   ['reg','De zoekindex van ELSA geeft alleen zakelijke berichten. Vertrouwelijke berichten alleen aan wie daar recht op heeft.'],
   ['reg','Gevonden berichten gaan per verwijzing naar het Woo-dossier in XENA. Er wordt niets gekopieerd.'],
   ['dav','Het Woo-dossier is in Files een map met dezelfde berichten. Na beoordeling gaat de openbare versie naar TINA.']]}
@@ -767,7 +767,7 @@ function archView(){
   var left='<div><h2>'+esc(t('Van verzenden tot archief'))+'</h2><p class="lead">'+esc(t('Exchange Online verzendt en ontvangt; ELSA bewaart. Alles na de aanvoer staat in de Nextcloud-stack van XENA. Zo kan de mailprovider later worden vervangen zonder dat het archief verhuist.'))+'</p>'
     +'<div class="xtop"><div class="xcol">'
     +layer('l1','Werkplek','Op de werkplek staan geen sleutels en geen archiefgegevens. Wat de medewerker ziet, komt via een van de ingangen.',
-      bx('Mailprogramma','Outlook, Thunderbird of een ander programma, via IMAP')+bx('Assistent','Extensie of COM-invoegtoepassing, via de API van ELSA')+bx('Nextcloud Files','In de browser of de bureaubladapp, via WebDAV')+bx('SharePoint of Teams','Zoeken voor de Woo'))
+      bx('Mailomgeving','Outlook, Thunderbird of een ander mailprogramma, via IMAP')+bx('Assistent','Extensie of COM-invoegtoepassing, via de API van ELSA')+bx('Nextcloud Files','In de browser of de bureaubladapp, via WebDAV')+bx('Samenwerkomgeving','SharePoint, Teams, MijnBureau, LaSuite of een andere: zoeken voor de Woo'))
     +'</div><div class="harrow" aria-hidden="true"><span>'+esc(t('verzenden via SMTP'))+'</span><b>→</b></div><div class="xcol">'
     +layer('l2','Aanvoer, vervangbaar','Loopt uitsluitend tussen backendsystemen, niet via de werkplek. Vervangt een andere dienst Exchange, dan verandert alleen deze laag.',
       bx('Exchange Online','Verzenden en ontvangen via SMTP')+bx('Transport rules','Elk bericht als EML door, zonder kopie')+bx('Kafka','Buffert en garandeert aflevering'))

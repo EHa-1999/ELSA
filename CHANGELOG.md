@@ -2,6 +2,9 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 10 · 13-10-2026
+- Architectuur: productnamen veralgemeniseerd, zoals in MIRA. SharePoint of Teams heet nu Samenwerkomgeving (SharePoint, Teams, MijnBureau, LaSuite of een andere); het mailprogramma heet Mailomgeving.
+
 ## Versie 9 · 13-10-2026
 - Architectuur: werkplek en aanvoer staan naast elkaar. De aanvoer loopt uitsluitend tussen backendsystemen; de werkplek komt alleen bij de ingangen voor het lezen en werken, en verzendt via SMTP.
 
