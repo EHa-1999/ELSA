@@ -397,6 +397,18 @@ var DOSSIERS=[
  ['P-2026-018','Evenementenbeleid kustgemeenten','Projectdossier'],
  ['O-2026-003','Overleg vergunningverleners Zuid-Kennemerland','Overlegdossier']];
 var LSUG={m1:{d:['W-2026-014','P-2026-031']},m2:{z:'Z-2026-004502'},m5:{z:'Z-2026-005120',d:['P-2026-018']},m9:{d:['B-2026-007']}};
+var WOOCAT=['Wetten en algemeen verbindende voorschriften','Overige besluiten van algemene strekking','Ontwerpen van regelgeving met adviesaanvraag','Organisatie en werkwijze','Bereikbaarheidsgegevens','Bij vertegenwoordigende organen ingekomen stukken','Vergaderstukken van decentrale volksvertegenwoordigingen','Agenda\'s en besluitenlijsten van bestuurscolleges','Adviezen','Convenanten','Jaarplannen en jaarverslagen','Subsidieverplichtingen anders dan met beschikking','Woo-verzoeken en -besluiten','Onderzoeksrapporten','Beschikkingen','Klachtoordelen'];
+var WOOSRC={'Z-2026-004417':'Beschikkingen','Z-2026-005120':'Beschikkingen','Z-2026-002210':'Beschikkingen','Z-2026-006120':'Woo-verzoeken en -besluiten','W-2026-014':'Woo-verzoeken en -besluiten','W-2026-011':'Woo-verzoeken en -besluiten'};
+function wooOf(m){if(m.zaak&&WOOSRC[m.zaak])return {c:WOOSRC[m.zaak],src:m.zaak,k:'zaak'};for(var i=0;i<m.doss.length;i++)if(WOOSRC[m.doss[i]])return {c:WOOSRC[m.doss[i]],src:m.doss[i],k:'dos'};return m.woo?{c:m.woo,k:'hand'}:null}
+function addD(d,n){return new Date(d.getTime()+n*DAY)}
+function wooHtml(m){var w=wooOf(m),h='<div class="fld"><label for="f-woo">'+esc(t('Woo-categorie'))+'</label>';
+  if(w&&w.k!=='hand')h+='<div class="ro">'+esc(t(w.c))+'</div><p class="hint">'+esc(t(w.k==='zaak'?'Overgenomen van zaak {0}. Een zaak of dossier met een Woo-categorie gaat voor op een eigen keuze.':'Overgenomen van dossier {0}. Een zaak of dossier met een Woo-categorie gaat voor op een eigen keuze.',w.src))+'</p>';
+  else h+='<select id="f-woo" data-f="woo"><option value="">'+esc(t('Geen categorie: alleen openbaar op verzoek'))+'</option>'+WOOCAT.map(function(c){return '<option value="'+esc(c)+'"'+(m.woo===c?' selected':'')+'>'+esc(t(c))+'</option>'}).join('')+'</select><p class="hint">'+esc(t('Kies zelf, of koppel het bericht aan een zaak of dossier met een categorie. Die gaat dan voor.'))+'</p>';
+  h+='</div><div class="fld"><span>'+esc(t('Openbaar maken'))+'</span>';
+  if(!w)return h+'<div class="ro">'+esc(t('Niet uit zichzelf. Wel vindbaar bij een Woo-verzoek.'))+'</div></div>';
+  var r=recvd(m),pub=addD(r,14),bt=until(m),sent=m.folder==='sent';
+  return h+'<div class="ro">'+esc(t('Uiterlijk {0}',fmtD(pub)))+'</div><p class="hint">'+esc(t(sent?'Twee weken na verzending.':'Twee weken na ontvangst (Woo, artikel 3.3 lid 4).'))+' '+esc(t('De bedenktijd loopt tot {0}; daarna gaat het bericht naar het publicatiedepot, na anonimiseren en beoordeling.',fmtD(bt)))+'</p></div>';
+}
 function zaakOf(nr){return ZAKEN.filter(function(r){return r[0]===nr})[0]}
 function dosOf(nr){return DOSSIERS.filter(function(r){return r[0]===nr})[0]}
 var VERTR=['Openbaar','Intern','Vertrouwelijk'];
@@ -452,7 +464,7 @@ var MAILS=[
    body:['Lieve Sanne, we gaan trouwen! Je bent van harte welkom op zaterdag 14 november. Laat je weten of je komt?']}),
  M({id:'m13',folder:'pers',age:12,from:P('Ellen de Vries','ellen.devries@mail.example'),to:[ME],subj:'Foto\'s van de vakantie',aard:'persoonlijk',enc:true,sorted:true,body:['Hier zijn de foto\'s.']})
 ];
-MAILS.forEach(function(m){m.aard=m.aard||null;m.klass=m.klass||(m.sug&&m.sug.klass)||'';m.zaak=m.dos===2?'Z-2026-006233':m.id==='m12'?'Z-2026-004502':'';m.doss=m.dos===1?['P-2026-031']:m.dos===3?['W-2026-014']:m.id==='m11'?['B-2026-007']:[];m.vertr=m.vertr||'Intern';m.enc=!!m.enc;
+MAILS.forEach(function(m){m.aard=m.aard||null;m.klass=m.klass||(m.sug&&m.sug.klass)||'';m.woo='';m.zaak=m.dos===2?'Z-2026-006233':m.id==='m12'?'Z-2026-004502':'';m.doss=m.dos===1?['P-2026-031']:m.dos===3?['W-2026-014']:m.id==='m11'?['B-2026-007']:[];m.vertr=m.vertr||'Intern';m.enc=!!m.enc;
   m.atts.forEach(function(a,i){a.pid='nl.haarlem.io:'+hex(4,m.id.length*97+i*11)+'-'+hex(4,i*7919+m.age*13)+'-'+hex(4,m.id.charCodeAt(1)+i)})});
 var BY={};MAILS.forEach(function(m){BY[m.id]=m});
 
@@ -565,6 +577,7 @@ function elsaBar(m){
       +lkSug(m)
       +'<div class="fld"><label for="lk-zaak">'+esc(t('Zaak'))+'</label><div class="lkd">'+(m.zaak?lkChip('zaak',m.zaak):lookup('zaak'))+'</div><p class="hint">'+esc(t('De zaak komt uit het zaaksysteem, dat leidend blijft. ELSA legt alleen de koppeling vast, als kenmerk.'))+'</p></div>'
       +'<div class="fld"><label for="lk-dos">'+esc(t('Dossiers'))+'</label><div class="lkd">'+m.doss.map(function(d){return lkChip('dos',d)}).join('')+lookup('dos')+'</div><p class="hint">'+esc(t('Een bericht kan in meer dossiers zitten. Het dossier verwijst naar het bericht; er wordt niets gekopieerd.'))+'</p></div>'
+      +wooHtml(m)
       +'<div class="fld"><label for="f-vertr">'+esc(t('Vertrouwelijkheid'))+'</label><select id="f-vertr" data-f="vertr">'+VERTR.map(function(v){return '<option value="'+v+'"'+(m.vertr===v?' selected':'')+'>'+esc(t(v))+'</option>'}).join('')+'</select></div>'
       +'<div class="fld"><span>'+esc(t('Bewaartermijn'))+'</span><div class="ro">'+esc(m.klass?t(m.klass==='bedr'?'1 jaar na ontvangst':m.klass==='proj'?'Blijvend bewaren':'10 jaar na afsluiting'):t('Volgt uit de classificatie'))+'</div></div></div>'
       +(!m.klass?'<div class="note n-amber">'+ic('warn')+'<span>'+esc(t('Vul de classificatie aan. Daarmee ligt de bewaartermijn vast en is het bericht terug te vinden voor een Woo-verzoek.'))+'</span></div>':'')
@@ -995,6 +1008,7 @@ var A={
   colofon:function(){S.colo=true;render()},
   coloX:function(){S.colo=false;render()},
   lkpick:function(e){var m=BY[S.sel],k=e.dataset.k,v=e.dataset.v;if(!m)return;
+    if(WOOSRC[v]&&m.woo&&m.woo!==WOOSRC[v]){var old=m.woo;m.woo='';setTimeout(function(){toast(t('Woo-categorie overgenomen van {0}: {1}. Je eigen keuze ({2}) vervalt.',v,t(WOOSRC[v]),t(old)))},10)}else if(WOOSRC[v])m.woo='';
     if(k==='zaak'){m.zaak=v;m.hist.push('Gekoppeld aan een zaak');w('POST /zaken/api/v1/zaakinformatieobjecten → 201 · '+wt('zaak {0} als kenmerk in het register',v)+' · '+wt('het zaaksysteem blijft leidend'));toast(t('Gekoppeld aan zaak {0}.',v))}
     else{if(m.doss.indexOf(v)<0)m.doss.push(v);m.hist.push('Opgenomen in een dossier');w('Register: '+wt('verwijzing {0} → {1}',v,m.pid)+' · '+wt('geen kopie'));toast(t('Opgenomen in dossier {0}.',v))}
     S.lk={k:null,q:'',i:0,busy:false};render()},
@@ -1007,7 +1021,7 @@ var A={
     if(!m.to||m.to.indexOf('@')<0){toast(t('Vul een e-mailadres in.'));return}
     var g=GAB.filter(function(r){return r[1]===m.to})[0];
     var n=M({id:'s'+Date.now(),folder:'sent',age:0,from:ME,to:[P(g?g[0]:m.to,m.to)],subj:m.sj||'(geen onderwerp)',aard:'zakelijk',sorted:true,body:[m.bd||''],read:true});
-    n.klass='';n.zaak='';n.doss=[];n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
+    n.klass='';n.zaak='';n.doss=[];n.woo='';n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
     w('SMTP → Exchange Online · transport rule → Kafka · '+wt('brug')+' → Nextcloud → register '+n.pid+' · IMAP APPEND "Verzonden items" → '+wt('ontdubbeld op Message-ID'));toast(t('Verzonden. Het bericht staat in ELSA onder Verzonden items.'));render()},
   flow:function(){S.flow={step:-1};var go=function(){S.flow.step++;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();if(S.flow.step<FLOW.length-1)setTimeout(go,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450)};go()},
   rdel:function(e){S.rules.splice(+e.dataset.i,1);w('ManageSieve PUTSCRIPT "elsa" → OK');render()},

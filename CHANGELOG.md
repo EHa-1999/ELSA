@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 13 · 19-10-2026
+- Woo-categorie bij elk zakelijk bericht: zelf te kiezen, of overgenomen van de zaak of het dossier. Een zaak of dossier met een categorie gaat voor op de eigen keuze.
+- Openbaar maken: met een categorie uiterlijk twee weken na ontvangst of verzending (Woo, artikel 3.3 lid 4), met het einde van de bedenktijd ervoor. Zonder categorie alleen openbaar op verzoek.
+
 ## Versie 12 · 19-10-2026
 - Herzien binnen de bedenktijd: bovenaan Dit bericht staat de keuze, met de datum tot wanneer je haar kunt herzien en de knop om te wisselen. Persoonlijk kan nu ook terug naar zakelijk, ook na de bedenktijd. Verplaatsen uit de map Persoonlijk doet hetzelfde.
 - Overzicht toont welke gekozen berichten je nog kunt herzien, met de resterende dagen.
