@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 12 · 19-10-2026
+- Herzien binnen de bedenktijd: bovenaan Dit bericht staat de keuze, met de datum tot wanneer je haar kunt herzien en de knop om te wisselen. Persoonlijk kan nu ook terug naar zakelijk, ook na de bedenktijd. Verplaatsen uit de map Persoonlijk doet hetzelfde.
+- Overzicht toont welke gekozen berichten je nog kunt herzien, met de resterende dagen.
+
 ## Versie 11 · 13-10-2026
 - In lijn met de Office Assistent: het paneel is de Office Assistent in de mailomgeving, met de module E-mailarchivering. Architectuur toont de integratielaag tussen werkplek en ELSA; de assistent heeft geen token meer in het mailprogramma.
 - Techniek: tabel met wat elke mailomgeving levert, ook Outlook met een Exchange-postbus ter vergelijking. Dezelfde tabel staat in de demo van de Office Assistent.

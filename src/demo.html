@@ -238,7 +238,8 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
 
 
 /* koppelen aan zaak en dossier */
-.rv{border-top:1px dashed var(--line);padding-top:10px;margin-top:4px;display:grid;gap:6px;justify-items:start}.rv h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.rv .fld,.rv textarea{width:100%}.rv textarea{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font:inherit}
+.ch{border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:grid;gap:6px;justify-items:start;background:var(--surface);margin:8px 0 4px}.chh{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}.chd{display:flex;gap:6px;align-items:flex-start;font-size:12.5px}.chd svg{flex:none;margin-top:2px;color:var(--accent)}
+.rv{display:grid;gap:6px;justify-items:start;width:100%}.rv h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.rv .fld,.rv textarea{width:100%}.rv textarea{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font:inherit}
 .lkw{position:relative}
 .lki{width:100%;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 .lkl{position:absolute;left:0;right:0;top:calc(100% + 3px);z-index:6;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:4px;display:grid;gap:2px;max-height:280px;overflow:auto}
@@ -527,8 +528,18 @@ function lkSug(m){var g=LSUG[m.id];if(!g)return '';var b=[];
   if(g.z&&!m.zaak)b.push('<button type="button" data-act="lkpick" data-k="zaak" data-v="'+g.z+'">'+ic('case',13)+esc(g.z)+'</button>');
   (g.d||[]).forEach(function(d){if(m.doss.indexOf(d)<0)b.push('<button type="button" data-act="lkpick" data-k="dos" data-v="'+d+'">'+ic('folder',13)+esc(d)+'</button>')});
   return b.length?'<div class="lks"><span>'+esc(t('Voorstel'))+':</span>'+b.join('')+'</div>':''}
-function revertHtml(m){
-  var b=revertBlock(m),h='<div class="rv"><h4>'+esc(t('Toch persoonlijk?'))+'</h4>';
+function until(m){return new Date(recvd(m).getTime()+(WINDOW+pz())*DAY)}
+function inWindow(m){return left(m)>0&&!m.gone}
+function choiceHtml(m){
+  if(!m.aard||open(m))return '';var z=m.aard==='zakelijk',w=inWindow(m),b=z?revertBlock(m):'';
+  var h='<div class="ch"><div class="chh"><span class="pill '+(z?'p-green':'p-violet')+'">'+esc(t(z?'Zakelijk':'Persoonlijk'))+'</span><span>'+esc(m.auto?t('na tien dagen automatisch'):t('door jou gekozen'))+'</span></div>';
+  if(w)h+='<p class="chd">'+ic('clock',13)+'<span>'+esc(t('Herzien kan tot {0}.',fmtD(until(m))))+(S.awayFrom!=null?' '+esc(t('De bedenktijd staat stil zolang je afwezig bent.')):'')+'</span></p>';
+  if(!z)return h+'<button type="button" class="btn sm" data-act="aard" data-v="zakelijk">'+esc(t('Toch zakelijk'))+'</button><p class="hint">'+esc(w?t('Zakelijk maken kan altijd: dan komt het bericht in het archief, met de sleutel van de gemeente.'):t('Zakelijk maken kan ook na de bedenktijd: dan komt het bericht alsnog in het archief.'))+'</p></div>';
+  return h+revertBody(m,b)+'</div>';
+}
+function revertHtml(m){return ''}
+function revertBody(m,b){
+  var h='<div class="rv">';
   if(m.req){var r=S.ireqs.filter(function(x){return x.id===m.req})[0];
     return h+'<p><span class="pill '+(r.state==='no'?'p-red':'p-blue')+'">'+esc(t(r.state==='no'?'Verzoek geweigerd':r.state==='half'?'Verzoek: eerste beoordeling gedaan':'Verzoek ingediend'))+'</span></p><p class="hint">'+esc(t(r.state==='no'?'De informatiebeheerder heeft het verzoek geweigerd. Het bericht blijft zakelijk.':'De informatiebeheerder beoordeelt het verzoek, met een tweede beoordelaar. Je krijgt bericht.'))+'</p></div>'}
   if(b==='woo')return h+'<div class="note n-red">'+ic('lock')+'<span>'+esc(t('Dit bericht valt onder een lopend Woo-verzoek. Zolang dat loopt, kan het niet persoonlijk worden, ook niet op verzoek.'))+'</span></div></div>';
@@ -538,11 +549,11 @@ function revertHtml(m){
       +'<div class="fld"><label for="rq-why">'+esc(t('Reden (verplicht)'))+'</label><textarea id="rq-why" rows="3"></textarea></div><div class="rowb" style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="btn pri sm" data-act="rqsend">'+esc(t('Verzoek indienen'))+'</button><button type="button" class="btn sm" data-act="rqx">'+esc(t('Annuleren'))+'</button></div></div>';
     return h+'<p class="hint">'+esc(t('Vergrendeld sinds de bedenktijd voorbij is. Persoonlijk maken kan alleen nog op verzoek, bij de informatiebeheerder.'))+'</p><button type="button" class="btn sm" data-act="rq">'+esc(t('Verzoek indienen'))+'</button></div>'}
   var l=left(m);
-  return h+'<p class="hint">'+esc(l===1?t('Dat kan nog 1 dag. Daarna wordt het bericht vergrendeld.'):t('Dat kan nog {0} dagen. Daarna wordt het bericht vergrendeld.',l))+'</p><button type="button" class="btn sm" data-act="aard" data-v="persoonlijk">'+ic('lock',13)+esc(t('Toch persoonlijk'))+'</button></div>';
+  return h+'<button type="button" class="btn sm" data-act="aard" data-v="persoonlijk">'+ic('lock',13)+esc(t('Toch persoonlijk'))+'</button><p class="hint">'+esc(l===1?t('Dat kan nog 1 dag. Daarna wordt het bericht vergrendeld.'):t('Dat kan nog {0} dagen. Daarna wordt het bericht vergrendeld.',l))+'</p></div>';
 }
 function elsaBar(m){
   var o=open(m),pers=m.aard==='persoonlijk',sg=m.sug;
-  var h='<div class="el"><div class="h">'+status(m)+'</div><p class="mono">'+esc(m.pid)+'</p>';
+  var h='<div class="el"><div class="h">'+status(m)+'</div><p class="mono">'+esc(m.pid)+'</p>'+choiceHtml(m);
   if(o){
     h+='<div class="q"><strong>'+esc(t('Is dit bericht zakelijk of persoonlijk?'))+'</strong><button type="button" class="btn pri sm" data-act="aard" data-v="zakelijk">'+esc(t('Zakelijk'))+'</button><button type="button" class="btn sm" data-act="aard" data-v="persoonlijk">'+ic('lock',13)+esc(t('Persoonlijk'))+'</button></div>'
       +(sg?'<p class="sug">'+(sg.aard?esc(t('Voorstel: {0}.',t(sg.aard==='zakelijk'?'zakelijk':'persoonlijk')))+' ':'')+esc(t(sg.why))+'</p>':'')
@@ -611,6 +622,7 @@ function apOvz(){
   var L=MAILS.filter(function(m){return !m.gone&&open(m)}).sort(function(a,b){return left(a)-left(b)}),nk=MAILS.filter(function(m){return !m.gone&&m.aard==='zakelijk'&&!m.klass}).length;
   return '<div class="apb"><h4>'+esc(t('Nog te scheiden'))+' <b>'+L.length+'</b></h4>'+(L.length?'<ul class="apl">'+L.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(l<=2?'p-red':'p-amber')+'">'+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Alles is gescheiden.'))+'</p>')
     +'<div class="gme">'+ic('clock',18)+'<div><b>'+esc(t('Afwezigheid'))+'</b><span>'+esc(t(S.awayFrom!=null?'Aan: de bedenktijd staat stil':'Uit'))+'</span></div><button type="button" class="btn" data-act="away" aria-pressed="'+(S.awayFrom!=null)+'">'+esc(t(S.awayFrom!=null?'Ik ben terug':'Ik ben afwezig'))+'</button></div><p class="hint">'+esc(t('Zet je een afwezigheidsbericht aan, dan telt de bedenktijd niet door. Zo wordt niets zakelijk terwijl je weg bent.'))+'</p>'
+    +(function(){var R=MAILS.filter(function(m){return !m.gone&&m.aard&&!open(m)&&!m.auto&&inWindow(m)}).sort(function(a,b){return left(a)-left(b)});return '<h4>'+esc(t('Gekozen, nog te herzien'))+' <b>'+R.length+'</b></h4>'+(R.length?'<ul class="apl">'+R.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(m.aard==='zakelijk'?'p-green':'p-violet')+'">'+esc(t(m.aard==='zakelijk'?'Zakelijk':'Persoonlijk'))+' · '+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Niets om te herzien.'))+'</p>')})()
     +'<h4>'+esc(t('Zakelijk, nog zonder classificatie'))+' <b>'+nk+'</b></h4><p class="hint">'+esc(t('Na tien dagen wordt een bericht zakelijk. Vul daarna de classificatie aan, zodat de bewaartermijn vastligt.'))+'</p></div>';
 }
 function apHelp(){
@@ -952,7 +964,8 @@ var A={
   sel:function(e){var m=BY[e.dataset.id];S.sel=m.id;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;var was=m.read;m.read=true;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+(was?'':' · STORE +FLAGS (\\Seen)'));render()},
   aard:function(e){var m=BY[S.sel],v=e.dataset.v;if(v==='persoonlijk'&&m.aard==='zakelijk'){var b=revertBlock(m);if(b){toast(t(b==='woo'?'Dit bericht valt onder een lopend Woo-verzoek en kan niet persoonlijk worden.':b==='link'?'Dit bericht is gekoppeld aan een zaak of dossier. Ontkoppel eerst.':'Het bericht is vergrendeld. Persoonlijk maken kan alleen op verzoek, bij de informatiebeheerder.'));render();return}m.hist.push('Binnen de bedenktijd teruggezet naar persoonlijk')}m.aard=v;m.sorted=true;
     if(v==='persoonlijk'){m.enc=true;m.folder='pers';m.hist.push('Aangemerkt als persoonlijk en versleuteld');w('IMAP UID MOVE → "Persoonlijk" · '+wt('versleuteld met jouw persoonlijke sleutel')+' · '+wt('buiten het Woo-zoekbereik')+' · '+wt('keuze vastgelegd in het register'));toast(t('Verplaatst naar Persoonlijk en versleuteld. Alleen jij kunt het lezen.'))}
-    else{if(m.sug&&m.sug.klass&&!m.klass)m.klass=m.sug.klass;m.hist.push('Aangemerkt als zakelijk');w('PROPPATCH register '+m.pid+' → '+wt('aard: zakelijk')+' · '+wt('bewaartermijn vastgelegd')+' · '+wt('Object Lock zodra de bedenktijd voorbij is'));toast(t('Vastgelegd als zakelijk. Vul zo nodig de metagegevens aan.'))}
+    else{var was=m.folder==='pers';if(was){m.folder='inbox';if(m.vertr!=='Vertrouwelijk')m.enc=false;m.shred=false;m.hist.push('Van persoonlijk naar zakelijk');w('PUT '+m.pid+' → '+wt('ontsleuteld met jouw sleutel, opnieuw opgeslagen met de sleutel van de gemeente')+' · IMAP UID MOVE → INBOX · '+wt('keuze vastgelegd in het register'));toast(t('Zakelijk gemaakt. Het bericht staat weer in Postvak IN en hoort nu bij het archief.'));render();return}
+      if(m.sug&&m.sug.klass&&!m.klass)m.klass=m.sug.klass;m.hist.push('Aangemerkt als zakelijk');w('PROPPATCH register '+m.pid+' → '+wt('aard: zakelijk')+' · '+wt('bewaartermijn vastgelegd')+' · '+wt('Object Lock zodra de bedenktijd voorbij is'));toast(t('Vastgelegd als zakelijk. Vul zo nodig de metagegevens aan.'))}
     render()},
   encrypt:function(){var m=BY[S.sel];m.enc=true;m.hist.push('Versleuteld als vertrouwelijk');w('PUT '+m.pid+' → '+wt('versleuteld met de sleutel van het dossier')+' · '+wt('sleutel in de sleutelkluis'));toast(t('Versleuteld. Alleen wie toegang heeft tot het dossier kan het lezen.'));render()},
   del:function(){var m=BY[S.sel];if(!m)return;
@@ -1043,12 +1056,12 @@ document.addEventListener('input',function(ev){var e=ev.target;
 document.addEventListener('change',function(ev){var e=ev.target;
   if(e.id==='lang'){setLang(e.value,true);render();return}
   if(e.id==='mv'&&e.value){var m=BY[S.sel],v=e.value;if(v==='pers'){A.aard({dataset:{v:'persoonlijk'}});return}
-    if(m.folder==='pers'){toast(t('Een persoonlijk bericht blijft persoonlijk. Vind je het toch zakelijk, kies dan eerst Zakelijk in ELSA.'));render();return}
+    if(m.folder==='pers'){A.aard({dataset:{v:'zakelijk'}});if(v!=='inbox'){m.folder=v;render()}return}
     m.folder=v;w('IMAP UID MOVE → "'+t(FOLDERS.filter(function(f){return f[0]===v})[0][1])+'" · '+wt('alleen de map verandert, het object niet'));render();return}
   if(e.dataset&&e.dataset.f){var m2=BY[S.sel],k=e.dataset.f;m2[k]=k==='dos'?+e.value:e.value;m2.hist.push('Metagegevens aangevuld');w('PROPPATCH register '+m2.pid+' → '+k+' · '+wt('bijgewerkt'));render();return}
   if(e.dataset&&e.dataset.nr){S.nr[e.dataset.nr]=e.value;if(e.tagName==='INPUT')return;if(e.dataset.nr==='act')S.nr.arg=e.value==='fileinto'?'Houtplein':e.value==='redirect'?'':e.value==='vacation'?t('Ik ben afwezig tot maandag.'):'';render();return}
   if(e.dataset&&e.dataset.sh){S.share[e.dataset.sh]=e.checked;if(S.inGab)w('CardDAV PUT /gab/haarlem/s.devries.vcf → 204 · '+wt('alleen de gekozen velden'));render()}});
-var EXTRA=['Verzoek om een zakelijk bericht persoonlijk te maken geweigerd. Het bericht blijft zakelijk.','Verzoek toegekend. Nieuwe versie versleuteld met de persoonlijke sleutel; de sleutel van de vergrendelde versie is vernietigd.','Eerste beoordeling: toekennen. Wacht op de tweede beoordelaar.','Informatiebeheerder','Tweede beoordelaar','Binnen de bedenktijd teruggezet naar persoonlijk','Verzoek om persoonlijk te maken ingediend','Na verzoek persoonlijk gemaakt; de vergrendelde versie is onleesbaar','Afscheidscadeau voor Ans','Ik was op vakantie. Het gaat om een inzameling onder collega\'s, niet over werk.','Ik ben afwezig. Je bericht wordt na mijn terugkomst gelezen.','Opgenomen in een dossier','Ontkoppeld','Na tien dagen automatisch zakelijk','Aangemerkt als persoonlijk en versleuteld','Aangemerkt als zakelijk','Versleuteld als vertrouwelijk','Metagegevens aangevuld','Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.','Verzoek van Juridische Zaken geweigerd.','Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.','Gemeentesecretaris'];
+var EXTRA=['Van persoonlijk naar zakelijk','Verzoek om een zakelijk bericht persoonlijk te maken geweigerd. Het bericht blijft zakelijk.','Verzoek toegekend. Nieuwe versie versleuteld met de persoonlijke sleutel; de sleutel van de vergrendelde versie is vernietigd.','Eerste beoordeling: toekennen. Wacht op de tweede beoordelaar.','Informatiebeheerder','Tweede beoordelaar','Binnen de bedenktijd teruggezet naar persoonlijk','Verzoek om persoonlijk te maken ingediend','Na verzoek persoonlijk gemaakt; de vergrendelde versie is onleesbaar','Afscheidscadeau voor Ans','Ik was op vakantie. Het gaat om een inzameling onder collega\'s, niet over werk.','Ik ben afwezig. Je bericht wordt na mijn terugkomst gelezen.','Opgenomen in een dossier','Ontkoppeld','Na tien dagen automatisch zakelijk','Aangemerkt als persoonlijk en versleuteld','Aangemerkt als zakelijk','Versleuteld als vertrouwelijk','Metagegevens aangevuld','Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.','Verzoek van Juridische Zaken geweigerd.','Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.','Gemeentesecretaris'];
 window.__elsa={strings:function(){var o=EXTRA.slice();
   MAILS.forEach(function(m){o.push(m.subj);o=o.concat(m.body);m.atts.forEach(function(a){o.push(a.n)});if(m.sug)o.push(m.sug.why);o=o.concat(m.hist)});
   Object.keys(CLASSES).forEach(function(k){o.push(CLASSES[k])});ZAKEN.forEach(function(r){o.push(r[1],r[2],r[3])});DOSSIERS.forEach(function(r){o.push(r[1],r[2])});o=o.concat(VERTR);FOLDERS.forEach(function(f){o.push(f[1])});
