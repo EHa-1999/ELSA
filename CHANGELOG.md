@@ -2,6 +2,11 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 16 · 21-10-2026
+- Regels maken en wijzigen in een eigen venster van de Office Assistent, geopend vanuit het paneel. Het venster toont meteen welke berichten in je postbus aan de regel voldoen en wat er per bericht verandert.
+- Toepassen: een regel gaat ook over de berichten die er al zijn. Metagegevens alleen binnen de bedenktijd, mappen en markeringen in de hele postbus. Regels van de organisatie en het team kun je bekijken en op je eigen postbus toepassen, niet wijzigen.
+- Techniek en Help beschrijven hoe het venster per mailprogramma werkt.
+
 ## Versie 15 · 21-10-2026
 - Doorstroom: de animatie loopt trager, ongeveer een seconde per stap, met de melding dat het in werkelijkheid binnen een seconde gaat.
 - Een envelop reist langs de negen stappen: dicht bij Exchange en in de wachtrij, opengevouwen bij de brug (met bijlagen), als bestand in Nextcloud, met eigen identificatie in het register, met metagegevens van de regel (zakelijk, classificatie, bron), en met kentekens voor objectopslag, zoekindex en een ongelezen-stip in Postvak IN. Een voortgangslijn en de actieve stap lichten op.
