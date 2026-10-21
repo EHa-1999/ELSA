@@ -72,6 +72,19 @@ svg{display:block;flex:none}
 /* mailprogramma */
 .mc-top{display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--app);color:#fff;font-size:12.5px;flex-wrap:wrap}
 .mc-top b{font-weight:600}.mc-top .acc{margin-left:auto;opacity:.92}
+.seg2{display:flex;gap:2px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--surface);flex-wrap:wrap}.seg2 button{flex:1;padding:4px 8px;border-radius:6px;font-size:12.5px}.seg2 button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg,#fff)}
+.box{display:grid;gap:3px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}.box.dash{border-style:dashed;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:8px}.box.dash>span{display:block}
+.fnd{display:grid;gap:4px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}.fnd.selc{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}.fnd.done{opacity:.75}
+.fnd .fh{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}.fnd .fh b{overflow-wrap:anywhere}.fnd .fz{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}.fnd .r2{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.apb>.btn{white-space:normal;text-align:left;justify-content:flex-start}
+.rowb2{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.plh{display:inline-block;padding:0 4px;border-radius:4px;background:var(--green-soft);color:var(--green);font-family:var(--mono);font-size:.88em;border:1px solid transparent;cursor:pointer}.plh.pv{border:1px dashed var(--green)}.plh.dec{font-family:inherit;font-size:1em;background:var(--amber-soft,#fff3d6);color:inherit}.plh.on{outline:2px solid var(--accent)}
+.anbar{display:flex;gap:6px;align-items:center;padding:6px 10px;margin:6px 0;border-radius:6px;background:var(--green-soft);color:var(--green);font-size:12.5px}
+.vec{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:6px;background:var(--surface)}.vec header{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}.vec header span{font-size:12px;color:var(--muted)}.vec header .linkbtn{margin-left:auto;font-size:12px}
+.vec .vv{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}.vec .vv b{font-weight:600}.vec .claim{margin:0;padding-top:6px;border-top:1px solid var(--line)}
+.pon{display:grid;gap:4px;margin:0;padding:0;list-style:none}.pon li{display:grid;font-size:12.5px}.pon small{color:var(--muted);font-size:11.5px;overflow-wrap:anywhere}
+.accb{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:8px 10px;display:grid;gap:6px;background:var(--surface2)}.accb .ah{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.accb .ah .pill{margin-left:auto}
+.accb ul{display:grid;gap:5px;margin:0;padding:0;list-style:none}.accb li{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;font-size:12.5px}.accb li .btn{flex:none}
 .rgrp{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nc-head{display:flex;align-items:center;gap:4px;padding:4px 10px;background:#0082c9;color:#fff;flex-wrap:wrap}.nc-logo{font-weight:700;margin-right:10px;letter-spacing:.02em}
 .nc-app{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 8px;border-radius:6px;color:#fff;font-size:10.5px;opacity:.85}.nc-app.on,.nc-app:hover{opacity:1;background:rgba(255,255,255,.15)}
@@ -469,6 +482,10 @@ function fmtT(d){d=new Date(d);return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fmtDT(d){return fmtD(d)+' '+fmtT(d)}
 function hex(n,seed){var s=Math.floor(seed||Math.random()*1e9)%2147483648,o='';for(var i=0;i<n;i++){s=(s*48271+12345)%2147483647;o+='0123456789abcdef'[s%16]}return o}
 var IC={
+  acc:'<path d="M12 6.3a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2zM5 9h14M12 9v5M12 14l-3.5 6.5M12 14l3.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  redact:'<path d="M3.5 6h17M3.5 12h6M13 10h7.5v4H13zM3.5 18h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  seal:'<path d="M12 14.5a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.8 13.4L7.5 21l4.5-2.5 4.5 2.5-1.3-7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  clas:'<path d="M5.5 21V3.5M5.5 4h11l-2.5 3.8 2.5 3.7h-11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
   files:'<path d="M3.5 6.5a1.5 1.5 0 0 1 1.5-1.5h4.5l2 2.5H19a1.5 1.5 0 0 1 1.5 1.5v8.5A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
   gear:'<path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
   grid:'<path d="M4.5 4.5h5v5h-5zM14.5 4.5h5v5h-5zM4.5 14.5h5v5h-5zM14.5 14.5h5v5h-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
@@ -623,7 +640,7 @@ var GAB=[
  ['Willem Brouwer','willem.brouwer@zandvoort.gemeente.org','Gemeente Zandvoort','Vergunningen','Vergunningverlener']];
 var ORGS=['Gemeente Haarlem','Gemeente Zandvoort','Gemeente Bloemendaal','Gemeente Velsen','Gemeente Heemstede'];
 
-var S={view:'post',client:'olc',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',skip:0,share:{name:true,mail:true,org:true,team:true,func:true,phone:false},inGab:false,
+var S={an:{sub:'sig',ppl:0},view:'post',client:'olc',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',skip:0,share:{name:true,mail:true,org:true,team:true,func:true,phone:false},inGab:false,
   rl:[{id:'o1',lvl:'org',n:'Omgevingsloket',tn:true,f:'from',op:'contains',v:'omgevingsloket',act:'klass',arg:'verg',on:true},
     {id:'o2',lvl:'org',n:'Woo-postbus',tn:true,f:'to',op:'is',v:'woo@haarlem.gemeente.org',act:'woo',arg:'Woo-verzoeken en -besluiten',on:true},
     {id:'t1',lvl:'team',n:'Overleg Zuid-Kennemerland',tn:true,f:'from',op:'contains',v:'zandvoort.gemeente.org',act:'dos',arg:'O-2026-003',on:true},
@@ -646,7 +663,7 @@ function open(m){return !m.sorted&&!m.aard&&left(m)>0}
 function auto(m){if(!m.aard&&left(m)<=0){m.aard='zakelijk';m.sorted=true;m.auto=true;if(!m.klass&&m.sug)m.klass=m.sug.klass||'';m.hist.push('Na tien dagen automatisch zakelijk')}}
 function recvd(m){return new Date(NOW0.getTime()-m.age*DAY)}
 function inFolder(f){return MAILS.filter(function(m){return m.folder===f&&!m.gone})}
-function hit(m,q){if(!q)return true;q=q.toLowerCase();var hay=[t(m.subj),m.from.name,m.from.mail,m.body.map(t).join(' '),m.atts.map(function(a){return t(a.n)}).join(' '),[m.zaak,m.zaak?t(zaakOf(m.zaak)[1]):''].concat(m.doss,m.doss.map(function(d){return t(dosOf(d)[1])})).join(' '),m.klass?t(CLASSES[m.klass]):''].join(' ').toLowerCase();
+function hit(m,q){if(!q)return true;q=q.toLowerCase();var hay=[(m.lit?m.subj:t(m.subj)),m.from.name,m.from.mail,(m.lit?m.body:m.body.map(t)).join(' '),m.atts.map(function(a){return t(a.n)}).join(' '),[m.zaak,m.zaak?t(zaakOf(m.zaak)[1]):''].concat(m.doss,m.doss.map(function(d){return t(dosOf(d)[1])})).join(' '),m.klass?t(CLASSES[m.klass]):''].join(' ').toLowerCase();
   return q.split(/\s+/).every(function(w){return hay.indexOf(w)>=0})}
 function status(m){
   if(m.aard==='persoonlijk')return '<span class="pill p-violet">'+ic('lock',11)+esc(t('Persoonlijk, versleuteld'))+'</span>';
@@ -665,8 +682,8 @@ function listHtml(){
   L=L.slice().sort(function(a,b){return a.age-b.age});
   if(!L.length)return '<div class="list"><p class="empty">'+esc(S.q?t('Niets gevonden.'):t('Deze map is leeg.'))+'</p></div>';
   return '<div class="list" role="list">'+(S.q?'<p class="hint" style="padding:8px 12px">'+esc(t('{0} berichten in alle mappen behalve Persoonlijk',L.length))+'</p>':'')+L.map(function(m){
-    return '<button type="button" role="listitem" class="mi'+(m.read?' read':'')+'" data-act="sel" data-id="'+m.id+'" aria-current="'+(S.sel===m.id)+'"><span class="r1"><b>'+esc(S.folder==='sent'&&!S.q?m.to[0].name:m.from.name)+'</b><time>'+(m.age<1&&S.skip===0?fmtT(recvd(m)):fmtD(recvd(m)))+'</time></span><span class="sj">'+esc(t(m.subj))+(m.atts.length?' <span class="hint" style="display:inline-flex;vertical-align:-2px">'+ic('clip',13)+'</span>':'')+(m.flag?' <span class="flg" title="'+esc(t('Gemarkeerd'))+'">'+ic('flag',13)+'</span>':'')+'</span>'
-      +(m.enc&&m.aard==='persoonlijk'?'':'<span class="pv">'+esc(t(m.body[0]))+'</span>')+(S.client!=='oln'?'<span class="st">'+tag(m)+'</span>':'')+'</button>'}).join('')+'</div>';
+    return '<button type="button" role="listitem" class="mi'+(m.read?' read':'')+'" data-act="sel" data-id="'+m.id+'" aria-current="'+(S.sel===m.id)+'"><span class="r1"><b>'+esc(S.folder==='sent'&&!S.q?m.to[0].name:m.from.name)+'</b><time>'+(m.age<1&&S.skip===0?fmtT(recvd(m)):fmtD(recvd(m)))+'</time></span><span class="sj">'+esc((m.lit?m.subj:t(m.subj)))+(m.atts.length?' <span class="hint" style="display:inline-flex;vertical-align:-2px">'+ic('clip',13)+'</span>':'')+(m.flag?' <span class="flg" title="'+esc(t('Gemarkeerd'))+'">'+ic('flag',13)+'</span>':'')+'</span>'
+      +(m.enc&&m.aard==='persoonlijk'?'':'<span class="pv">'+esc((m.lit?m.body[0]:t(m.body[0])))+'</span>')+(S.client!=='oln'?'<span class="st">'+tag(m)+'</span>':'')+'</button>'}).join('')+'</div>';
 }
 function tag(m){var k=m.aard==='persoonlijk'?['violet','Persoonlijk']:m.aard==='zakelijk'?['green','Zakelijk']:['amber','Te scheiden'];
   return '<span class="tag t-'+k[0]+'" title="'+esc(t('Label van ELSA, als IMAP-trefwoord'))+'">'+esc(t(k[1]))+'</span>'}
@@ -737,15 +754,16 @@ function elsaBar(m){
 function readHtml(){
   var m=BY[S.sel];if(!m||m.gone)return '<div class="read-p"><p class="empty">'+esc(t('Kies een bericht.'))+'</p></div>';
   var lockedPers=m.aard==='persoonlijk'&&m.enc;
-  var h='<div class="read-p"><div class="rd-act">'+sbtn('reply','reply','Beantwoorden')+sbtn('forward','fwd','Doorsturen')+(S.client==='tb'?sbtn('nyi','archive','Archiveren')+sbtn('nyi','junk','Ongewenst'):'')+sbtn('del','trash','Verwijderen')+'</div><article class="msg"><h2>'+(m.flag?'<span class="flg">'+ic('flag',16)+'</span> ':'')+esc(t(m.subj))+'</h2><dl class="mh"><dt>'+esc(t('Van'))+'</dt><dd>'+esc(m.from.name)+' &lt;'+esc(m.from.mail)+'&gt;</dd><dt>'+esc(t('Aan'))+'</dt><dd>'+m.to.map(function(p){return esc(p.name)+' &lt;'+esc(p.mail)+'&gt;'}).join(', ')+'</dd><dt>'+esc(t('Datum'))+'</dt><dd>'+fmtDT(recvd(m))+'</dd></dl>';
-  h+='<div class="body">'+m.body.map(function(p){return '<p>'+esc(t(p))+'</p>'}).join('')+'</div>';
+  var h='<div class="read-p"><div class="rd-act">'+sbtn('reply','reply','Beantwoorden')+sbtn('forward','fwd','Doorsturen')+(S.client==='tb'?sbtn('nyi','archive','Archiveren')+sbtn('nyi','junk','Ongewenst'):'')+sbtn('del','trash','Verwijderen')+'</div><article class="msg"><h2>'+(m.flag?'<span class="flg">'+ic('flag',16)+'</span> ':'')+anTx(m,esc((m.lit?m.subj:t(m.subj))))+'</h2><dl class="mh"><dt>'+esc(t('Van'))+'</dt><dd>'+anTx(m,esc(m.from.name)+' &lt;'+esc(m.from.mail)+'&gt;')+'</dd><dt>'+esc(t('Aan'))+'</dt><dd>'+anTx(m,m.to.map(function(p){return esc(p.name)+' &lt;'+esc(p.mail)+'&gt;'}).join(', '))+'</dd><dt>'+esc(t('Datum'))+'</dt><dd>'+fmtDT(recvd(m))+'</dd></dl>';
+  if(anActive(m))h+='<div class="anbar">'+ic('redact',14)+'<span>'+esc(t(AM(m).ok?'Geanonimiseerde weergave, bevestigd. Het origineel is ongewijzigd.':'Voorvertoning van de geanonimiseerde weergave. Selecteer tekst om zelf iets toe te voegen.'))+'</span></div>';
+  h+='<div class="body">'+m.body.map(function(p){return '<p>'+anTx(m,esc(m.lit?p:t(p)))+'</p>'}).join('')+'</div>';
   if(m.atts.length)h+='<div class="atts">'+m.atts.map(function(a){return '<div class="att">'+ic('clip')+'<span>'+esc(t(a.n))+'<small>'+esc(a.s)+' · <span class="mono">'+esc(a.pid)+'</span></small></span></div>'}).join('')+'</div><p class="hint">'+esc(t('Elke bijlage is een eigen object in de opslag, verbonden met het bericht. Zo is een bijlage apart te vinden, te bewaren en te publiceren.'))+'</p>';
   h+='<div class="ref"><span>Message-ID <span class="mono">'+esc(m.mid)+'</span></span>'+(m.hist.length?'<span>'+esc(t(m.hist[m.hist.length-1]))+'</span>':'')+'</div>';
   if(m.shred)h+='<div class="note n-grey">'+ic('info')+'<span>'+esc(t('Dit bericht is na de bedenktijd op verzoek persoonlijk gemaakt. Het register houdt vast dat het bestond, met afzender, datum en het besluit. De vergrendelde versie is onleesbaar.'))+'</span></div>';
   if(lockedPers)h+='<div class="enc">'+ic('lock',18)+'<span>'+esc(t('Dit bericht is opgeslagen met jouw persoonlijke sleutel. In de opslag is het onleesbaar, ook voor beheerders.'))+'</span></div>';
   return h+'</article></div>';
 }
-var PM=[['ovz','Overzicht','inbox'],['ber','Dit bericht','mail'],['reg','Regels','rule'],['gab','Adresboek','book'],['help','Help','info']];
+var PM=[['ovz','Overzicht','inbox'],['ber','Dit bericht','mail'],['toeg','Toegankelijkheid','acc'],['anon','Anonimiseren','redact'],['clas','Classificeren','clas'],['waar','Waarmerken','seal'],['reg','Regels','rule'],['gab','Adresboek','book'],['help','Help','info']];
 function gabAll(){var L=GAB.map(function(r){return {n:r[0],m:r[1],o:r[2],t:r[3],f:r[4],p:r[5]||''}});
   if(S.inGab){var sh=S.share;L.unshift({n:ME.name,m:ME.mail,o:sh.org?ME.org:'',t:sh.team?ME.team:'',f:sh.func?ME.func:'',p:sh.phone?ME.phone:'',me:true})}return L}
 function place(o){return o?o.replace('Gemeente ',''):''}
@@ -781,9 +799,9 @@ function apGab(){
 }
 function apOvz(){
   var L=MAILS.filter(function(m){return !m.gone&&open(m)}).sort(function(a,b){return left(a)-left(b)}),nk=MAILS.filter(function(m){return !m.gone&&m.aard==='zakelijk'&&!m.klass}).length;
-  return '<div class="apb"><h4>'+esc(t('Nog te scheiden'))+' <b>'+L.length+'</b></h4>'+(L.length?'<ul class="apl">'+L.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(l<=2?'p-red':'p-amber')+'">'+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Alles is gescheiden.'))+'</p>')
+  return '<div class="apb"><h4>'+esc(t('Nog te scheiden'))+' <b>'+L.length+'</b></h4>'+(L.length?'<ul class="apl">'+L.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc((m.lit?m.subj:t(m.subj)))+'</span><span class="pill '+(l<=2?'p-red':'p-amber')+'">'+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Alles is gescheiden.'))+'</p>')
     +'<div class="gme">'+ic('clock',18)+'<div><b>'+esc(t('Afwezigheid'))+'</b><span>'+esc(t(S.awayFrom!=null?'Aan: de bedenktijd staat stil':'Uit'))+'</span></div><button type="button" class="btn" data-act="away" aria-pressed="'+(S.awayFrom!=null)+'">'+esc(t(S.awayFrom!=null?'Ik ben terug':'Ik ben afwezig'))+'</button></div><p class="hint">'+esc(t('Zet je een afwezigheidsbericht aan, dan telt de bedenktijd niet door. Zo wordt niets zakelijk terwijl je weg bent.'))+'</p>'
-    +(function(){var R=MAILS.filter(function(m){return !m.gone&&m.aard&&!open(m)&&!m.auto&&inWindow(m)}).sort(function(a,b){return left(a)-left(b)});return '<h4>'+esc(t('Gekozen, nog te herzien'))+' <b>'+R.length+'</b></h4>'+(R.length?'<ul class="apl">'+R.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(m.aard==='zakelijk'?'p-green':'p-violet')+'">'+esc(t(m.aard==='zakelijk'?'Zakelijk':'Persoonlijk'))+(m.by&&m.by.aard?' · '+esc(t('regel')):'')+' · '+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Niets om te herzien.'))+'</p>')})()
+    +(function(){var R=MAILS.filter(function(m){return !m.gone&&m.aard&&!open(m)&&!m.auto&&inWindow(m)}).sort(function(a,b){return left(a)-left(b)});return '<h4>'+esc(t('Gekozen, nog te herzien'))+' <b>'+R.length+'</b></h4>'+(R.length?'<ul class="apl">'+R.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc((m.lit?m.subj:t(m.subj)))+'</span><span class="pill '+(m.aard==='zakelijk'?'p-green':'p-violet')+'">'+esc(t(m.aard==='zakelijk'?'Zakelijk':'Persoonlijk'))+(m.by&&m.by.aard?' · '+esc(t('regel')):'')+' · '+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Niets om te herzien.'))+'</p>')})()
     +'<h4>'+esc(t('Zakelijk, nog zonder classificatie'))+' <b>'+nk+'</b></h4><p class="hint">'+esc(t('Na tien dagen wordt een bericht zakelijk. Vul daarna de classificatie aan, zodat de bewaartermijn vastligt.'))+'</p></div>';
 }
 function apHelp(){
@@ -791,7 +809,7 @@ function apHelp(){
 }
 function assistPanel(m){
   if(S.client==='oln')return '<aside class="ap off" aria-label="'+esc(t('Assistent'))+'"><div class="apb"><h3>'+esc(t('Geen assistent in de nieuwe Outlook'))+'</h3><p>'+esc(t('De nieuwe Outlook en Outlook op het web laden webinvoegtoepassingen alleen bij een Microsoft-account, en COM-invoegtoepassingen werken daar niet. Wat dan wel werkt:'))+'</p><ul class="lim"><li>'+ic('folder')+'<span>'+esc(t('Persoonlijk maken door het bericht naar de map Persoonlijk te slepen.'))+'</span></li><li>'+ic('clock')+'<span>'+esc(t('Een dagelijks overzicht van ELSA met de berichten die nog gescheiden moeten worden.'))+'</span></li><li>'+ic('mail')+'<span>'+esc(t('Metagegevens aanvullen in de webmail van ELSA.'))+'</span></li><li>'+ic('book')+'<span>'+esc(t('Het gemeentelijk adresboek gebruiken in de webmail van ELSA. De nieuwe Outlook kent geen CardDAV.'))+'</span></li><li>'+ic('rule')+'<span>'+esc(t('Regels beheren in de webmail van ELSA. Ze werken ook hier, want ze draaien bij het register.'))+'</span></li></ul><button type="button" class="btn" data-act="web">'+esc(t('Open ELSA in de browser'))+'</button></div></aside>';
-  var tab=S.pm,body=tab==='ovz'?apOvz():tab==='help'?apHelp():tab==='gab'?apGab():tab==='reg'?apReg():(m&&!m.gone?elsaBar(m):'<p class="hint apb">'+esc(t('Kies een bericht.'))+'</p>');
+  var tab=S.pm,body=tab==='toeg'?apToeg(m):tab==='anon'?apAnon(m):tab==='clas'?apClas(m):tab==='waar'?apWaar(m):tab==='ovz'?apOvz():tab==='help'?apHelp():tab==='gab'?apGab():tab==='reg'?apReg():(m&&!m.gone?elsaBar(m):'<p class="hint apb">'+esc(t('Kies een bericht.'))+'</p>');
   return '<aside class="ap" aria-label="'+esc(t('Assistent'))+'"><div class="apm"><div class="aph">'+ic(PM.filter(function(p){return p[0]===tab})[0][2])+'<div><h3>'+esc(t(PM.filter(function(p){return p[0]===tab})[0][1]))+'</h3><p>'+esc(t('Office Assistent · E-mailarchivering'))+'</p></div></div>'+body+'</div>'
     +'<nav class="apr" aria-label="'+esc(t('Onderdelen van de assistent'))+'">'+PM.map(function(p){var n=p[0]==='ovz'?MAILS.filter(function(x){return !x.gone&&open(x)}).length:0;return '<button type="button" data-act="pm" data-v="'+p[0]+'" aria-selected="'+(tab===p[0])+'" title="'+esc(t(p[1]))+'" aria-label="'+esc(t(p[1]))+'">'+ic(p[2],18)+(n?'<i>'+n+'</i>':'')+'</button>'}).join('')+'</nav></aside>';
 }
@@ -866,6 +884,92 @@ function flowView(){
     +'<div class="cols"><ol class="steps">'+FLOW.map(function(s,i){var c=i<st?'done':i===st&&run?'done now':'';return '<li class="stp '+c+'"><span class="dot">'+(i<=st?ic('check',13):i+1)+'</span><div><b>'+esc(t(s[0]))+'</b><p>'+esc(t(s[1]))+'</p>'+(i<=st?'<code>'+esc(t(s[3]))+'</code>':'')+'</div><time>'+(i<=st?'+'+s[2]+' ms':'')+'</time></li>'}).join('')+'</ol>'
     +'<div class="note n-grey">'+ic('info')+'<span>'+esc(t('Ook verzonden berichten lopen via deze route. Het mailprogramma bewaart daarnaast zelf een kopie in Verzonden items via IMAP. ELSA herkent de dubbele aan de Message-ID en bewaart het bericht één keer.'))+'</span></div></div></div></div>';
 }
+
+
+/* ---------- assistenten bij het bericht: gelijk aan de e-mail in de demo over de Office Assistent ---------- */
+function noAssist(m,what){if(!m||m.gone)return '<div class="apb"><p class="hint">'+esc(t('Kies een bericht.'))+'</p></div>';
+  if(m.aard==='persoonlijk')return '<div class="apb"><div class="note n-violet">'+ic('lock')+'<span>'+esc(t('Persoonlijk bericht: het staat buiten het archief. {0} is hier niet van toepassing.',t(what)))+'</span></div></div>';return ''}
+function isGem(mail){return /@[a-z]+\.gemeente\.org$/i.test(mail)}
+function isPerson(p){return /^[a-z]+\.[a-z.]+@/i.test(p.mail)}
+/* vindplaatsen per bericht: namen en adressen in de kop, plus wat in de tekst staat */
+var ANX={m2:[['Kleverlaan 14','Adres',86,'lak','Adres van de aanvrager. Dit zegt iets over een inwoner.']],m12:[['Kleverlaan 14','Adres',86,'lak','Adres van de aanvrager. Dit zegt iets over een inwoner.']],m7:[['een omwonende','Persoon',41,'laten','Geen naam, maar wel een verwijzing naar een persoon. Meestal hoeft dit niet weg.']]};
+var ANT={Persoon:'PERSOON','E-mail':'E-MAIL',Adres:'ADRES',Telefoon:'TELEFOON',Overig:'OVERIG'};
+function AM(m){if(!m.an)m.an={on:{},rev:{},man:[],ok:false,pick:null,exp:null};return m.an}
+function anItems(m){var a=AM(m),o=[],seen={},cnt={};
+  function add(id,tx,so,z,v,why,man){if(!tx||seen[tx])return;seen[tx]=1;cnt[so]=(cnt[so]||0)+1;o.push({id:id,t:tx,soort:so,z:z,v:v,why:why,man:!!man,lab:'['+t(ANT[so]||'OVERIG')+' '+cnt[so]+']',on:a.on[id]!==undefined?a.on[id]:v==='lak'})}
+  [m.from].concat(m.to).forEach(function(p,i){if(p.mail===ME.mail&&m.folder!=='sent'&&i>0)return;var g=isGem(p.mail),k='h'+i;
+    if(isPerson(p))add(k+'n',p.name,'Persoon',g?72:91,g?'laten':'lak',g?'Ambtenaar, in functie. Een naam van een medewerker hoeft meestal niet weg.':'Naam van een inwoner of een privépersoon.');
+    if(isPerson(p)||!g&&/mail\.example$/.test(p.mail))add(k+'m',p.mail,'E-mail',99,'lak',g?'Persoonlijk werkadres van een ambtenaar.':'Privé-adres van een inwoner.')});
+  (ANX[m.id]||[]).forEach(function(x,i){add('b'+i,x[0],x[1],x[2],x[3],x[4])});
+  a.man.forEach(function(x){add(x.id,x.t,x.soort,null,'lak','Zelf toegevoegd.',true)});
+  return o}
+function anDec(m,p){var a=AM(m);return a.rev[p.id]!==undefined?a.rev[p.id]:S.an.ppl>=1}
+function anActive(m){return S.view==='post'&&S.client!=='oln'&&S.pane&&S.pm==='anon'&&S.an.sub==='bron'&&m&&m.aard!=='persoonlijk'}
+/* tekst met plaatshouders; werkt op al ontsnapte HTML */
+function anTx(m,h){if(!anActive(m))return h;var a=AM(m),L=anItems(m).filter(function(p){return p.on}).sort(function(x,y){return y.t.length-x.t.length}),tok=[];
+  L.forEach(function(p){var e=esc(p.t);if(h.indexOf(e)<0)return;h=h.split(e).join('\u0001'+tok.length+'\u0002');tok.push(p)});
+  return h.replace(/\u0001(\d+)\u0002/g,function(_,i){var p=tok[+i],d=anDec(m,p);return '<span class="plh'+(d?' dec':'')+(a.ok?'':' pv')+(a.exp===p.id?' on':'')+'" data-act="antog" data-id="'+p.id+'" role="button" tabindex="0">'+(d?esc(p.t):esc(p.lab))+'</span>'})}
+function anGuess(x){return /@/.test(x)?'E-mail':/\b0\d[\d\s-]{7,}/.test(x)?'Telefoon':/\d/.test(x)&&/[a-z]{3,}/i.test(x)?'Adres':/^([A-Z][a-zë'-]+\.?\s?){1,4}$/.test(x)||/\b[A-Z]\.\s?[A-Z]/.test(x)?'Persoon':'Overig'}
+function apAnon(m){var no=noAssist(m,'Anonimiseren');if(no)return no;var a=AM(m),L=anItems(m),sub=S.an.sub,on=L.filter(function(p){return p.on});
+  var h='<div class="apb"><div class="seg2" role="group" aria-label="'+esc(t('Werkwijze'))+'"><button type="button" data-act="ansub" data-v="sig" aria-pressed="'+(sub==='sig')+'">'+esc(t('Signaleren'))+'</button><button type="button" data-act="ansub" data-v="bron" aria-pressed="'+(sub==='bron')+'">'+esc(t('Bij de bron'))+'</button></div>';
+  if(sub==='sig'){
+    h+='<div class="box"><b>'+esc(L.length===1?t('1 aandachtspunt'):t('{0} aandachtspunten',L.length))+'</b><span class="hint">'+esc(t('Gesignaleerd door een programma, niet vastgesteld. Het programma mist gevallen en markeert soms onterecht.'))+'</span></div>'
+      +L.map(function(p){return '<div class="fnd"><div class="fh"><span class="pill p-grey">'+esc(t(p.soort))+'</span><b>“'+esc(p.t)+'”</b></div><p class="hint">'+esc(t(p.why))+'</p><div class="fz">'+(p.z!=null?'<span>'+esc(t('zekerheid {0}%',p.z))+'</span>':'<span>'+esc(t('handmatig'))+'</span>')+'<span class="pill '+(p.v==='lak'?'p-amber':'p-grey')+'">'+esc(t(p.v==='lak'?'Voorstel: lakken':'Voorstel: laten staan'))+'</span></div></div>'}).join('')
+      +(m.atts.length?'<h4>'+esc(t('In de bijlagen'))+'</h4>'+m.atts.map(function(x){return '<div class="fnd"><div class="fh">'+ic('clip',14)+'<b>'+esc(t(x.n))+'</b></div><p class="hint">'+esc(t('Een eigen object. Signaleren en anonimiseren gebeuren bij het bestand zelf, in de kantoorpakketten.'))+'</p></div>'}).join(''):'')
+      +'<p class="hint">'+esc(t('Signaleren kost niets en beslist niets. Beslissen doe je Bij de bron: daar zie je het bericht zoals het openbaar zou worden.'))+'</p><button type="button" class="btn pri" data-act="ansub" data-v="bron">'+esc(t('Naar Bij de bron'))+'</button></div>';
+    return h}
+  h+=a.ok?'<div class="note n-green">'+ic('check')+'<span>'+esc(t('Bevestigd. De geanonimiseerde weergave staat naast het origineel; de EML blijft ongewijzigd.'))+'</span></div>'
+    :'<div class="note n-amber">'+ic('warn')+'<span><b>'+esc(t('Voorvertoning, nog niet bevestigd'))+'</b> '+esc(t('Dit is wat het programma voorstelt. Laat staan wat onterecht is gemarkeerd, voeg toe wat is gemist, en bevestig daarna.'))+'</span></div><button type="button" class="btn pri" data-act="anok">'+esc(t('Bevestig de anonimisering'))+'</button>';
+  var vis=on.filter(function(p){return anDec(m,p)}).length;
+  h+='<div class="box"><b>'+esc(t('{0} geanonimiseerd, {1} zichtbaar op dit niveau',on.length,vis))+'</b><span class="hint">'+esc(t('Elk persoonsgegeven is vervangen door een plaatshouder. De waarde zelf is versleuteld bewaard; wie het niveau heeft, ziet het origineel.'))+'</span></div>'
+    +'<h4>'+esc(t('Bekijk op niveau'))+'</h4><div class="seg2" role="group" aria-label="'+esc(t('Bekijk op niveau'))+'">'+[0,1,2,3].map(function(i){return '<button type="button" data-act="anppl" data-v="'+i+'" aria-pressed="'+(S.an.ppl===i)+'">PPL '+i+'</button>'}).join('')+'</div><p class="hint">'+esc(t(S.an.ppl?'Persoonsgegevens zichtbaar voor wie dit niveau heeft.':'Geen persoonsgegevens zichtbaar. Het niveau volgt uit de autorisatie van wie kijkt.'))+'</p>';
+  if(a.pick)h+='<div class="fnd selc" id="an-pick"><div class="fh"><span class="pill p-blue">'+esc(t('Selectie'))+'</span><b>“'+esc(a.pick.t)+'”</b></div><div class="r2"><select id="an-ty" aria-label="'+esc(t('Soort persoonsgegeven'))+'">'+Object.keys(ANT).map(function(k){return '<option value="'+k+'"'+(a.pick.soort===k?' selected':'')+'>'+esc(t(k))+'</option>'}).join('')+'</select><button type="button" class="btn pri sm" data-act="anadd">'+esc(t('Anonimiseren'))+'</button><button type="button" class="btn sm" data-act="anpickx">'+esc(t('Annuleren'))+'</button></div></div>';
+  else h+='<div class="box dash">'+ic('redact',16)+'<span><b>'+esc(t('Zelf toevoegen'))+'</b> '+esc(t('Selecteer tekst in het bericht om iets te anonimiseren dat het programma heeft gemist. De soort wordt geraden; je kunt haar aanpassen.'))+'</span></div>';
+  h+=L.map(function(p){var d=anDec(m,p);return '<div class="fnd'+(a.exp===p.id?' selc':'')+(p.on?'':' done')+'" id="anc-'+p.id+'"><div class="fh"><span class="pill '+(p.on?'p-green':'p-grey')+' mono">'+esc(p.lab)+'</span><span class="pill p-grey">PPL 1</span><span class="hint" style="margin-left:auto">'+esc(t('AVG art. 6'))+'</span></div>'
+    +'<div class="fz"><span>'+esc(t(p.soort))+'</span><span>·</span><span>'+(p.man?esc(t('handmatig')):esc(t('zekerheid {0}%',p.z)))+'</span>'+(p.on?'':'<span class="pill p-grey">'+esc(t('Blijft staan'))+'</span>')+'</div>'
+    +(a.exp===p.id?'<dl class="gdl"><dt>'+esc(t('Origineel'))+'</dt><dd>'+esc(p.t)+'</dd><dt>'+esc(t('Grondslag'))+'</dt><dd>'+esc(t('AVG artikel 6'))+'</dd><dt>'+esc(t('Algoritme'))+'</dt><dd class="mono">AES-256-GCM</dd><dt>'+esc(t('Detectie'))+'</dt><dd>'+esc(t(p.man?'gebruiker':'patroonherkenning en taalmodel'))+'</dd></dl>':'')
+    +'<div class="rowb2">'+(p.on?'<button type="button" class="btn sm" data-act="anrev" data-id="'+p.id+'">'+esc(t(d?'Weer anonimiseren':'De-anonimiseer'))+'</button><button type="button" class="btn sm" data-act="anoff" data-id="'+p.id+'">'+esc(t(p.man?'Verwijder':'Laat staan'))+'</button>':'<button type="button" class="btn sm" data-act="anoff" data-id="'+p.id+'">'+esc(t('Toch anonimiseren'))+'</button>')+(a.exp===p.id?'':'<button type="button" class="linkbtn" data-act="anexp" data-id="'+p.id+'">'+esc(t('Details'))+'</button>')+'</div></div>'}).join('');
+  return h+'<p class="hint">'+esc(t('Het origineel blijft ongewijzigd in het archief. De geanonimiseerde weergave is een eigen weergave voor de Woo, naast het bericht.'))+'</p></div>'}
+/* classificeren: vier vragen, elk met een eigen bron */
+function vecH(key,ttl,q,val,pill,body,claim){var o=S.wzd===key;
+  return '<section class="vec"><header><b>'+esc(t(ttl))+'</b><span>'+esc(t(q))+'</span><button type="button" class="linkbtn" data-act="wzd" data-v="'+key+'" aria-expanded="'+o+'">'+esc(t('Wie zegt dat?'))+'</button></header><div class="vv"><b>'+esc(val)+'</b><span class="pill '+pill[1]+'">'+esc(t(pill[0]))+'</span></div>'+(body||'')
+    +(o?'<dl class="gdl claim"><dt>'+esc(t('Wie'))+'</dt><dd>'+esc(t(claim[0]))+'</dd><dt>'+esc(t('Waarom'))+'</dt><dd>'+esc(t(claim[1]))+'</dd><dt>'+esc(t('Hoe'))+'</dt><dd>'+esc(t(claim[2]))+'</dd></dl>':'')+'</section>'}
+function apClas(m){var no=noAssist(m,'Classificeren');if(no)return no;if(!m.aard)return '<div class="apb"><p class="hint">'+esc(t('Kies eerst of het bericht zakelijk of persoonlijk is. Classificeren gaat over zakelijke berichten.'))+'</p><button type="button" class="btn" data-act="pm" data-v="ber">'+esc(t('Naar Dit bericht'))+'</button></div>';
+  var L=anItems(m),pp=L.filter(function(p){return p.on}).length,rb=function(k){var id=m.by&&m.by[k],r=id&&rById(id);return r?rName(r):''};
+  var term=m.klass?t(m.klass==='bedr'?'1 jaar na ontvangst':m.klass==='proj'?'Blijvend bewaren':'10 jaar na afsluiting'):t('Volgt uit de classificatie'),w=wooOf(m),pub=w?addD(recvd(m),14):null;
+  var h='<div class="apb"><p class="hint">'+esc(t('Vier vragen met elk een eigen bron en een eigen beslisser. Een bijlage is een eigen object en kan een andere uitkomst hebben.'))+'</p>';
+  h+=vecH('pg','Persoonsgegevens','Wat zit erin?',L.length?t('Gewone persoonsgegevens: {0} vindplaatsen in kop en tekst',L.length):t('Geen persoonsgegevens gevonden'),['Voorstel','p-grey'],'<p class="hint">'+esc(t('Gesignaleerd door een programma, niet vastgesteld.'))+' <button type="button" class="linkbtn" data-act="pm" data-v="anon">'+esc(t('Zie de vindplaatsen in Anonimiseren'))+'</button></p>',['Assistent','Patroonherkenning en een taalmodel lezen kop en tekst.','Voorgesteld door een programma']);
+  h+=vecH('vt','Vertrouwelijkheid','Welke bescherming is nodig?',t(m.vertr),rb('vertr')?['Afgeleid · regel','p-violet']:['Gekozen','p-blue'],m.vertr==='Vertrouwelijk'?'<p class="hint">'+esc(t('Versleuteld in de opslag. Verlagen is een besluit van een bevoegde functionaris.'))+'</p><button type="button" class="btn sm" data-act="vtreq">'+esc(t('Vraag verlaging aan'))+'</button>':'<p class="hint">'+esc(t('Verhogen kan altijd, in Dit bericht. Verlagen is een besluit van een bevoegde functionaris.'))+'</p>',rb('vertr')?[rb('vertr'),'Een regel zet de vertrouwelijkheid bij binnenkomst.','Gezet door een regel']:[ME.name,'De medewerker kiest de vertrouwelijkheid bij het bericht.','Gekozen in het paneel']);
+  var vl=inWindow(m)&&!m.auto;
+  h+=vecH('bw','Bewaring','Hoe lang, en wat daarna?',term,m.klass?(vl?['Voorlopig','p-amber']:['Vastgesteld','p-green']):['Open','p-grey'],(vl?'<p class="hint">'+esc(t('Voorlopig, zolang de bedenktijd loopt. Daarna gaat de bewaarvergrendeling in.'))+'</p>':'')+(m.atts.length?'<h4>'+esc(t('Per onderdeel'))+'</h4><ul class="pon">'+m.atts.map(function(x){return '<li><span>'+esc(t(x.n))+'</span><small>'+esc(t('eigen object · volgt het bericht, tenzij het een eigen classificatie krijgt'))+'</small></li>'}).join('')+'</ul>':''),rb('klass')?[rb('klass'),'De bewaartermijn volgt uit de classificatie die een regel heeft gezet.','Afgeleid uit de classificatie']:['XENA-platform','De bewaartermijn volgt uit de classificatie en de selectielijst.','Afgeleid uit de classificatie']);
+  h+=vecH('ob','Openbaarmaking','Wat mag naar buiten, en in welke vorm?',w?t('Actief openbaar te maken, uiterlijk {0}',fmtD(pub)):t('Alleen op verzoek'),w?(AM(m).ok?['Klaar voor beoordeling','p-green']:['Voorstel','p-grey']):['Op verzoek','p-grey'],w?'<p class="hint">'+esc(pp?(AM(m).ok?t('{0} persoonsgegevens geanonimiseerd en bevestigd.',pp):t('{0} persoonsgegevens worden gelakt; bevestig dat eerst in Anonimiseren.',pp)):t('Geen persoonsgegevens te lakken.'))+'</p>':'<p class="hint">'+esc(t('Zonder Woo-categorie is het bericht wel vindbaar bij een Woo-verzoek, maar niet uit zichzelf openbaar.'))+'</p>',w?[w.k==='hand'?ME.name:(w.k==='zaak'?t('Zaak {0}',w.src):t('Dossier {0}',w.src)),'Woo, artikel 3.3: de categorie bepaalt of het bericht uit zichzelf openbaar wordt.',w.k==='hand'?'Gekozen in het paneel':'Overgenomen']:['XENA-platform','Zonder categorie geldt openbaarmaking op verzoek.','Afgeleid']);
+  return h+'</div>'}
+/* waarmerken: een zegel over de EML en de vaste versies van de bijlagen */
+var WMBY={mw:['Medewerker','Geavanceerde elektronische handtekening van {0}'],afd:['Afdeling','Zegel van {0}'],org:['Organisatie','Gekwalificeerd elektronisch zegel van {0}']};
+function apWaar(m){var no=noAssist(m,'Waarmerken');if(no)return no;var wm=m.wm,by=S.wmby||'org',inb=m.folder!=='sent',ext=!isGem(m.from.mail);
+  var who=by==='mw'?ME.name:by==='afd'?t(ME.team):t(ME.org);
+  var h='<div class="apb">'+(wm?'<div class="note n-green">'+ic('seal')+'<span><b>'+esc(t('Gewaarmerkt'))+'</b> '+esc(t(WMBY[wm.by][1],wm.who))+' · '+esc(fmtDT(wm.at))+'. '+esc(t('Het waarmerk blijft geldig: een EML verandert nooit.'))+'</span></div>'
+    :'<div class="box dash"><b>'+esc(t('Dit bericht is niet gewaarmerkt'))+'</b><span class="hint">'+esc(t(inb?'Een waarmerk op een ontvangen bericht legt vast wat de gemeente op dat moment heeft ontvangen, ongewijzigd.':'Een waarmerk op een verzonden bericht legt vast wat de gemeente heeft verstuurd, ongewijzigd.'))+'</span></div>');
+  if(inb)h+='<div class="box"><b>'+esc(t('Herkomst bij ontvangst'))+'</b><span class="hint">'+esc(ext?t('DKIM geldig · SPF geldig · vastgelegd in het register bij binnenkomst'):t('Intern bericht, via de eigen mailprovider'))+'</span></div>';
+  if(!wm)h+='<h4>'+esc(t('Namens'))+'</h4><div class="seg2" role="group" aria-label="'+esc(t('Namens'))+'">'+Object.keys(WMBY).map(function(k){return '<button type="button" data-act="wmby" data-v="'+k+'" aria-pressed="'+(by===k)+'">'+esc(t(WMBY[k][0]))+'</button>'}).join('')+'</div><p class="hint">'+esc(t(WMBY[by][1],who))+'. '+esc(t('De assistent legt vast wie het heeft aangevraagd.'))+'</p><button type="button" class="btn pri" data-act="wmgo">'+ic('seal',14)+esc(t('Waarmerk dit bericht'))+'</button>';
+  h+='<section class="vec"><header><b>'+esc(t('Het waarmerk omvat'))+'</b></header><ul class="pon"><li><span>'+esc(t('Het bericht in zijn oorspronkelijke vorm'))+'</span><small class="mono">EML · '+esc(m.mid)+'</small></li>'+m.atts.map(function(x){return '<li><span>'+esc(t(x.n))+'</span><small>'+esc(t('eigen object, vaste versie'))+' · <span class="mono">'+esc(x.pid)+'</span></small></li>'}).join('')+'</ul><p class="hint">'+esc(t('Bij een bericht horen de bijlagen erbij als verwijzing naar een vaste versie. Zo is later aan te tonen wat er precies in het bericht zat.'))+'</p></section>'
+    +'<p class="hint">'+esc(t('De assistent voegt geen cryptografie toe. Zij zorgt dat het waarmerk op het juiste object komt, namens de juiste partij, en dat dit wordt vastgelegd.'))+'</p></div>';
+  return h}
+/* toegankelijkheid: bij het opstellen; een ontvangen bericht verander je niet */
+function accFind(c){var o=[],b=c.bd||'',sj=(c.sj||'').trim();
+  if(!sj)o.push({k:'sj',tx:'Geef het bericht een onderwerp. Een schermlezer leest dat het eerst voor.'});
+  if(new RegExp('klik hier|'+t('klik hier'),'i').test(b))o.push({k:'link',tx:'De linktekst “klik hier” zegt niets zonder de zin eromheen. Noem waar de link naartoe gaat.',fix:'Herstel'});
+  var caps=b.match(/\b[A-ZÀ-Ý]{5,}\b/g);if(caps)o.push({k:'caps',tx:'Woorden in hoofdletters lezen moeilijk, en een schermlezer spelt ze soms letter voor letter: {0}.',arg:caps.slice(0,3).join(', '),fix:'Herstel'});
+  if(/\b(in het )?(rood|groen|geel)\b/i.test(b)||(LANG!=='nl'&&new RegExp(t('in het rood'),'i').test(b)))o.push({k:'kleur',tx:'Verwijs niet alleen met kleur. Wie kleuren niet ziet, mist dan de betekenis.'});
+  return o}
+function accBox(c){var F=accFind(c);
+  return '<div class="accb" id="c-acc"><div class="ah">'+ic('acc',15)+'<b>'+esc(t('Office Assistent · Toegankelijkheid'))+'</b><span class="pill '+(F.length?'p-amber':'p-green')+'">'+esc(F.length?(F.length===1?t('1 bevinding'):t('{0} bevindingen',F.length)):t('Geen bevindingen'))+'</span></div>'
+    +(F.length?'<ul>'+F.map(function(f){return '<li><span>'+esc(t(f.tx,f.arg))+'</span>'+(f.fix?'<button type="button" class="btn sm" data-act="accfix" data-v="'+f.k+'">'+esc(t(f.fix))+'</button>':'')+'</li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('De controle leest alleen. Herstellen doe je zelf, of met een knop bij de bevinding.'))+'</p>')+'</div>'}
+function apToeg(m){var h='<div class="apb"><p class="hint">'+esc(t('Toegankelijkheid controleer je bij het opstellen: onderwerp, linkteksten, hoofdletters en kleur. Bij verzenden vraagt de assistent het nog één keer als er iets openstaat.'))+'</p><button type="button" class="btn pri" data-act="accdemo">'+ic('plus',14)+esc(t('Probeer het: nieuw bericht met voorbeeldtekst'))+'</button>';
+  if(m&&!m.gone&&m.folder!=='sent')h+='<div class="box"><b>'+esc(t('Dit bericht is ontvangen'))+'</b><span class="hint">'+esc(t('Een ontvangen bericht verander je niet; het blijft zoals het binnenkwam. Bij publicatie maakt XENA een toegankelijke weergave, als PDF/A-2 met structuur.'))+'</span></div>';
+  if(m&&!m.gone&&m.folder==='sent'&&m.acc)h+='<div class="box"><b>'+esc(t('Verzonden met open bevindingen'))+'</b><span class="hint">'+esc(m.acc.map(function(x){return t(x.tx,x.arg)}).join(' '))+'</span></div>';
+  if(m&&m.atts&&m.atts.length)h+='<h4>'+esc(t('Bijlagen'))+'</h4>'+m.atts.map(function(x){return '<div class="fnd"><div class="fh">'+ic('clip',14)+'<b>'+esc(t(x.n))+'</b></div><p class="hint">'+esc(t('Een eigen object. De toegankelijkheid ervan controleer je in het kantoorpakket, bij het bestand zelf.'))+'</p></div>'}).join('');
+  return h+'</div>'}
 
 /* ---------- regels ---------- */
 var RLV=[['org','Organisatie','Vastgesteld door de informatiebeheerder. Geldt voor iedereen.'],['team','Team Vergunningen','Beheerd door de teamleider. Geldt voor het team en de functionele postbus.'],['mij','Persoonlijk','Alleen voor jouw postbus. Je beheert ze zelf.']];
@@ -949,7 +1053,7 @@ function rdlgHtml(){
     +'<label class="ck" for="rd-on"><input type="checkbox" id="rd-on" data-rd="on"'+(d.on?' checked':'')+dis+'>'+esc(t('Actief: geldt voor nieuwe berichten'))+'</label></div>'
     +(err?'<div class="note n-red">'+ic('warn')+'<span>'+esc(t(err))+'</span></div>':'');
   h+='<section class="rprev"><header><b>'+esc(t('Voorbeeld in je postbus'))+'</b>'+(ok?'<span>'+esc(t('{0} van de {1} berichten voldoen. Toepassen verandert er {2}.',H.length,P.length,C.length))+'</span>':'<span>'+esc(t('Vul in waarop de regel moet letten, dan zie je welke berichten eraan voldoen.'))+'</span>')+'</header>'
-    +(H.length?'<ul>'+H.slice(0,8).map(function(m){var x=rNow(d,m);return '<li class="'+(x.ch?'chg':'')+'"><span>'+esc(t(m.subj))+'</span><small>'+(x.ch?ic('check',12):'')+esc(x.tx)+'</small></li>'}).join('')+'</ul>'+(H.length>8?'<p class="hint">'+esc(t('en nog {0}',H.length-8))+'</p>':''):'')+'</section>'
+    +(H.length?'<ul>'+H.slice(0,8).map(function(m){var x=rNow(d,m);return '<li class="'+(x.ch?'chg':'')+'"><span>'+esc((m.lit?m.subj:t(m.subj)))+'</span><small>'+(x.ch?ic('check',12):'')+esc(x.tx)+'</small></li>'}).join('')+'</ul>'+(H.length>8?'<p class="hint">'+esc(t('en nog {0}',H.length-8))+'</p>':''):'')+'</section>'
     +'<p class="hint">'+esc(t('Opslaan geldt voor nieuwe berichten. Met Toepassen gaat de regel ook over de berichten die er al zijn: metagegevens alleen binnen de bedenktijd, mappen en markeringen in de hele postbus. Wat een regel zet, krijgt de regel als bron.'))+'</p>';
   var can=ok&&!err,ap=C.length;
   h+='<div class="rowb rdb">'+(R.mode==='edit'?'<button type="button" class="btn" data-act="rddel">'+ic('trash',14)+esc(t('Verwijderen'))+'</button>':'')+'<span class="sp"></span><button type="button" class="btn" data-act="rdx">'+esc(t('Annuleren'))+'</button>'
@@ -1055,6 +1159,11 @@ var SEQ=[
   ['reg','Het register legt het bericht vast: Message-ID, afzender, ontvangers, datum en de aard "nog te scheiden", met tien dagen bedenktijd. De zoekindex volgt het register.'],
   ['reg','Het register voert de regels uit, van de organisatie, het team en de medewerker. Wat een regel zet, krijgt de regel als bron en valt onder dezelfde bedenktijd.'],
   ['imap','Het register meldt het nieuwe bericht aan de IMAP-server. Die bewaart geen tweede kopie: hij verwijst naar het object en houdt alleen UID, map en vlaggen bij. Het Sieve-script dat ELSA uit de regels schrijft, zet het zo nodig in een andere map.']]},
+ {t:'Anonimiseren en waarmerken',s:[
+  ['wp','De medewerker kiest in het paneel Anonimiseren. Signaleren leest alleen; er ontstaat geen gebeurtenis.'],
+  ['reg','Bij de bron ziet de medewerker het bericht met plaatshouders. Bevestigen voegt een geanonimiseerde weergave toe naast het origineel; de EML blijft ongewijzigd.'],
+  ['obj','Waarmerken zet een zegel over de EML en de vaste versies van de bijlagen, met een tijdstempel. Omdat een EML niet verandert, blijft het waarmerk geldig.'],
+  ['reg','Classificeren beantwoordt vier vragen: persoonsgegevens, vertrouwelijkheid, bewaring en openbaarmaking. Elke uitkomst heeft een eigen bron.']]},
  {t:'Een regel aanmaken',s:[
   ['wp','De medewerker maakt in het paneel van de Office Assistent een regel en test hem op haar berichten.'],
   ['reg','Het register toetst de regel aan het beleid: wat mag op dit niveau, en wat nooit, zoals persoonlijk maken of weggooien.'],
@@ -1153,6 +1262,8 @@ var BUILD=[
  ['Melding aan de IMAP-server','Het register meldt elk nieuw bericht aan de IMAP-server, die het in de juiste map zet met een verwijzing naar het object.'],
  ['Controle op volledigheid','Elke dag: alles wat in Kafka stond, staat ook in het register. Dat vervangt de herkomstregistratie die NiFi zou bieden.'],
  ['Regels bij het register','Voert bij elk nieuw bericht de regels uit van de organisatie, het team en de medewerker. Toetst elke regel aan het beleid per niveau en legt bij elke waarde de regel vast als bron.'],
+ ['Anonimiseren, classificeren en waarmerken','Dezelfde bewerkingen als voor documenten in de Office Assistent. Signaleren leest alleen, een geanonimiseerde weergave komt naast het origineel, en een waarmerk omvat de EML en de vaste versies van de bijlagen.'],
+ ['Toegankelijkheid bij opstellen','De adapter levert onderwerp en tekst terwijl de medewerker schrijft. De controle leest alleen; bij verzenden stelt de assistent één vraag als er iets openstaat. Een ontvangen bericht wordt niet gewijzigd.'],
  ['Venster voor regels','Een eigen venster van de Office Assistent, geopend vanuit het paneel. Thunderbird: een venster van de extensie (windows.create). Outlook (klassiek): een dialoogvenster van de COM-invoegtoepassing. Webinvoegtoepassing: de Dialog API van Office. Lukt het niet, dan opent de pagina in de webmail van ELSA.'],
  ['Sieve-script uit de regels','Schrijft per postbus het script voor wat bij aflevering moet gebeuren: map, markering, doorsturen binnen de gemeenten en afwezigheid. ManageSieve staat dicht voor mailprogramma\'s.'],
  ['Sleutel per sessie','De persoonlijke sleutel komt pas vrij na aanmelding, alleen voor de sessie van de eigenaar.'],
@@ -1254,8 +1365,10 @@ function modal(){
     +(sug.length?'<div class="to-list">'+sug.map(function(r){return '<button type="button" data-act="pick" data-v="'+esc(r[1])+'">'+esc(r[0])+' <small>'+esc(r[1])+(r[2]?' · '+esc(t(r[2])):'')+'</small></button>'}).join('')+'</div>':'')
     +'<div class="fld"><label for="c-sj">'+esc(t('Onderwerp'))+'</label><input id="c-sj" value="'+esc(m.sj||'')+'" autocomplete="off"></div>'
     +'<div class="fld"><label for="c-bd">'+esc(t('Bericht'))+'</label><textarea id="c-bd">'+esc(m.bd||'')+'</textarea></div>'
+    +(S.client!=='oln'?accBox(m):'')
+    +(m.ask?'<div class="note n-amber">'+ic('warn')+'<span>'+esc(m.ask===1?t('1 bevinding staat nog open. Toch verzenden? Dan wordt dat bij het bericht vastgelegd.'):t('{0} bevindingen staan nog open. Toch verzenden? Dan wordt dat bij het bericht vastgelegd.',m.ask))+'</span></div>':'')
     +'<p class="hint">'+esc(t('Het bericht gaat via Exchange Online de deur uit en komt via de transport rule terug in ELSA, onder Verzonden items.'))+'</p>'
-    +'<div class="rowb"><button type="button" class="btn" data-act="cclose">'+esc(t('Annuleren'))+'</button><button type="button" class="btn pri" data-act="send">'+ic('sent',14)+esc(t('Verzenden'))+'</button></div></div>';
+    +'<div class="rowb"><button type="button" class="btn" data-act="cclose">'+esc(t('Annuleren'))+'</button><button type="button" class="btn pri" data-act="send">'+ic('sent',14)+esc(t(m.ask?'Toch verzenden':'Verzenden'))+'</button></div></div>';
   var f=document.getElementById(m.focus||'c-to');if(f){f.focus();var v=f.value;f.value='';f.value=v}
 }
 
@@ -1274,6 +1387,7 @@ var HROUTE=['Open in Postvak IN het eerste bericht. Het blijft vet tot je een an
   'Koppel een zakelijk bericht aan een zaak of dossier. Typ in het veld en kies een voorstel. Let op de Woo-categorie die meekomt.',
   'Spring in de tijd naar Over 10 dagen. Wat niet gescheiden is, is nu zakelijk; je keuzes zijn vergrendeld.',
   'Open in het paneel Regels en maak een nieuwe regel. Het venster laat zien welke berichten voldoen; Opslaan en toepassen werkt ze bij.',
+  'Open Anonimiseren in het paneel en kies Bij de bron. Het bericht toont plaatshouders; selecteer zelf een naam om toe te voegen. Waarmerk het bericht daarna.',
   'Wissel van mailprogramma. Dezelfde postbus, dezelfde assistent, een andere menubalk. In de nieuwe Outlook is er geen paneel.',
   'Kijk onder de motorkap, onderaan het scherm, wat er bij elke handeling gebeurt.'];
 var HSW=[['Tijd','Vandaag, over 4 dagen of over 10 dagen. Zo zie je wat de bedenktijd doet zonder te wachten.'],['Mailprogramma','Vijf mailprogramma\'s naast elkaar. De assistent is overal gelijk; alleen de adapter verschilt.'],['Onder de motorkap','De regel onderaan toont wat er technisch gebeurt: IMAP, het register, de opslag.']];
@@ -1287,8 +1401,11 @@ var HFAQ=[['Scheiden','Wat gebeurt er als ik niets kies?','Na tien dagen geldt e
   ['Mailprogramma','Welke mailprogramma\'s ondersteunen de assistent?','Thunderbird, Outlook (klassiek), Nextcloud Mail en Roundcube. De nieuwe Outlook en Outlook op het web niet, bij een IMAP-postbus; daar gebruik je de webmail.'],
   ['Mailprogramma','Wat als ik een bericht verwijder?','Binnen de bedenktijd geldt dat als niet zakelijk. Is het al zakelijk, dan verdwijnt het alleen uit je map; het object blijft bewaard zolang de bewaartermijn loopt.'],
   ['Opslag','Waar staan de berichten eigenlijk?','Eén keer, als EML in de objectopslag van XENA, beschreven in het register. Het mailprogramma ziet ze via IMAP, Nextcloud Files via WebDAV; er is geen tweede kopie.'],
+  ['Woo','Wat doet Anonimiseren met het origineel?','Niets. Het origineel blijft ongewijzigd in het archief. Er komt een geanonimiseerde weergave naast, met plaatshouders voor de persoonsgegevens.'],
+  ['Waarmerk','Waarom een bericht waarmerken?','Om later te kunnen aantonen wat de gemeente heeft ontvangen of verstuurd, ongewijzigd en op welk moment. De bijlagen horen erbij, op een vaste versie.'],
+  ['Toegankelijkheid','Waarom controleert de assistent alleen bij het opstellen?','Een ontvangen bericht verander je niet. Wat je zelf schrijft, kun je nog verbeteren. Bij publicatie maakt XENA een toegankelijke weergave.'],
   ['Adresboek','Moet ik in het gemeentelijk adresboek?','Nee, opname is vrijwillig. Je kiest zelf welke velden je deelt en kunt je vermelding altijd intrekken.']];
-var HGLOSS=[['Bedenktijd','De tien dagen waarin je een bericht zakelijk of persoonlijk maakt, en je keuze nog kunt herzien.'],['Zakelijk','Een bericht dat bij het werk hoort. Het komt in het archief en kan onder de Woo vallen.'],['Persoonlijk','Een privébericht, versleuteld met je eigen sleutel en buiten het zoekbereik voor de Woo.'],['Register','Waar ELSA van elk bericht de metagegevens bijhoudt: aard, zaak, dossier, classificatie en rechten.'],['Objectopslag','Waar de berichten zelf staan, één keer en onveranderlijk.'],['Regel','Een afspraak die metagegevens zet zodra een bericht binnenkomt: van de organisatie, het team of jezelf.'],['Sieve','De standaard voor filters bij aflevering in de postbus. In ELSA schrijft ELSA het script zelf.'],['Woo-categorie','Een wettelijke categorie van stukken die uit zichzelf openbaar worden gemaakt.'],['Informatiebeheerder','Beheert de regels van de organisatie en beoordeelt verzoeken om een zakelijk bericht persoonlijk te maken.'],['Office Assistent','Hetzelfde paneel in mailprogramma en kantoorpakket. ELSA is de module voor e-mailarchivering.']];
+var HGLOSS=[['Anonimiseren','Persoonsgegevens vervangen door plaatshouders, in een eigen weergave naast het origineel.'],['Waarmerk','Een elektronisch zegel of handtekening die vastlegt dat een bericht op een moment authentiek en ongewijzigd is.'],['Bedenktijd','De tien dagen waarin je een bericht zakelijk of persoonlijk maakt, en je keuze nog kunt herzien.'],['Zakelijk','Een bericht dat bij het werk hoort. Het komt in het archief en kan onder de Woo vallen.'],['Persoonlijk','Een privébericht, versleuteld met je eigen sleutel en buiten het zoekbereik voor de Woo.'],['Register','Waar ELSA van elk bericht de metagegevens bijhoudt: aard, zaak, dossier, classificatie en rechten.'],['Objectopslag','Waar de berichten zelf staan, één keer en onveranderlijk.'],['Regel','Een afspraak die metagegevens zet zodra een bericht binnenkomt: van de organisatie, het team of jezelf.'],['Sieve','De standaard voor filters bij aflevering in de postbus. In ELSA schrijft ELSA het script zelf.'],['Woo-categorie','Een wettelijke categorie van stukken die uit zichzelf openbaar worden gemaakt.'],['Informatiebeheerder','Beheert de regels van de organisatie en beoordeelt verzoeken om een zakelijk bericht persoonlijk te maken.'],['Office Assistent','Hetzelfde paneel in mailprogramma en kantoorpakket. ELSA is de module voor e-mailarchivering.']];
 function helpView(){
   var hq=(S.hq||'').trim().toLowerCase(),F=HFAQ.filter(function(q){return !hq||[q[0],q[1],q[2],t(q[0]),t(q[1]),t(q[2])].join(' ').toLowerCase().indexOf(hq)>=0});
   return '<div class="win"><div class="page help"><div><h2>'+esc(t('Help'))+'</h2><p class="lead">'+esc(t('Wat je in elke weergave ziet, een route om te proberen, veelgestelde vragen en de begrippen.'))+'</p></div>'
@@ -1367,9 +1484,10 @@ var A={
   pick:function(e){S.modal.to=e.dataset.v;S.modal.focus='c-sj';render()},
   send:function(){var m=S.modal;['to','sj','bd'].forEach(function(k){var el=document.getElementById('c-'+k);if(el)m[k]=el.value});
     if(!m.to||m.to.indexOf('@')<0){toast(t('Vul een e-mailadres in.'));return}
+    var F=S.client!=='oln'?accFind(m):[];if(F.length&&!m.ask){m.ask=F.length;m.focus='c-bd';w(wt('Toegankelijkheid')+': '+wt('{0} bevindingen',F.length)+' · '+wt('vraag aan de medewerker voor verzenden'));render();return}
     var g=GAB.filter(function(r){return r[1]===m.to})[0];
     var n=M({id:'s'+Date.now(),folder:'sent',age:0,from:ME,to:[P(g?g[0]:m.to,m.to)],subj:m.sj||'(geen onderwerp)',aard:'zakelijk',sorted:true,body:[m.bd||''],read:true});
-    n.klass='';n.zaak='';n.doss=[];n.woo='';n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
+    n.lit=true;n.klass='';n.zaak='';n.doss=[];n.woo='';n.vertr='Intern';n.enc=false;n.by={};if(F.length){n.acc=F;n.hist.push('Verzonden met open bevindingen over toegankelijkheid')}MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
     w('SMTP → Exchange Online · transport rule → Kafka · '+wt('brug')+' → Nextcloud → register '+n.pid+' · IMAP APPEND "Verzonden items" → '+wt('ontdubbeld op Message-ID'));toast(t('Verzonden. Het bericht staat in ELSA onder Verzonden items.'));render()},
   flow:function(){clearTimeout(S.flowT);var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;S.flow={step:-1,mv:false};
     var go=function(){if(S.view!=='flow'||!S.flow)return;var prev=S.flow.step;S.flow.step++;S.flow.mv=prev>=0;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();
@@ -1400,15 +1518,33 @@ var A={
   gcopy:function(e){try{navigator.clipboard.writeText(e.dataset.v)}catch(x){}toast(t('Adres gekopieerd.'))},
   gfav:function(e){var v=e.dataset.v;if(S.fav[v])delete S.fav[v];else S.fav[v]=true;w('PUT /elsa/me/favorieten → 204 · '+wt('verwijzing naar de vermelding, geen kopie'));toast(t(S.fav[v]?'Toegevoegd aan je favorieten.':'Uit je favorieten gehaald.'));render()},
   pane:function(){S.pane=!S.pane;render()},
+  ansub:function(e){S.an.sub=e.dataset.v;var m=BY[S.sel];w(S.an.sub==='bron'?'GET /register/objects/'+(m?m.pid:'')+'/weergaven?soort=geanonimiseerd → '+wt('voorvertoning'):'POST /assistent/v1/capability/persoonsgegevens-signaleren → '+wt('alleen lezen')+' · '+wt('geen gebeurtenis'));render()},
+  anppl:function(e){S.an.ppl=+e.dataset.v;var m=BY[S.sel];if(m)AM(m).rev={};render()},
+  antog:function(e){var m=BY[S.sel];if(!m)return;var a=AM(m),p=anItems(m).filter(function(x){return x.id===e.dataset.id})[0];if(!p)return;a.rev[p.id]=!anDec(m,p);a.exp=p.id;render();var c=document.getElementById('anc-'+p.id);if(c)c.scrollIntoView({block:'nearest'})},
+  anrev:function(e){A.antog(e)},
+  anexp:function(e){var a=AM(BY[S.sel]);a.exp=a.exp===e.dataset.id?null:e.dataset.id;render()},
+  anoff:function(e){var m=BY[S.sel],a=AM(m),id=e.dataset.id,p=anItems(m).filter(function(x){return x.id===id})[0];if(!p)return;a.ok=false;if(p.man){a.man=a.man.filter(function(x){return x.id!==id});a.exp=null}else a.on[id]=!p.on;render()},
+  anok:function(){var m=BY[S.sel],a=AM(m),n=anItems(m).filter(function(p){return p.on}).length;a.ok=true;m.hist.push('Anonimiseren bevestigd');w('POST /register/objects/'+m.pid+'/weergaven → 201 · '+wt('geanonimiseerde weergave')+' · '+wt('{0} plaatshouders',n)+' · '+wt('origineel ongewijzigd'));toast(t('Bevestigd. De geanonimiseerde weergave staat naast het origineel.'));render()},
+  anadd:function(){var m=BY[S.sel],a=AM(m),ty=document.getElementById('an-ty').value,id='x'+(a.man.length+1);a.man.push({id:id,t:a.pick.t,soort:ty});a.pick=null;a.ok=false;a.exp=id;render();var c=document.getElementById('anc-'+id);if(c)c.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})},
+  anpickx:function(){AM(BY[S.sel]).pick=null;render()},
+  wzd:function(e){S.wzd=S.wzd===e.dataset.v?null:e.dataset.v;render()},
+  vtreq:function(){w('POST /register/requests → 201 · '+wt('verlaging van de vertrouwelijkheid')+' · '+wt('besluit van een bevoegde functionaris'));toast(t('Verzoek om verlaging ingediend. Een bevoegde functionaris beslist.'))},
+  wmby:function(e){S.wmby=e.dataset.v;render()},
+  wmgo:function(){var m=BY[S.sel],by=S.wmby||'org',who=by==='mw'?ME.name:by==='afd'?t(ME.team):t(ME.org);m.wm={by:by,who:who,at:now().toISOString()};m.hist.push('Gewaarmerkt');w('POST /register/objects/'+m.pid+'/waarmerk → 202 · '+(by==='org'?wt('gekwalificeerd elektronisch zegel'):by==='afd'?wt('zegel van de afdeling'):wt('geavanceerde elektronische handtekening'))+' · '+wt('omvat de EML en {0} bijlagen op vaste versie',m.atts.length)+' · '+wt('tijdstempel'));toast(t('Gewaarmerkt.'));render()},
+  accdemo:function(){S.modal={to:'',sj:'',bd:t('BELANGRIJK: de stukken voor het overleg staan klaar. Klik hier om ze te openen. De wijzigingen staan in het rood.'),focus:'c-to'};render()},
+  accfix:function(e){var m=S.modal,el=document.getElementById('c-bd');if(el)m.bd=el.value;var sj=document.getElementById('c-sj');if(sj)m.sj=sj.value;
+    if(e.dataset.v==='link')m.bd=m.bd.replace(new RegExp('(klik hier|'+t('klik hier')+')[^.]*','ig'),function(x){var r=t('open de stukken voor het overleg');return x.charAt(0)===x.charAt(0).toUpperCase()?r.charAt(0).toUpperCase()+r.slice(1):r});
+    if(e.dataset.v==='caps')m.bd=m.bd.replace(/\b([A-ZÀ-Ý])([A-ZÀ-Ý]{4,})\b/g,function(_,a,b){return a+b.toLowerCase()});
+    m.ask=0;m.focus='c-bd';w(wt('Toegankelijkheid')+': '+wt('hersteld in het concept'));render()},
   mtab:function(){toast(t('In de demo werkt alleen de balk die je ziet; de andere tabbladen en menu\'s zijn er voor de herkenning.'))},
   nyi:function(){toast(t('Deze knop staat er voor de herkenning. In de demo doet hij niets.'))},
   pmreg:function(){S.pane=true;S.pm='reg';render()},
   pmgab:function(){S.pane=true;S.pm='gab';render()},
   unread:function(){var m=BY[S.sel];if(!m)return;m.read=!m.read;m.stay=!m.read;w('IMAP UID STORE '+(MAILS.indexOf(m)+101)+(m.read?' +':' -')+'FLAGS (\\Seen) · '+wt('leesstatus staat alleen in de IMAP-server, niet in het register'));render()},
   flagit:function(){var m=BY[S.sel];if(!m)return;m.flag=!m.flag;w('IMAP UID STORE '+(MAILS.indexOf(m)+101)+(m.flag?' +':' -')+'FLAGS (\\Flagged)');render()},
-  reply:function(e){var m=BY[S.sel];if(!m)return;var all=e.dataset.act==='replyall',to=m.folder==='sent'?m.to[0].mail:m.from.mail;S.modal={to:to+(all&&m.to.length>1?', '+m.to.filter(function(p){return p.mail!==ME.mail}).map(function(p){return p.mail}).join(', '):''),sj:(/^re:/i.test(m.subj)?'':'Re: ')+t(m.subj),bd:'',focus:'c-bd'};render()},
+  reply:function(e){var m=BY[S.sel];if(!m)return;var all=e.dataset.act==='replyall',to=m.folder==='sent'?m.to[0].mail:m.from.mail;S.modal={to:to+(all&&m.to.length>1?', '+m.to.filter(function(p){return p.mail!==ME.mail}).map(function(p){return p.mail}).join(', '):''),sj:(/^re:/i.test(m.subj)?'':'Re: ')+(m.lit?m.subj:t(m.subj)),bd:'',focus:'c-bd'};render()},
   replyall:function(e){A.reply(e)},
-  forward:function(){var m=BY[S.sel];if(!m)return;S.modal={to:'',sj:'Fw: '+t(m.subj),bd:'\n\n---------- '+t('Doorgestuurd bericht')+' ----------\n'+m.from.name+' <'+m.from.mail+'>\n'+t(m.subj)+'\n\n'+m.body.map(t).join('\n'),focus:'c-to'};render()},
+  forward:function(){var m=BY[S.sel];if(!m)return;S.modal={to:'',sj:'Fw: '+(m.lit?m.subj:t(m.subj)),bd:'\n\n---------- '+t('Doorgestuurd bericht')+' ----------\n'+m.from.name+' <'+m.from.mail+'>\n'+(m.lit?m.subj:t(m.subj))+'\n\n'+(m.lit?m.body:m.body.map(t)).join('\n'),focus:'c-to'};render()},
   client:function(e){S.client=e.dataset.v;if(S.client==='ncm'||S.client==='rc'){w(S.client==='ncm'?'Nextcloud Mail: IMAP '+wt('uit ELSA')+' · '+wt('Nextcloud-app van de Office Assistent in de zijbalk, via de integratielaag'):'Roundcube: IMAP '+wt('uit ELSA')+' · '+wt('plugin van de Office Assistent, via de integratielaag'));render();return}w(S.client==='tb'?'Thunderbird: IMAP + '+wt('adapter van de Office Assistent, via de integratielaag'):S.client==='olc'?wt('Outlook (klassiek)')+': IMAP + '+wt('COM-adapter van de Office Assistent, via de integratielaag')+' · '+wt('labels als lokale categorieën'):wt('Nieuwe Outlook')+': IMAP · '+wt('geen invoegtoepassing mogelijk bij een IMAP-account'));render()},
   web:function(){toast(t('In het echte systeem opent hier de webmail van ELSA, met hetzelfde paneel.'))},
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';
@@ -1426,6 +1562,15 @@ document.addEventListener('keydown',function(ev){var e=ev.target;
   if(ev.key==='Escape'&&S.rdlg){S.rdlg=null;render();return}
   if(ev.key==='Escape'&&S.modal){S.modal=null;render()}});
 var lkT=null;
+document.addEventListener('mouseup',function(ev){var m=BY[S.sel];if(S.pm!=='anon'||!S.pane||!m||m.aard==='persoonlijk'||!ev.target.closest||!ev.target.closest('.read-p .msg'))return;
+  var sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return;var rg=sel.getRangeAt(0),root=document.querySelector('.read-p .msg'),wk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,o='',seen=[],L=anItems(m);
+  while((n=wk.nextNode())){if(!rg.intersectsNode(n))continue;var pl=n.parentElement&&n.parentElement.closest('.plh');
+    if(pl){if(seen.indexOf(pl)<0){seen.push(pl);var it=L.filter(function(p){return p.id===pl.getAttribute('data-id')})[0];o+=it?it.t:n.nodeValue}continue}
+    var v=n.nodeValue,a=n===rg.startContainer?rg.startOffset:0,z=n===rg.endContainer?rg.endOffset:v.length;o+=v.slice(a,z)}
+  var x=o.replace(/\s+/g,' ').trim();if(x.length<2||x.length>200)return;
+  var hit=L.filter(function(p){return p.t===x})[0];S.an.sub='bron';
+  if(hit){AM(m).exp=hit.id;AM(m).pick=null;render();var c=document.getElementById('anc-'+hit.id);if(c)c.scrollIntoView({block:'center'});toast(t(hit.on?'Dit staat al in de lijst en is geanonimiseerd.':'Dit staat al in de lijst. Kies Toch anonimiseren.'));return}
+  AM(m).pick={t:x,soort:anGuess(x)};AM(m).exp=null;render();var pk=document.getElementById('an-pick');if(pk)pk.scrollIntoView({block:'center'});if(seen.length)toast(t('Je selectie loopt over een plaatshouder heen. De assistent neemt het origineel daarachter mee.'))});
 function lkFocus(){var f=document.getElementById('lk-'+S.lk.k);if(f){f.focus();var n=f.value.length;f.setSelectionRange(n,n)}}
 document.addEventListener('submit',function(ev){if(ev.target.id!=='rform')return;ev.preventDefault();var r=Object.assign({},S.nr),err=rCheck(r,'mij');
   if(err){w('POST /register/regels → 422 · '+t(err));toast(t(err));render();return}
@@ -1445,6 +1590,7 @@ document.addEventListener('input',function(ev){var e=ev.target;
   if(e.id==='apq'){S.gq=e.value;S.gsel=null;var n=e.selectionStart;w(S.gq?'CardDAV REPORT addressbook-query /gab/ (FN, TITLE, ORG contains "'+S.gq+'")':'—');render();var a=document.getElementById('apq');if(a){a.focus();a.setSelectionRange(n,n)}return}
   if(e.id==='gabq'){S.gabq=e.value;render();var g=document.getElementById('gabq');g.focus();g.setSelectionRange(e.value.length,e.value.length);return}
   if(e.id==='nr-v'||e.id==='nr-arg'&&e.tagName==='INPUT'){S.nr[e.dataset.nr]=e.value;var id=e.id,p=e.selectionStart;render();var x=document.getElementById(id);if(x){x.focus();x.setSelectionRange(p,p)}return}
+  if((e.id==='c-bd'||e.id==='c-sj')&&S.modal){S.modal[e.id==='c-bd'?'bd':'sj']=e.value;S.modal.ask=0;var bx=document.getElementById('c-acc');if(bx){var tmp=document.createElement('div');tmp.innerHTML=accBox(S.modal);bx.replaceWith(tmp.firstChild)}return}
   if(e.id==='c-to'){S.modal.to=e.value;S.modal.sj=(document.getElementById('c-sj')||{}).value||S.modal.sj;S.modal.bd=(document.getElementById('c-bd')||{}).value||S.modal.bd;S.modal.focus='c-to';render()}});
 document.addEventListener('change',function(ev){var e=ev.target;
   if(e.dataset&&e.dataset.rd&&S.rdlg){var d=S.rdlg.d,k=e.dataset.rd;if(e.type==='checkbox'){d.on=e.checked;return}if(e.tagName==='INPUT')return;d[k]=e.value;if(k==='act'){d.arg=rDefArg(e.value)}S.rdlg.focus=e.id;render();return}

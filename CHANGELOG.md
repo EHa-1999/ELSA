@@ -2,6 +2,14 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 20 · 21-10-2026
+- Vier assistenten erbij in het paneel, gelijk aan de e-mail in de demo over de Office Assistent:
+  - Anonimiseren: Signaleren toont de vindplaatsen in kop en tekst met zekerheid en voorstel; Bij de bron toont het bericht met plaatshouders, per niveau te bekijken, per item te de-anonimiseren of te laten staan, en zelf aan te vullen door tekst te selecteren (ook over een plaatshouder heen). Bevestigen voegt een geanonimiseerde weergave toe naast het origineel; de EML blijft ongewijzigd.
+  - Classificeren: vier vragen (persoonsgegevens, vertrouwelijkheid, bewaring, openbaarmaking), elk met Wie zegt dat?. Een bron kan ook een regel zijn.
+  - Waarmerken: namens medewerker, afdeling of organisatie, over de EML en de vaste versies van de bijlagen. Bij ontvangen berichten met de herkomst bij ontvangst (DKIM en SPF).
+  - Toegankelijkheid: bij het opstellen, in het venster Nieuw bericht. Onderwerp, linkteksten, hoofdletters en kleur; herstellen met een knop, en bij verzenden één vraag als er iets openstaat. Een ontvangen bericht wordt niet gewijzigd.
+- Persoonlijke berichten vallen buiten deze assistenten. Architectuur, Techniek en Help zijn bijgewerkt.
+
 ## Versie 19 · 21-10-2026
 - In de demobalk staat het woord Mailprogramma nu altijd direct voor de keuzes, ook als de balk over twee regels loopt.
 
