@@ -160,6 +160,23 @@ svg{display:block;flex:none}
 .rf{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;align-items:end;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface2)}
 pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:pre}
 .rules{display:grid;gap:8px}
+.rl{display:grid;gap:6px;grid-template-columns:minmax(0,1fr);padding:0;margin:0;list-style:none}
+.rc{border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:grid;gap:4px;background:var(--surface);min-width:0}
+.rc.off{opacity:.62}
+.rc .r1{display:flex;gap:6px;align-items:center;min-width:0}.rc .r1 b{flex:1;min-width:0;font-size:12.5px;overflow-wrap:anywhere}
+.rc .rt{font-size:12.5px;overflow-wrap:anywhere}
+.rc .rk{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.rc .tgl{font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:99px;background:var(--surface2)}
+.rc .tgl[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+.rc .x{width:22px;height:22px;border:1px solid var(--line);border-radius:6px;background:var(--surface);line-height:1}
+.rf1{display:grid;gap:8px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--surface2)}
+.rf1 .r2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+.rf1 .btn{justify-self:start}
+.rtest{display:grid;gap:4px;border:1px dashed var(--accent);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.rtest ul{display:grid;gap:4px}.rtest li{display:grid;font-size:12.5px}.rtest li small{color:var(--muted);font-size:11.5px}
+.rtest .ck{display:flex;gap:6px;align-items:flex-start;font-size:12.5px}
+.rsrc{display:flex;gap:5px;align-items:flex-start;font-size:11.5px;color:var(--blue,var(--accent));margin-top:3px}.rsrc svg{flex:none;margin-top:1px}
+.tt.pol td.c,.tt.pol th.c{text-align:center}.tt.pol .ok{color:var(--green);display:inline-flex}.tt.pol .no{color:var(--red);font-size:12px}
 .lim{display:grid;gap:6px;font-size:13px}.lim li{display:flex;gap:8px;align-items:flex-start}
 
 /* adresboek */
@@ -353,6 +370,7 @@ function fmtT(d){d=new Date(d);return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fmtDT(d){return fmtD(d)+' '+fmtT(d)}
 function hex(n,seed){var s=Math.floor(seed||Math.random()*1e9)%2147483648,o='';for(var i=0;i<n;i++){s=(s*48271+12345)%2147483647;o+='0123456789abcdef'[s%16]}return o}
 var IC={
+  rule:'<path d="M4 5h16l-6.2 7.2V18l-3.6 2v-7.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
   mail:'<rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 7l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
   inbox:'<path d="M3.5 13.5l2.5-8h12l2.5 8v5h-17z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 13.5h5l1 2h5l1-2h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
   sent:'<path d="M3.5 11.5L20.5 4l-6.5 16-2.5-6.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
@@ -403,7 +421,7 @@ function wooOf(m){if(m.zaak&&WOOSRC[m.zaak])return {c:WOOSRC[m.zaak],src:m.zaak,
 function addD(d,n){return new Date(d.getTime()+n*DAY)}
 function wooHtml(m){var w=wooOf(m),h='<div class="fld"><label for="f-woo">'+esc(t('Woo-categorie'))+'</label>';
   if(w&&w.k!=='hand')h+='<div class="ro">'+esc(t(w.c))+'</div><p class="hint">'+esc(t(w.k==='zaak'?'Overgenomen van zaak {0}. Een zaak of dossier met een Woo-categorie gaat voor op een eigen keuze.':'Overgenomen van dossier {0}. Een zaak of dossier met een Woo-categorie gaat voor op een eigen keuze.',w.src))+'</p>';
-  else h+='<select id="f-woo" data-f="woo"><option value="">'+esc(t('Geen categorie: alleen openbaar op verzoek'))+'</option>'+WOOCAT.map(function(c){return '<option value="'+esc(c)+'"'+(m.woo===c?' selected':'')+'>'+esc(t(c))+'</option>'}).join('')+'</select><p class="hint">'+esc(t('Kies zelf, of koppel het bericht aan een zaak of dossier met een categorie. Die gaat dan voor.'))+'</p>';
+  else h+='<select id="f-woo" data-f="woo"><option value="">'+esc(t('Geen categorie: alleen openbaar op verzoek'))+'</option>'+WOOCAT.map(function(c){return '<option value="'+esc(c)+'"'+(m.woo===c?' selected':'')+'>'+esc(t(c))+'</option>'}).join('')+'</select>'+(m.by&&m.by.woo?rSrc(m,'woo'):'')+'<p class="hint">'+esc(t('Kies zelf, of koppel het bericht aan een zaak of dossier met een categorie. Die gaat dan voor.'))+'</p>';
   h+='</div><div class="fld"><span>'+esc(t('Openbaar maken'))+'</span>';
   if(!w)return h+'<div class="ro">'+esc(t('Niet uit zichzelf. Wel vindbaar bij een Woo-verzoek.'))+'</div></div>';
   var r=recvd(m),pub=addD(r,14),bt=until(m),sent=m.folder==='sent';
@@ -466,7 +484,7 @@ var MAILS=[
 ];
 MAILS.forEach(function(m){m.aard=m.aard||null;m.klass=m.klass||(m.sug&&m.sug.klass)||'';m.woo='';m.zaak=m.dos===2?'Z-2026-006233':m.id==='m12'?'Z-2026-004502':'';m.doss=m.dos===1?['P-2026-031']:m.dos===3?['W-2026-014']:m.id==='m11'?['B-2026-007']:[];m.vertr=m.vertr||'Intern';m.enc=!!m.enc;
   m.atts.forEach(function(a,i){a.pid='nl.haarlem.io:'+hex(4,m.id.length*97+i*11)+'-'+hex(4,i*7919+m.age*13)+'-'+hex(4,m.id.charCodeAt(1)+i)})});
-var BY={};MAILS.forEach(function(m){BY[m.id]=m});
+var BY={};MAILS.forEach(function(m){BY[m.id]=m;m.by={}});
 
 var GAB=[
  ['Noor Bakker','noor.bakker@haarlem.gemeente.org','Gemeente Haarlem','Juridische Zaken','Woo-coördinator','023 555 0141'],
@@ -480,8 +498,12 @@ var GAB=[
 var ORGS=['Gemeente Haarlem','Gemeente Zandvoort','Gemeente Bloemendaal','Gemeente Velsen','Gemeente Heemstede'];
 
 var S={view:'post',client:'olc',pane:true,pm:'ber',folder:'inbox',sel:'m1',q:'',skip:0,share:{name:true,mail:true,org:true,team:true,func:true,phone:false},inGab:false,
-  rules:[{id:'r1',f:'from',op:'contains',v:'omgevingsloket',act:'fileinto',arg:'Postvak IN',ok:true},{id:'r2',f:'subject',op:'contains',v:'Houtplein',act:'fileinto',arg:'Houtplein',ok:true}],
-  nr:{f:'from',op:'contains',v:'',act:'fileinto',arg:'Houtplein'},
+  rl:[{id:'o1',lvl:'org',n:'Omgevingsloket',tn:true,f:'from',op:'contains',v:'omgevingsloket',act:'klass',arg:'verg',on:true},
+    {id:'o2',lvl:'org',n:'Woo-postbus',tn:true,f:'to',op:'is',v:'woo@haarlem.gemeente.org',act:'woo',arg:'Woo-verzoeken en -besluiten',on:true},
+    {id:'t1',lvl:'team',n:'Overleg Zuid-Kennemerland',tn:true,f:'from',op:'contains',v:'zandvoort.gemeente.org',act:'dos',arg:'O-2026-003',on:true},
+    {id:'p1',lvl:'mij',n:'Projectplan',tn:true,f:'subject',op:'contains',v:'projectplan',act:'map',arg:'houtplein',on:true},
+    {id:'p2',lvl:'mij',n:'Nieuwsbrieven',tn:true,f:'from',op:'contains',v:'nieuwsbrief',act:'klass',arg:'bedr',on:false}],
+  nr:{f:'from',op:'contains',v:'',act:'klass',arg:'verg',all:true},
   flow:null,role:'mw',reqs:[{id:'q1',by:'Juridische Zaken',who:'R. Hendriks (oud-medewerker)',why:'Onderzoek naar een klacht over integriteit. De persoonlijke berichten kunnen zakelijke berichten bevatten die ten onrechte als persoonlijk zijn aangemerkt.',per:'01-03-2026 tot 30-06-2026',state:'open'}],
   keylog:[{t:'2026-06-02T10:14',who:'Gemeentesecretaris',what:'Sleutelbeleid vastgesteld: alleen de gemeentesecretaris geeft toegang, voor een omschreven periode en reden.'}],
   gabq:'',modal:null,pz:0,awayFrom:null,rq:null,ireqs:[{id:'i1',mine:false,by:'Pieter de Boer',subj:'Afscheidscadeau voor Ans',date:'2026-09-14T09:12',why:'Ik was op vakantie. Het gaat om een inzameling onder collega\'s, niet over werk.',state:'open'}],colo:false,lk:{k:null,q:'',i:0,busy:false},gq:'',gorg:'',gsel:null,gme:false,fav:{'noor.bakker@haarlem.gemeente.org':true},
@@ -544,7 +566,7 @@ function until(m){return new Date(recvd(m).getTime()+(WINDOW+pz())*DAY)}
 function inWindow(m){return left(m)>0&&!m.gone}
 function choiceHtml(m){
   if(!m.aard||open(m))return '';var z=m.aard==='zakelijk',w=inWindow(m),b=z?revertBlock(m):'';
-  var h='<div class="ch"><div class="chh"><span class="pill '+(z?'p-green':'p-violet')+'">'+esc(t(z?'Zakelijk':'Persoonlijk'))+'</span><span>'+esc(m.auto?t('na tien dagen automatisch'):t('door jou gekozen'))+'</span></div>';
+  var h='<div class="ch"><div class="chh"><span class="pill '+(z?'p-green':'p-violet')+'">'+esc(t(z?'Zakelijk':'Persoonlijk'))+'</span><span>'+esc(m.auto?t('na tien dagen automatisch'):m.by&&m.by.aard&&rById(m.by.aard)?t('door {0}',rName(rById(m.by.aard))):t('door jou gekozen'))+'</span></div>';
   if(w)h+='<p class="chd">'+ic('clock',13)+'<span>'+esc(t('Herzien kan tot {0}.',fmtD(until(m))))+(S.awayFrom!=null?' '+esc(t('De bedenktijd staat stil zolang je afwezig bent.')):'')+'</span></p>';
   if(!z)return h+'<button type="button" class="btn sm" data-act="aard" data-v="zakelijk">'+esc(t('Toch zakelijk'))+'</button><p class="hint">'+esc(w?t('Zakelijk maken kan altijd: dan komt het bericht in het archief, met de sleutel van de gemeente.'):t('Zakelijk maken kan ook na de bedenktijd: dan komt het bericht alsnog in het archief.'))+'</p></div>';
   return h+revertBody(m,b)+'</div>';
@@ -573,12 +595,12 @@ function elsaBar(m){
   }else if(pers){
     h+='<p class="hint">'+esc(t('Versleuteld met jouw persoonlijke sleutel. Alleen jij kunt het lezen. Toegang voor iemand anders kan alleen de gemeentesecretaris geven, en dat wordt vastgelegd.'))+'</p>';
   }else{
-    h+='<div class="meta"><div class="fld"><label for="f-klass">'+esc(t('Classificatie'))+'</label><select id="f-klass" data-f="klass"><option value="">'+esc(t('Kies'))+'</option>'+Object.keys(CLASSES).map(function(k){return '<option value="'+k+'"'+(m.klass===k?' selected':'')+'>'+esc(t(CLASSES[k]))+'</option>'}).join('')+'</select></div>'
+    h+='<div class="meta"><div class="fld"><label for="f-klass">'+esc(t('Classificatie'))+'</label><select id="f-klass" data-f="klass"><option value="">'+esc(t('Kies'))+'</option>'+Object.keys(CLASSES).map(function(k){return '<option value="'+k+'"'+(m.klass===k?' selected':'')+'>'+esc(t(CLASSES[k]))+'</option>'}).join('')+'</select>'+rSrc(m,'klass')+'</div>'
       +lkSug(m)
-      +'<div class="fld"><label for="lk-zaak">'+esc(t('Zaak'))+'</label><div class="lkd">'+(m.zaak?lkChip('zaak',m.zaak):lookup('zaak'))+'</div><p class="hint">'+esc(t('De zaak komt uit het zaaksysteem, dat leidend blijft. ELSA legt alleen de koppeling vast, als kenmerk.'))+'</p></div>'
-      +'<div class="fld"><label for="lk-dos">'+esc(t('Dossiers'))+'</label><div class="lkd">'+m.doss.map(function(d){return lkChip('dos',d)}).join('')+lookup('dos')+'</div><p class="hint">'+esc(t('Een bericht kan in meer dossiers zitten. Het dossier verwijst naar het bericht; er wordt niets gekopieerd.'))+'</p></div>'
+      +'<div class="fld"><label for="lk-zaak">'+esc(t('Zaak'))+'</label><div class="lkd">'+(m.zaak?lkChip('zaak',m.zaak):lookup('zaak'))+'</div>'+rSrc(m,'zaak')+'<p class="hint">'+esc(t('De zaak komt uit het zaaksysteem, dat leidend blijft. ELSA legt alleen de koppeling vast, als kenmerk.'))+'</p></div>'
+      +'<div class="fld"><label for="lk-dos">'+esc(t('Dossiers'))+'</label><div class="lkd">'+m.doss.map(function(d){return lkChip('dos',d)}).join('')+lookup('dos')+'</div>'+m.doss.map(function(d){return rSrc(m,'dos:'+d)}).join('')+'<p class="hint">'+esc(t('Een bericht kan in meer dossiers zitten. Het dossier verwijst naar het bericht; er wordt niets gekopieerd.'))+'</p></div>'
       +wooHtml(m)
-      +'<div class="fld"><label for="f-vertr">'+esc(t('Vertrouwelijkheid'))+'</label><select id="f-vertr" data-f="vertr">'+VERTR.map(function(v){return '<option value="'+v+'"'+(m.vertr===v?' selected':'')+'>'+esc(t(v))+'</option>'}).join('')+'</select></div>'
+      +'<div class="fld"><label for="f-vertr">'+esc(t('Vertrouwelijkheid'))+'</label><select id="f-vertr" data-f="vertr">'+VERTR.map(function(v){return '<option value="'+v+'"'+(m.vertr===v?' selected':'')+'>'+esc(t(v))+'</option>'}).join('')+'</select>'+rSrc(m,'vertr')+'</div>'
       +'<div class="fld"><span>'+esc(t('Bewaartermijn'))+'</span><div class="ro">'+esc(m.klass?t(m.klass==='bedr'?'1 jaar na ontvangst':m.klass==='proj'?'Blijvend bewaren':'10 jaar na afsluiting'):t('Volgt uit de classificatie'))+'</div></div></div>'
       +(!m.klass?'<div class="note n-amber">'+ic('warn')+'<span>'+esc(t('Vul de classificatie aan. Daarmee ligt de bewaartermijn vast en is het bericht terug te vinden voor een Woo-verzoek.'))+'</span></div>':'')
       +(m.vertr==='Vertrouwelijk'&&!m.enc?'<div class="note n-violet">'+ic('lock')+'<span>'+esc(t('Vertrouwelijk betekent versleuteld in de opslag.'))+'</span> <button type="button" class="btn sm" data-act="encrypt">'+esc(t('Versleutelen'))+'</button></div>':'')
@@ -597,7 +619,7 @@ function readHtml(){
   if(lockedPers)h+='<div class="enc">'+ic('lock',18)+'<span>'+esc(t('Dit bericht is opgeslagen met jouw persoonlijke sleutel. In de opslag is het onleesbaar, ook voor beheerders.'))+'</span></div>';
   return h+'</article></div>';
 }
-var PM=[['ovz','Overzicht','inbox'],['ber','Dit bericht','mail'],['gab','Adresboek','book'],['help','Help','info']];
+var PM=[['ovz','Overzicht','inbox'],['ber','Dit bericht','mail'],['reg','Regels','rule'],['gab','Adresboek','book'],['help','Help','info']];
 function gabAll(){var L=GAB.map(function(r){return {n:r[0],m:r[1],o:r[2],t:r[3],f:r[4],p:r[5]||''}});
   if(S.inGab){var sh=S.share;L.unshift({n:ME.name,m:ME.mail,o:sh.org?ME.org:'',t:sh.team?ME.team:'',f:sh.func?ME.func:'',p:sh.phone?ME.phone:'',me:true})}return L}
 function place(o){return o?o.replace('Gemeente ',''):''}
@@ -635,15 +657,15 @@ function apOvz(){
   var L=MAILS.filter(function(m){return !m.gone&&open(m)}).sort(function(a,b){return left(a)-left(b)}),nk=MAILS.filter(function(m){return !m.gone&&m.aard==='zakelijk'&&!m.klass}).length;
   return '<div class="apb"><h4>'+esc(t('Nog te scheiden'))+' <b>'+L.length+'</b></h4>'+(L.length?'<ul class="apl">'+L.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(l<=2?'p-red':'p-amber')+'">'+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Alles is gescheiden.'))+'</p>')
     +'<div class="gme">'+ic('clock',18)+'<div><b>'+esc(t('Afwezigheid'))+'</b><span>'+esc(t(S.awayFrom!=null?'Aan: de bedenktijd staat stil':'Uit'))+'</span></div><button type="button" class="btn" data-act="away" aria-pressed="'+(S.awayFrom!=null)+'">'+esc(t(S.awayFrom!=null?'Ik ben terug':'Ik ben afwezig'))+'</button></div><p class="hint">'+esc(t('Zet je een afwezigheidsbericht aan, dan telt de bedenktijd niet door. Zo wordt niets zakelijk terwijl je weg bent.'))+'</p>'
-    +(function(){var R=MAILS.filter(function(m){return !m.gone&&m.aard&&!open(m)&&!m.auto&&inWindow(m)}).sort(function(a,b){return left(a)-left(b)});return '<h4>'+esc(t('Gekozen, nog te herzien'))+' <b>'+R.length+'</b></h4>'+(R.length?'<ul class="apl">'+R.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(m.aard==='zakelijk'?'p-green':'p-violet')+'">'+esc(t(m.aard==='zakelijk'?'Zakelijk':'Persoonlijk'))+' · '+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Niets om te herzien.'))+'</p>')})()
+    +(function(){var R=MAILS.filter(function(m){return !m.gone&&m.aard&&!open(m)&&!m.auto&&inWindow(m)}).sort(function(a,b){return left(a)-left(b)});return '<h4>'+esc(t('Gekozen, nog te herzien'))+' <b>'+R.length+'</b></h4>'+(R.length?'<ul class="apl">'+R.map(function(m){var l=left(m);return '<li><button type="button" data-act="sel" data-id="'+m.id+'"><span>'+esc(t(m.subj))+'</span><span class="pill '+(m.aard==='zakelijk'?'p-green':'p-violet')+'">'+esc(t(m.aard==='zakelijk'?'Zakelijk':'Persoonlijk'))+(m.by&&m.by.aard?' · '+esc(t('regel')):'')+' · '+esc(l===1?t('1 dag'):t('{0} dagen',l))+'</span></button></li>'}).join('')+'</ul>':'<p class="hint">'+esc(t('Niets om te herzien.'))+'</p>')})()
     +'<h4>'+esc(t('Zakelijk, nog zonder classificatie'))+' <b>'+nk+'</b></h4><p class="hint">'+esc(t('Na tien dagen wordt een bericht zakelijk. Vul daarna de classificatie aan, zodat de bewaartermijn vastligt.'))+'</p></div>';
 }
 function apHelp(){
-  return '<div class="apb"><p>'+esc(t('Dit is de Office Assistent in de mailomgeving, met de module E-mailarchivering. Het is dezelfde assistent als in de kantoorpakketten. Hij roept ELSA aan via de integratielaag en werkt naast IMAP, niet in plaats daarvan.'))+'</p><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('Thunderbird: als extensie met een eigen paneel.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Webmail van ELSA: ingebouwd.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Outlook (klassiek) op Windows: als COM-invoegtoepassing met een eigen paneel. Labels worden lokale categorieën.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Nieuwe Outlook en Outlook op het web met een IMAP-account: geen paneel. Scheiden gaat dan door te verplaatsen naar de map Persoonlijk.'))+'</span></li></ul><h4>'+esc(t('Adresboek'))+'</h4><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('In het paneel: zoeken, een bericht beginnen en je eigen vermelding beheren, in elk mailprogramma met de assistent.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Thunderbird kan het adresboek ook zelf ophalen via CardDAV, zodat namen aanvullen bij het typen werkt.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Outlook kent geen CardDAV. Daar is het adresboek alleen te gebruiken via het paneel of de webmail.'))+'</span></li></ul></div>';
+  return '<div class="apb"><p>'+esc(t('Dit is de Office Assistent in de mailomgeving, met de module E-mailarchivering. Het is dezelfde assistent als in de kantoorpakketten. Hij roept ELSA aan via de integratielaag en werkt naast IMAP, niet in plaats daarvan.'))+'</p><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('Thunderbird: als extensie met een eigen paneel.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Webmail van ELSA: ingebouwd.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Outlook (klassiek) op Windows: als COM-invoegtoepassing met een eigen paneel. Labels worden lokale categorieën.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Nieuwe Outlook en Outlook op het web met een IMAP-account: geen paneel. Scheiden gaat dan door te verplaatsen naar de map Persoonlijk.'))+'</span></li></ul><h4>'+esc(t('Adresboek'))+'</h4><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('In het paneel: zoeken, een bericht beginnen en je eigen vermelding beheren, in elk mailprogramma met de assistent.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Thunderbird kan het adresboek ook zelf ophalen via CardDAV, zodat namen aanvullen bij het typen werkt.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Outlook kent geen CardDAV. Daar is het adresboek alleen te gebruiken via het paneel of de webmail.'))+'</span></li></ul><h4>'+esc(t('Regels'))+'</h4><ul class="lim"><li>'+ic('check')+'<span>'+esc(t('In het paneel, voor je eigen postbus. Je ziet er ook de regels van de organisatie en je team.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Regels in Outlook of filters in Thunderbird zelf werken alleen als het programma openstaat, en niet op je telefoon. Gebruik liever het paneel.'))+'</span></li></ul></div>';
 }
 function assistPanel(m){
-  if(S.client==='oln')return '<aside class="ap off" aria-label="'+esc(t('Assistent'))+'"><div class="apb"><h3>'+esc(t('Geen assistent in de nieuwe Outlook'))+'</h3><p>'+esc(t('De nieuwe Outlook en Outlook op het web laden webinvoegtoepassingen alleen bij een Microsoft-account, en COM-invoegtoepassingen werken daar niet. Wat dan wel werkt:'))+'</p><ul class="lim"><li>'+ic('folder')+'<span>'+esc(t('Persoonlijk maken door het bericht naar de map Persoonlijk te slepen.'))+'</span></li><li>'+ic('clock')+'<span>'+esc(t('Een dagelijks overzicht van ELSA met de berichten die nog gescheiden moeten worden.'))+'</span></li><li>'+ic('mail')+'<span>'+esc(t('Metagegevens aanvullen in de webmail van ELSA.'))+'</span></li><li>'+ic('book')+'<span>'+esc(t('Het gemeentelijk adresboek gebruiken in de webmail van ELSA. De nieuwe Outlook kent geen CardDAV.'))+'</span></li></ul><button type="button" class="btn" data-act="web">'+esc(t('Open ELSA in de browser'))+'</button></div></aside>';
-  var tab=S.pm,body=tab==='ovz'?apOvz():tab==='help'?apHelp():tab==='gab'?apGab():(m&&!m.gone?elsaBar(m):'<p class="hint apb">'+esc(t('Kies een bericht.'))+'</p>');
+  if(S.client==='oln')return '<aside class="ap off" aria-label="'+esc(t('Assistent'))+'"><div class="apb"><h3>'+esc(t('Geen assistent in de nieuwe Outlook'))+'</h3><p>'+esc(t('De nieuwe Outlook en Outlook op het web laden webinvoegtoepassingen alleen bij een Microsoft-account, en COM-invoegtoepassingen werken daar niet. Wat dan wel werkt:'))+'</p><ul class="lim"><li>'+ic('folder')+'<span>'+esc(t('Persoonlijk maken door het bericht naar de map Persoonlijk te slepen.'))+'</span></li><li>'+ic('clock')+'<span>'+esc(t('Een dagelijks overzicht van ELSA met de berichten die nog gescheiden moeten worden.'))+'</span></li><li>'+ic('mail')+'<span>'+esc(t('Metagegevens aanvullen in de webmail van ELSA.'))+'</span></li><li>'+ic('book')+'<span>'+esc(t('Het gemeentelijk adresboek gebruiken in de webmail van ELSA. De nieuwe Outlook kent geen CardDAV.'))+'</span></li><li>'+ic('rule')+'<span>'+esc(t('Regels beheren in de webmail van ELSA. Ze werken ook hier, want ze draaien bij het register.'))+'</span></li></ul><button type="button" class="btn" data-act="web">'+esc(t('Open ELSA in de browser'))+'</button></div></aside>';
+  var tab=S.pm,body=tab==='ovz'?apOvz():tab==='help'?apHelp():tab==='gab'?apGab():tab==='reg'?apReg():(m&&!m.gone?elsaBar(m):'<p class="hint apb">'+esc(t('Kies een bericht.'))+'</p>');
   return '<aside class="ap" aria-label="'+esc(t('Assistent'))+'"><div class="apm"><div class="aph">'+ic(PM.filter(function(p){return p[0]===tab})[0][2])+'<div><h3>'+esc(t(PM.filter(function(p){return p[0]===tab})[0][1]))+'</h3><p>'+esc(t('Office Assistent · E-mailarchivering'))+'</p></div></div>'+body+'</div>'
     +'<nav class="apr" aria-label="'+esc(t('Onderdelen van de assistent'))+'">'+PM.map(function(p){var n=p[0]==='ovz'?MAILS.filter(function(x){return !x.gone&&open(x)}).length:0;return '<button type="button" data-act="pm" data-v="'+p[0]+'" aria-selected="'+(tab===p[0])+'" title="'+esc(t(p[1]))+'" aria-label="'+esc(t(p[1]))+'">'+ic(p[2],18)+(n?'<i>'+n+'</i>':'')+'</button>'}).join('')+'</nav></aside>';
 }
@@ -665,9 +687,10 @@ var FLOW=[
  ['Brug naar Nextcloud','Een kleine dienst leest het bericht uit Kafka, kijkt in het register of de Message-ID er al is en pakt het uit: kop, tekst en bijlagen.',91,'consumer elsa-bridge · Message-ID nieuw · ParseEML → ExtractAttachments (2)'],
  ['Nextcloud','De brug schrijft het bericht en de bijlagen weg zoals een medewerker een bestand opslaat. Vanaf hier loopt een bericht langs dezelfde weg als een bestand op een netwerkschijf.',176,'PUT /remote.php/dav/files/elsa/mail-haarlem/… (3) → 201'],
  ['Register','Nextcloud maakt eerst het record in het register aan. Het bericht en elke bijlage krijgen een eigen identificatie; de aard is nog open.',254,'POST /register/objects → 201 · 3 objecten · aard: nog te scheiden · termijn 10 dagen'],
+ ['Regels','Het register voert de regels uit: van de organisatie, het team en de medewerker. Wat een regel zet, krijgt de regel als bron en valt onder de bedenktijd.',301,'regels o1, o2, t1, p2 · o1 van toepassing · classificatie: verg · aard: zakelijk · bron: regel o1'],
  ['Objectopslag','Nextcloud schrijft de inhoud via S3 weg en meldt het versie-id terug aan het register.',388,'PUT s3://mail-haarlem/urn:oid:… → 200 · versie-id terug · Object Lock: nog niet (eerst scheiden)'],
  ['Zoekindex','De zoekindex volgt het register. Onderwerp, tekst en bijlagen worden doorzoekbaar, alleen voor wie toegang heeft.',611,'index mail-haarlem · 3 documenten · rechten: postbuseigenaar'],
- ['IMAP','Het register meldt het nieuwe bericht aan de IMAP-server. Die zet het in Postvak IN, met een verwijzing naar het object.',734,'* 14 EXISTS · * 1 RECENT · Sieve: regel 1 toegepast (fileinto "INBOX")']];
+ ['IMAP','Het register meldt het nieuwe bericht aan de IMAP-server. Die zet het in Postvak IN, met een verwijzing naar het object.',734,'* 14 EXISTS · * 1 RECENT · Sieve (gegenereerd): geen regel bij aflevering · INBOX']];
 function flowView(){
   var f=S.flow,run=!!f,st=f?f.step:-1;
   return '<div class="win"><div class="page"><h2>'+esc(t('Doorstroom van een bericht'))+'</h2><p class="lead">'+esc(t('Elk bericht gaat via Exchange Online en Kafka naar een kleine brug, die het in Nextcloud wegschrijft. Daarna loopt het langs dezelfde weg als een bestand op een netwerkschijf. Binnen een seconde staat het in het register, in de objectopslag en in de zoekindex. In Exchange blijft geen kopie achter.'))+'</p>'
@@ -676,36 +699,108 @@ function flowView(){
     +'<div class="note n-grey">'+ic('info')+'<span>'+esc(t('Ook verzonden berichten lopen via deze route. Het mailprogramma bewaart daarnaast zelf een kopie in Verzonden items via IMAP. ELSA herkent de dubbele aan de Message-ID en bewaart het bericht één keer.'))+'</span></div></div></div></div>';
 }
 
-/* ---------- filters ---------- */
-var FLD={from:'Afzender',subject:'Onderwerp',to:'Ontvanger'},OPS={contains:'bevat',is:'is gelijk aan'};
-var ACTS={fileinto:'Verplaats naar map',addflag:'Markeer',redirect:'Stuur door naar',vacation:'Afwezigheidsbericht',discard:'Gooi weg'};
-function ruleCheck(r){
-  if(r.act==='discard')return 'Weggooien is niet toegestaan: een zakelijk bericht moet bewaard blijven. Verplaats het naar een map.';
-  if(r.act==='fileinto'&&/persoonlijk/i.test(r.arg))return 'Een filter mag niet naar Persoonlijk verplaatsen. Of een bericht persoonlijk is, kies je zelf, per bericht.';
-  if(r.act==='redirect'&&!/@[a-z]+\.gemeente\.org$/i.test(r.arg||''))return 'Doorsturen mag alleen naar een adres van een aangesloten gemeente.';
-  if(!r.v)return 'Vul in waarop het filter moet letten.';
-  return '';
-}
+/* ---------- regels ---------- */
+var RLV=[['org','Organisatie','Vastgesteld door de informatiebeheerder. Geldt voor iedereen.'],['team','Team Vergunningen','Beheerd door de teamleider. Geldt voor het team en de functionele postbus.'],['mij','Persoonlijk','Alleen voor jouw postbus. Je beheert ze zelf.']];
+var RF={from:'Afzender',to:'Ontvanger',subject:'Onderwerp',body:'Tekst'},ROP={contains:'bevat',is:'is gelijk aan'};
+/* soort: m = metagegevens in het register, d = bij aflevering in de IMAP-server, x = kan niet */
+var RA={zak:['Zakelijk maken','m'],klass:['Classificatie','m'],zaak:['Koppel aan zaak','m'],dos:['Koppel aan dossier','m'],vertr:['Vertrouwelijkheid','m'],woo:['Woo-categorie','m'],
+  map:['Verplaats naar map','d'],flag:['Markeer','d'],fwd:['Stuur door naar een collega','d'],
+  pers:['Persoonlijk maken','x'],del:['Weggooien','x'],ext:['Doorsturen naar buiten de gemeenten','x']};
+var RPOL={org:['zak','klass','zaak','dos','vertr','woo'],team:['zak','klass','zaak','dos','map','flag','fwd'],mij:['zak','klass','zaak','dos','map','flag','fwd']};
+var RWHY={pers:'Een regel mag een bericht niet persoonlijk maken. Anders verdwijnen met één regel grote aantallen archiefstukken uit het zicht. Of een bericht persoonlijk is, kies je zelf.',
+  del:'Weggooien kan niet met een regel: een zakelijk bericht blijft bewaard. Verplaats het naar een map.',
+  ext:'Doorsturen naar buiten de aangesloten gemeenten kan niet met een regel. Zo lekt er niets ongemerkt weg.',
+  vertr:'Vertrouwelijkheid zet alleen de organisatie met een regel.',woo:'Een Woo-categorie zet alleen de organisatie met een regel. Zelf kies je hem per bericht, of hij komt van de zaak of het dossier.',
+  dlv:'Een regel van de organisatie raakt de mappen van medewerkers niet. Mappen zijn een persoonlijke ordening.'};
+function rById(id){return S.rl.filter(function(r){return r.id===id})[0]}
+function rLvl(k){return RLV.filter(function(l){return l[0]===k})[0]}
+function rCheck(r,lvl){
+  if(RA[r.act][1]==='x')return RWHY[r.act];
+  if(RPOL[lvl].indexOf(r.act)<0)return RWHY[r.act]||RWHY.dlv;
+  if(r.act==='fwd'&&!/@[a-z]+\.gemeente\.org$/i.test((r.arg||'').trim()))return RWHY.ext;
+  if(!(r.v||'').trim())return 'Vul in waarop de regel moet letten.';
+  return ''}
+function rHay(m,f){return f==='from'?[m.from.name,m.from.mail]:f==='to'?m.to.reduce(function(a,p){return a.concat([p.name,p.mail])},[]):f==='subject'?[m.subj]:[m.body.join(' ')]}
+function rMatch(r,m){var v=(r.v||'').trim().toLowerCase();if(v.length<2)return false;
+  return rHay(m,r.f).some(function(x){x=String(x).toLowerCase();return r.op==='is'?x===v:x.indexOf(v)>=0})}
+function rArg(r){var a=r.arg;return r.act==='klass'?t(CLASSES[a]):r.act==='zaak'?a+' · '+t((zaakOf(a)||['',''])[1]):r.act==='dos'?a+' · '+t((dosOf(a)||['',''])[1]):r.act==='map'?t((FOLDERS.filter(function(f){return f[0]===a})[0]||['',a])[1]):r.act==='vertr'||r.act==='woo'?t(a):a||''}
+function rDesc(r){var f=t(RF[r.f]);return t('Als {0} {1} “{2}”',LANG==='de'?f:f.toLowerCase(),t(ROP[r.op]),r.v)}
+function rThen(r){var a=rArg(r);return t(RA[r.act][0])+(a?': '+a:'')}
+function rName(r){return t('regel “{0}”',r.tn?t(r.n):r.n||r.v)+' ('+t(rLvl(r.lvl)[1])+')'}
+function rPool(){return MAILS.filter(function(m){return !m.gone&&m.folder!=='pers'})}
+/* wat een regel met een bericht zou doen; leeg als er niets verandert */
+function rEffect(r,m){var k=RA[r.act][1],o=[];if(m.aard==='persoonlijk')return '';
+  if(k==='d')return t('alleen bij nieuwe berichten');
+  if(!m.aard)o.push(t('wordt zakelijk'));
+  if(r.act==='klass'&&m.klass!==r.arg&&(!m.klass||!m.sorted||(m.by&&m.by.klass)))o.push(t('classificatie {0}',t(CLASSES[r.arg])));
+  if(r.act==='zaak'&&!m.zaak)o.push(t('zaak {0}',r.arg));
+  if(r.act==='dos'&&m.doss.indexOf(r.arg)<0)o.push(t('dossier {0}',r.arg));
+  if(r.act==='vertr'&&m.vertr!==r.arg)o.push(t('vertrouwelijkheid {0}',t(r.arg)));
+  if(r.act==='woo'&&!m.woo)o.push(t('Woo-categorie {0}',t(r.arg)));
+  return o.join(', ')}
+function rApply(r,m){if(m.aard==='persoonlijk'||RA[r.act][1]!=='m')return false;var ch=false;m.by=m.by||{};
+  if(!m.aard){m.aard='zakelijk';m.sorted=true;m.by.aard=r.id;ch=true}
+  if(r.act==='klass'&&m.klass!==r.arg&&(!m.klass||!m.sorted||m.by.klass)){m.klass=r.arg;m.by.klass=r.id;ch=true}
+  if(r.act==='zaak'&&!m.zaak){m.zaak=r.arg;m.by.zaak=r.id;ch=true}
+  if(r.act==='dos'&&m.doss.indexOf(r.arg)<0){m.doss.push(r.arg);m.by['dos:'+r.arg]=r.id;ch=true}
+  if(r.act==='vertr'&&m.vertr!==r.arg){m.vertr=r.arg;m.by.vertr=r.id;ch=true}
+  if(r.act==='woo'&&!m.woo){m.woo=r.arg;m.by.woo=r.id;ch=true}
+  if(ch)m.hist.push('Aangevuld door een regel');return ch}
+function rSrc(m,k){var id=m.by&&m.by[k],r=id&&rById(id);if(!r)return '';
+  return '<p class="rsrc">'+ic('rule',13)+'<span>'+esc(t('Gezet door {0}.',rName(r)))+(inWindow(m)?' '+esc(t('Herzien kan tot {0}.',fmtD(until(m)))):'')+'</span></p>'}
 function sieve(){
-  var L=['require ["fileinto","imap4flags","vacation"];',''];
-  S.rules.forEach(function(r){if(r.all){L.push('vacation :days 1 "'+t(r.arg)+'";');return}var c='if header :'+r.op+' "'+r.f+'" "'+r.v+'" {';L.push(c);
-    L.push(r.act==='fileinto'?'  fileinto "'+(r.arg==='Postvak IN'?'INBOX':r.arg)+'";':r.act==='addflag'?'  addflag "\\\\Flagged";':r.act==='redirect'?'  redirect "'+r.arg+'";':r.act==='vacation'?'  vacation :days 1 "'+r.arg+'";':'  discard;');L.push('}')});
-  return L.join('\n');
-}
+  var R=S.rl.filter(function(r){return r.on&&RA[r.act][1]==='d'&&r.lvl!=='org'}),body=R.some(function(r){return r.f==='body'});
+  var L=['# '+t('Gegenereerd door ELSA uit de regels in het register. Niet met de hand wijzigen.'),'require ["fileinto","imap4flags","vacation"'+(body?',"body"':'')+'];',''];
+  R.forEach(function(r){var c=r.f==='body'?'body :text :'+r.op+' "'+r.v+'"':r.f==='subject'?'header :'+r.op+' "subject" "'+r.v+'"':'address :'+r.op+' "'+r.f+'" "'+r.v+'"';
+    L.push('# '+r.id+' · '+t(rLvl(r.lvl)[1]));L.push('if '+c+' {');
+    L.push(r.act==='map'?'  fileinto "'+t((FOLDERS.filter(function(f){return f[0]===r.arg})[0]||['',r.arg])[1])+'";':r.act==='flag'?'  addflag "\\\\Flagged";':'  redirect :copy "'+r.arg+'";');L.push('}')});
+  if(S.awayFrom!=null)L.push('vacation :days 1 "'+t('Ik ben afwezig. Je bericht wordt na mijn terugkomst gelezen.')+'";');
+  if(!R.length&&S.awayFrom==null)L.push('# '+t('Geen regels bij aflevering.'));
+  return L.join('\n')}
+function regLines(){return S.rl.filter(function(r){return RA[r.act][1]==='m'}).map(function(r){return r.id+'  '+r.lvl+(r.on?'':'  (off)')+'\n  ON message.received IF '+r.f+' '+r.op.toUpperCase()+' "'+r.v+'"\n  THEN SET '+(r.act==='zak'?'aard = "zakelijk"':r.act+' = "'+r.arg+'"')+(r.act!=='zak'?', aard = "zakelijk"':'')+'\n  SOURCE rule:'+r.id+'  REVIEW bedenktijd'}).join('\n\n')}
+function rCard(r,edit){var k=RA[r.act][1],n=rPool().filter(function(m){return rMatch(r,m)}).length;
+  return '<li class="rc'+(r.on?'':' off')+'"><div class="r1"><b>'+esc(rDesc(r))+'</b>'
+    +(edit?'<button type="button" class="tgl" data-act="rtog" data-id="'+r.id+'" aria-pressed="'+r.on+'">'+esc(t(r.on?'Actief':'Inactief'))+'</button><button type="button" class="x" data-act="rdel" data-id="'+r.id+'" title="'+esc(t('Verwijderen'))+'" aria-label="'+esc(t('Verwijderen'))+'">×</button>':'<span class="pill p-grey">'+esc(t(r.on?'Actief':'Inactief'))+'</span>')+'</div>'
+    +'<span class="rt">→ '+esc(rThen(r))+'</span><span class="rk"><span class="pill '+(k==='m'?'p-blue':'p-grey')+'">'+esc(t(k==='m'?'Register':'Aflevering'))+'</span><span>'+esc(n===1?t('past op 1 bericht'):t('past op {0} berichten',n))+'</span></span></li>'}
+function rArgField(nr){var a=nr.act,sel=function(L,val,lab){return '<select id="nr-arg" data-nr="arg">'+L.map(function(x){return '<option value="'+esc(x[0])+'"'+(nr.arg===x[0]?' selected':'')+'>'+esc(lab(x))+'</option>'}).join('')+'</select>'};
+  if(a==='klass')return sel(Object.keys(CLASSES).map(function(k){return [k]}),0,function(x){return t(CLASSES[x[0]])});
+  if(a==='zaak')return sel(ZAKEN,0,function(x){return x[0]+' · '+t(x[1])});
+  if(a==='dos')return sel(DOSSIERS,0,function(x){return x[0]+' · '+t(x[1])});
+  if(a==='vertr')return sel(VERTR.map(function(v){return [v]}),0,function(x){return t(x[0])});
+  if(a==='woo')return sel(WOOCAT.map(function(v){return [v]}),0,function(x){return t(x[0])});
+  if(a==='map')return sel(FOLDERS.filter(function(f){return f[0]!=='pers'&&f[0]!=='sent'}),0,function(x){return t(x[1])});
+  if(a==='fwd'||a==='ext')return '<input id="nr-arg" data-nr="arg" value="'+esc(nr.arg||'')+'" autocomplete="off" placeholder="'+esc(t('naam@gemeente.org'))+'">';
+  return '<div class="ro">—</div>'}
+function rDefArg(a){return a==='klass'?'verg':a==='zaak'?ZAKEN[0][0]:a==='dos'?DOSSIERS[0][0]:a==='vertr'?'Intern':a==='woo'?WOOCAT[0]:a==='map'?'houtplein':''}
+function apReg(){
+  var nr=S.nr,err=(nr.v||'').trim()||RA[nr.act][1]==='x'?rCheck(nr,'mij'):'',P=rPool(),H=!err&&(nr.v||'').trim().length>=2?P.filter(function(m){return rMatch(nr,m)}):null;
+  var h='<div class="apb"><p class="hint">'+esc(t('Een regel zet metagegevens zodra een bericht binnenkomt. Hij draait bij het register, niet in je mailprogramma, en werkt dus overal. Wat een regel zet, kun je binnen de bedenktijd herzien, net als je eigen keuze.'))+'</p>';
+  RLV.forEach(function(l){var R=S.rl.filter(function(r){return r.lvl===l[0]});
+    h+='<h4>'+esc(t(l[1]))+' <b>'+R.length+'</b></h4><p class="hint">'+esc(t(l[2]))+'</p>'+(R.length?'<ul class="rl">'+R.map(function(r){return rCard(r,l[0]==='mij')}).join('')+'</ul>':'')});
+  var opt=function(k){return '<option value="'+k+'"'+(nr.act===k?' selected':'')+'>'+esc(t(RA[k][0]))+'</option>'},grp=function(lab,kind){return '<optgroup label="'+esc(t(lab))+'">'+Object.keys(RA).filter(function(k){return RA[k][1]===kind}).map(opt).join('')+'</optgroup>'};
+  h+='<h4>'+esc(t('Nieuwe regel'))+'</h4><form class="rf1" id="rform">'
+    +'<div class="fld"><label for="nr-f">'+esc(t('Als'))+'</label><div class="r2"><select id="nr-f" data-nr="f">'+Object.keys(RF).map(function(k){return '<option value="'+k+'"'+(nr.f===k?' selected':'')+'>'+esc(t(RF[k]))+'</option>'}).join('')+'</select><select id="nr-op" data-nr="op" aria-label="'+esc(t('Voorwaarde'))+'">'+Object.keys(ROP).map(function(k){return '<option value="'+k+'"'+(nr.op===k?' selected':'')+'>'+esc(t(ROP[k]))+'</option>'}).join('')+'</select></div></div>'
+    +'<div class="fld"><label for="nr-v">'+esc(t('Tekst'))+'</label><input id="nr-v" data-nr="v" value="'+esc(nr.v)+'" autocomplete="off" placeholder="'+esc(t('bijvoorbeeld bloemendaal.gemeente.org'))+'"></div>'
+    +'<div class="fld"><label for="nr-act">'+esc(t('Dan'))+'</label><select id="nr-act" data-nr="act">'+grp('In het register','m')+grp('Bij aflevering','d')+grp('Kan niet','x')+'</select></div>'
+    +'<div class="fld"><label for="nr-arg">'+esc(t('Waarde'))+'</label>'+rArgField(nr)+'</div>'
+    +(err?'<div class="note n-red">'+ic('warn')+'<span>'+esc(t(err))+'</span></div>':'');
+  if(H){var mt=RA[nr.act][1]==='m';
+    h+='<div class="rtest"><b>'+esc(t('Getest op je berichten'))+'</b><span class="hint">'+esc(t('{0} van de {1} berichten voldoen.',H.length,P.length))+'</span>'
+      +(H.length?'<ul>'+H.slice(0,5).map(function(m){var e=rEffect(nr,m);return '<li><span>'+esc(t(m.subj))+'</span><small>'+esc(e||(m.aard==='persoonlijk'?t('persoonlijk: de regel raakt het niet'):t('al zo, verandert niet')))+'</small></li>'}).join('')+'</ul>'+(H.length>5?'<span class="hint">'+esc(t('en nog {0}',H.length-5))+'</span>':''):'')
+      +(mt?'<label class="ck" for="nr-all"><input type="checkbox" id="nr-all" data-nr="all"'+(nr.all?' checked':'')+'>'+esc(t('Ook toepassen op berichten die nog binnen de bedenktijd vallen'))+'</label>':'<span class="hint">'+esc(t('Een regel bij aflevering geldt alleen voor nieuwe berichten. ELSA schrijft er het Sieve-script voor.'))+'</span>')+'</div>'}
+  h+='<button class="btn pri" type="submit"'+(err||!H?' disabled':'')+'>'+esc(t('Regel aanzetten'))+'</button></form>'
+    +'<button type="button" class="linkbtn" data-act="view" data-v="filt">'+esc(t('Hoe regels werken'))+'</button></div>';
+  return h}
 function filterView(){
-  var nr=S.nr,err=nr.v||nr.act==='discard'||nr.arg?ruleCheck(nr):'';
-  var argF=nr.act==='fileinto'?'<select id="nr-arg" data-nr="arg">'+FOLDERS.map(function(f){return '<option'+(nr.arg===f[1]?' selected':'')+' value="'+f[1]+'">'+esc(t(f[1]))+'</option>'}).join('')+'</select>'
-    :nr.act==='addflag'||nr.act==='discard'?'<div class="hint">—</div>':'<input id="nr-arg" data-nr="arg" value="'+esc(nr.arg||'')+'" autocomplete="off">';
-  return '<div class="win"><div class="page"><h2>'+esc(t('Filters (Sieve)'))+'</h2><p class="lead">'+esc(t('Filters draaien in ELSA zelf, op het moment dat een bericht binnenkomt. Ze werken dus in elk mailprogramma en op elk apparaat. Sommige acties zijn niet toegestaan, omdat ze de scheiding tussen zakelijk en persoonlijk zouden omzeilen.'))+'</p>'
-    +'<div class="cols"><div style="display:grid;gap:12px"><div class="rules">'+S.rules.map(function(r,i){return '<div class="rule"><div class="r1"><b>'+esc(r.all?t('Altijd, zolang je afwezig bent'):t('Als {0} {1} "{2}"',(LANG==='de'?t(FLD[r.f]):t(FLD[r.f]).toLowerCase()),t(OPS[r.op]),r.v))+'</b>'+(r.all?'':'<button type="button" class="linkbtn" data-act="rdel" data-i="'+i+'">'+esc(t('Verwijderen'))+'</button>')+'</div><span class="hint">'+esc(t(ACTS[r.act]))+(r.arg?': '+esc(r.act==='fileinto'||r.all?t(r.arg):r.arg):'')+'</span></div>'}).join('')+'</div>'
-    +'<form class="rf" id="rform"><div class="fld"><label for="nr-f">'+esc(t('Als'))+'</label><select id="nr-f" data-nr="f">'+Object.keys(FLD).map(function(k){return '<option value="'+k+'"'+(nr.f===k?' selected':'')+'>'+esc(t(FLD[k]))+'</option>'}).join('')+'</select></div>'
-    +'<div class="fld"><label for="nr-op">'+esc(t('Voorwaarde'))+'</label><select id="nr-op" data-nr="op">'+Object.keys(OPS).map(function(k){return '<option value="'+k+'"'+(nr.op===k?' selected':'')+'>'+esc(t(OPS[k]))+'</option>'}).join('')+'</select></div>'
-    +'<div class="fld"><label for="nr-v">'+esc(t('Tekst'))+'</label><input id="nr-v" data-nr="v" value="'+esc(nr.v)+'" autocomplete="off"></div>'
-    +'<div class="fld"><label for="nr-act">'+esc(t('Dan'))+'</label><select id="nr-act" data-nr="act">'+Object.keys(ACTS).map(function(k){return '<option value="'+k+'"'+(nr.act===k?' selected':'')+'>'+esc(t(ACTS[k]))+'</option>'}).join('')+'</select></div>'
-    +'<div class="fld"><label for="nr-arg">'+esc(t('Waarnaar'))+'</label>'+argF+'</div><div><button class="btn pri" type="submit">'+esc(t('Filter toevoegen'))+'</button></div>'
-    +(err?'<div class="note n-red" style="grid-column:1/-1">'+ic('warn')+'<span>'+esc(t(err))+'</span></div>':'')+'</form>'
-    +'<ul class="lim"><li>'+ic('check')+'<span>'+esc(t('Toegestaan: verplaatsen naar een zakelijke map, markeren, doorsturen binnen de aangesloten gemeenten, een afwezigheidsbericht.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Niet toegestaan: weggooien, verplaatsen naar Persoonlijk, doorsturen naar een adres buiten de gemeenten.'))+'</span></li></ul></div>'
-    +'<div style="display:grid;gap:6px"><h3 class="hint" style="font-weight:600">'+esc(t('Zo staat het in ELSA'))+'</h3><pre class="sv" aria-label="Sieve">'+esc(sieve())+'</pre><p class="hint">'+esc(t('Het mailprogramma kan filters ook zelf beheren via ManageSieve. ELSA toetst elk script voordat het wordt opgeslagen.'))+'</p></div></div></div></div>';
+  var cell=function(lv,k){var x=RA[k][1]==='x',ok=!x&&RPOL[lv].indexOf(k)>=0;return '<td class="c">'+(ok?'<span class="ok">'+ic('check',14)+'</span>':x?'<span class="no">'+esc(t('kan niet'))+'</span>':'<span class="hint">—</span>')+'</td>'};
+  var NOTE={zak:'Veilig: zakelijk maken kan altijd.',zaak:'Zet via de zaak ook de Woo-categorie, als de zaak er een heeft.',dos:'Zet via het dossier ook de Woo-categorie, als het dossier er een heeft.',map:'Een map is een persoonlijke ordening, geen archiefkoppeling.',fwd:'Alleen naar adressen van aangesloten gemeenten.',pers:RWHY.pers,del:RWHY.del,ext:RWHY.ext};
+  return '<div class="win"><div class="page"><h2>'+esc(t('Regels: bij het register, niet in de mailserver'))+'</h2><p class="lead">'+esc(t('Regels beheer je in het paneel van de Office Assistent. Het register voert ze uit zodra een bericht binnenkomt, want de meeste regels zetten metagegevens. Alleen wat bij de aflevering in de postbus moet gebeuren, gaat als Sieve-script naar de IMAP-server. Dat script schrijft ELSA zelf; mailprogramma\'s kunnen het niet wijzigen.'))+'</p>'
+    +'<section class="tgrp"><header><b>'+esc(t('Wat mag op welk niveau'))+'</b><span>'+esc(t('Het beleid stelt de informatiebeheerder vast. Het register toetst elke regel eraan.'))+'</span></header><div class="tw0"><table class="tt pol"><thead><tr><th>'+esc(t('Actie'))+'</th><th>'+esc(t('Werkt op'))+'</th>'+RLV.map(function(l){return '<th class="c">'+esc(t(l[1]))+'</th>'}).join('')+'<th>'+esc(t('Toelichting'))+'</th></tr></thead><tbody>'
+    +Object.keys(RA).map(function(k){var kd=RA[k][1];return '<tr'+(kd==='x'?' class="dim"':'')+'><td><b>'+esc(t(RA[k][0]))+'</b></td><td>'+esc(t(kd==='m'?'metagegevens, in het register':kd==='d'?'aflevering, in de IMAP-server':'—'))+'</td>'+RLV.map(function(l){return cell(l[0],k)}).join('')+'<td>'+esc(NOTE[k]?t(NOTE[k]):'')+'</td></tr>'}).join('')+'</tbody></table></div></section>'
+    +'<div class="cols"><section class="tgrp"><header><b>'+esc(t('Alle regels voor jouw postbus'))+'</b></header><div><ul class="rl">'+S.rl.map(function(r){return '<li class="rc'+(r.on?'':' off')+'"><div class="r1"><span class="pill p-grey">'+esc(t(rLvl(r.lvl)[1]))+'</span><b>'+esc(rDesc(r))+'</b></div><span class="rt">→ '+esc(rThen(r))+'</span></li>'}).join('')+'</ul>'
+    +'<ul class="lim" style="margin-top:10px"><li>'+ic('check')+'<span>'+esc(t('Wat een regel zet, krijgt de regel als bron. Je ziet het bij het veld, en het valt onder dezelfde bedenktijd als je eigen keuze.'))+'</span></li><li>'+ic('check')+'<span>'+esc(t('Een regel vult aan wat leeg is. Wat je zelf hebt gekozen, overschrijft hij niet.'))+'</span></li><li>'+ic('warn')+'<span>'+esc(t('Uitzetten of verwijderen verandert niets aan berichten die de regel al heeft aangevuld.'))+'</span></li></ul></div></section>'
+    +'<div style="display:grid;gap:10px"><div style="display:grid;gap:6px"><h3 class="hint" style="font-weight:600">'+esc(t('Zo staan ze in het register'))+'</h3><pre class="sv" aria-label="'+esc(t('Register'))+'">'+esc(regLines())+'</pre></div>'
+    +'<div style="display:grid;gap:6px"><h3 class="hint" style="font-weight:600">'+esc(t('Zo staat het in de IMAP-server'))+'</h3><pre class="sv" aria-label="Sieve">'+esc(sieve())+'</pre><p class="hint">'+esc(t('ManageSieve staat dicht voor mailprogramma\'s. Een filter dat buiten de assistent om doorstuurt of weggooit, kan dus niet bestaan. Regels in Outlook of Thunderbird zelf werken alleen zolang het programma openstaat.'))+'</p></div></div></div></div></div>';
 }
 
 /* ---------- adresboek ---------- */
@@ -760,7 +855,13 @@ var SEQ=[
   ['dav','De brug schrijft ze in Nextcloud, langs dezelfde weg als een bestand op een netwerkschijf. Nextcloud maakt eerst het record in het register aan.'],
   ['obj','Nextcloud schrijft de inhoud via S3 weg en meldt het versie-id terug. De EML staat er één keer en verandert daarna nooit meer.'],
   ['reg','Het register legt het bericht vast: Message-ID, afzender, ontvangers, datum en de aard "nog te scheiden", met tien dagen bedenktijd. De zoekindex volgt het register.'],
-  ['imap','Het register meldt het nieuwe bericht aan de IMAP-server. Die bewaart geen tweede kopie: hij verwijst naar het object en houdt alleen UID, map en vlaggen bij.']]},
+  ['reg','Het register voert de regels uit, van de organisatie, het team en de medewerker. Wat een regel zet, krijgt de regel als bron en valt onder dezelfde bedenktijd.'],
+  ['imap','Het register meldt het nieuwe bericht aan de IMAP-server. Die bewaart geen tweede kopie: hij verwijst naar het object en houdt alleen UID, map en vlaggen bij. Het Sieve-script dat ELSA uit de regels schrijft, zet het zo nodig in een andere map.']]},
+ {t:'Een regel aanmaken',s:[
+  ['wp','De medewerker maakt in het paneel van de Office Assistent een regel en test hem op haar berichten.'],
+  ['reg','Het register toetst de regel aan het beleid: wat mag op dit niveau, en wat nooit, zoals persoonlijk maken of weggooien.'],
+  ['reg','Een regel op metagegevens wordt in het register bewaard en draait bij elk nieuw bericht. Op verzoek ook voor berichten die nog binnen de bedenktijd vallen.'],
+  ['imap','Voor een regel bij aflevering schrijft ELSA het Sieve-script van de postbus opnieuw. ManageSieve staat dicht voor mailprogramma\'s.']]},
  {t:'Lezen in het mailprogramma',s:[
   ['wp','Outlook of Thunderbird hoort via IMAP IDLE dat er iets nieuws is en vraagt het bericht op.'],
   ['imap','De IMAP-server kent de UID en de map, en haalt de inhoud bij de opslag.'],
@@ -804,8 +905,8 @@ function archView(){
       bx('Brug van Kafka naar Nextcloud','Ontdubbelen, uitpakken en wegschrijven. Geen eigen opslag.'))
     +'</div></div><div class="xconn"><div>'+conn(1,'Lezen en werken: IMAP, WebDAV en API · bekijk de stappen')+'</div><div></div><div>'+conn(0,'Eén keer wegschrijven · bekijk de stappen')+'</div></div>'
     +layer('l4 key','Nextcloud-stack van XENA','Er is één exemplaar van elk bericht. Metagegevens, bewaartermijn en zoekindex gaan zoals bij de netwerkschijven, via het register en de apps rond Nextcloud. Er is geen aparte orchestrator.',
-      bx('Nextcloud','Schrijft elk bericht weg zoals een bestand, en meldt het aan het register')+bx('Register','Metagegevens, aard, zaak en dossiers, rechten. Zet de bewaartermijn op de opslag.')+bx('Objectopslag','Eén EML per bericht, onveranderlijk, met bewaarvergrendeling')+bx('Zoekindex','Volgt het register; alleen zakelijke berichten')+bx('Sleutelkluis','Dossiersleutels en persoonlijke sleutels')
-      +bx('IMAP-server','IMAP4 en ManageSieve: mappen, vlaggen en filters per gebruiker')+bx('Nextcloud Files','WebDAV: zakelijke berichten als bestand, alleen lezen')+bx('CardDAV','Het gemeentelijk adresboek')+bx('API van ELSA','REST, alleen via de integratielaag'))+'</div>';
+      bx('Nextcloud','Schrijft elk bericht weg zoals een bestand, en meldt het aan het register')+bx('Register','Metagegevens, aard, zaak en dossiers, rechten. Voert de regels uit en zet de bewaartermijn op de opslag.')+bx('Objectopslag','Eén EML per bericht, onveranderlijk, met bewaarvergrendeling')+bx('Zoekindex','Volgt het register; alleen zakelijke berichten')+bx('Sleutelkluis','Dossiersleutels en persoonlijke sleutels')
+      +bx('IMAP-server','IMAP4 en Sieve: mappen en vlaggen per gebruiker. Het Sieve-script schrijft ELSA zelf')+bx('Nextcloud Files','WebDAV: zakelijke berichten als bestand, alleen lezen')+bx('CardDAV','Het gemeentelijk adresboek')+bx('API van ELSA','REST, alleen via de integratielaag'))+'</div>';
   var right='<div><h2>'+esc(t('Wat er gebeurt bij een handeling'))+'</h2><p class="lead">'+esc(t('Kies een handeling. De stappen laten zien welk onderdeel wat doet.'))+'</p>'
     +'<div class="gchips" role="group" aria-label="'+esc(t('Handeling'))+'">'+SEQ.map(function(x,i){return '<button type="button" data-act="ah" data-i="'+i+'" aria-pressed="'+(a===i)+'">'+esc(t(x.t))+'</button>'}).join('')+'</div>'
     +'<ol class="sq">'+q.s.map(function(st,i){return '<li><span class="n">'+(i+1)+'</span><div><span class="pill '+LANES[st[0]][1]+'">'+esc(t(LANES[st[0]][0]))+'</span><p>'+esc(t(st[1]))+'</p></div></li>'}).join('')+'</ol>'
@@ -824,6 +925,7 @@ function archView(){
       ['Persoonlijke sleutel in de IMAP-server','Om een persoonlijk bericht te tonen, moet de IMAP-server de sleutel van de gebruiker kunnen gebruiken, en alleen in diens sessie. Dat vraagt een koppeling met de sleutelkluis die nog moet worden ontworpen.'],
       ['Persoonlijk maken na de bedenktijd','Dat is in feite een archiefstuk onttrekken. Het kan alleen op verzoek, met twee beoordelaars, en het register houdt vast dat het bericht bestond. Of dit past binnen de Archiefwet en de selectielijst, moet de archivaris beoordelen.'],
       ['Dubbele berichten','Een verzonden bericht komt twee keer binnen: via de transport rule en als kopie uit het mailprogramma. ELSA ontdubbelt op Message-ID.'],
+      ['Regels en bewaartermijnen','Een regel die een zaak koppelt of een classificatie zet, bepaalt mee de bewaartermijn en soms de Woo-categorie. Daarom krijgt elke waarde de regel als bron en valt ze onder de bedenktijd. Of regels van de organisatie ook zonder bedenktijd mogen gelden, beslist de informatiebeheerder.'],
       ['Andere mailprovider','Vervangt een andere dienst Exchange, dan verandert alleen de aanvoer naar Kafka. Register, opslag en IMAP blijven gelijk.']]
       .map(function(o){return '<div><b>'+esc(t(o[0]))+'</b><span>'+esc(t(o[1]))+'</span></div>'}).join('')+'</div></div></div>';
 }
@@ -852,7 +954,8 @@ var BUILD=[
  ['Brug van Kafka naar Nextcloud','Leest elk bericht uit Kafka, kijkt in het register of de Message-ID er al is, pakt het uit en schrijft de EML en de bijlagen in Nextcloud. Klein, zonder eigen opslag.'],
  ['Melding aan de IMAP-server','Het register meldt elk nieuw bericht aan de IMAP-server, die het in de juiste map zet met een verwijzing naar het object.'],
  ['Controle op volledigheid','Elke dag: alles wat in Kafka stond, staat ook in het register. Dat vervangt de herkomstregistratie die NiFi zou bieden.'],
- ['Toets op filters','Bij elk opgeslagen Sieve-script: geen discard, geen fileinto naar Persoonlijk, redirect alleen binnen de aangesloten gemeenten.'],
+ ['Regels bij het register','Voert bij elk nieuw bericht de regels uit van de organisatie, het team en de medewerker. Toetst elke regel aan het beleid per niveau en legt bij elke waarde de regel vast als bron.'],
+ ['Sieve-script uit de regels','Schrijft per postbus het script voor wat bij aflevering moet gebeuren: map, markering, doorsturen binnen de gemeenten en afwezigheid. ManageSieve staat dicht voor mailprogramma\'s.'],
  ['Sleutel per sessie','De persoonlijke sleutel komt pas vrij na aanmelding, alleen voor de sessie van de eigenaar.'],
  ['Sleutel per object','Elk zakelijk bericht krijgt een eigen sleutel in de sleutelkluis. Zo kan een vergrendelde versie onleesbaar worden gemaakt zonder hem te verwijderen, als een verzoek om hem persoonlijk te maken wordt toegekend.'],
  ['Bedenktijd en afwezigheid','Staat het afwezigheidsbericht aan, dan telt de bedenktijd niet door. De IMAP-server meldt het aan- en uitzetten aan het register.'],
@@ -869,7 +972,7 @@ var MENV=[
  ['Webmail van ELSA','ELSA','ingebouwd','ja','ingebouwd','ingebouwd']];
 var STD=[
  ['IMAP4rev2','RFC 9051','De postbus in het mailprogramma','IMAP-server'],
- ['Sieve en ManageSieve','RFC 5228, RFC 5804','Filters van de medewerker','IMAP-server'],
+ ['Sieve','RFC 5228, RFC 5230','Aflevering: map, markering en afwezigheid, geschreven door ELSA uit de regels','IMAP-server'],
  ['Internet Message Format (EML)','RFC 5322','Het bericht zelf, zoals het wordt bewaard','Objectopslag'],
  ['WebDAV','RFC 4918','Berichten als bestand, in dossiers','Nextcloud Files'],
  ['CardDAV','RFC 6352','Het gemeentelijk adresboek','CardDAV-server'],
@@ -901,7 +1004,7 @@ function techView(){
 /* ---------- groeipad ---------- */
 var GP=[
  {t:'Archief en zoeken',tv:'Eerst, naast de bestaande postbus',see:'Niets in het mailprogramma. De Woo-coördinator zoekt al in het archief, en zakelijke berichten staan in Files.',pf:'Transport rule naar Kafka en de brug naar Nextcloud. Daarna register, objectopslag en zoekindex, zoals bij de netwerkschijven. De app E-mail in Files.',mk:'Niets. Exchange houdt in deze stap nog een kopie in de postbus.',ms:'Alle mail vindbaar voor de Woo, zonder dat iemand anders gaat werken'},
- {t:'Postbus uit ELSA',tv:'Met een proefgroep',see:'Het mailprogramma haalt de mail via IMAP uit ELSA. Scheiden binnen tien dagen. Filters als Sieve.',pf:'De IMAP-server met de opslagkoppeling, de melding vanuit het register, de toets op filters.',mk:'Niets. Voor de proefgroep laat de transport rule geen kopie meer achter.',ms:'Geen kopie meer in Exchange, voor de proefgroep'},
+ {t:'Postbus uit ELSA',tv:'Met een proefgroep',see:'Het mailprogramma haalt de mail via IMAP uit ELSA. Scheiden binnen tien dagen. Regels in het paneel.',pf:'De IMAP-server met de opslagkoppeling, de melding vanuit het register, de regels bij het register en het Sieve-script dat daaruit volgt.',mk:'Niets. Voor de proefgroep laat de transport rule geen kopie meer achter.',ms:'Geen kopie meer in Exchange, voor de proefgroep'},
  {t:'Assistent en adresboek',tv:'De hele gemeente',see:'De Office Assistent in Thunderbird en Outlook (klassiek), met de module E-mailarchivering: scheiden, aanvullen, koppelen aan zaak en dossier. Het gemeentelijk adresboek.',pf:'De API van ELSA achter de integratielaag van de Office Assistent, CardDAV, opzoeken in het register en via de Zaken API.',mk:'Een zaaksysteem dat op omschrijving kan zoeken, of een eigen index van zaken.',ms:'Iedereen over, en andere gemeenten in het adresboek'},
  {t:'Sleutels en openbaarheid',tv:'De hele gemeente',see:'Persoonlijk is versleuteld met een eigen sleutel. Een vergissing na de bedenktijd herstel je met een verzoek aan de informatiebeheerder. Gevonden berichten gaan naar het Woo-dossier en, na beoordeling, naar TINA.',pf:'De sleutelkluis met vrijgave per sessie en een sleutel per object, de procedures van de gemeentesecretaris en de informatiebeheerder, de koppeling met de Woo-dossiers in XENA.',mk:'Niets.',ms:'Persoonlijk is echt persoonlijk; elke zoekslag voor de Woo is na te gaan'},
  {t:'Zonder Exchange',tv:'Later',see:'Niets, als het goed gaat.',pf:'Zelf mail verzenden en ontvangen, met spam- en virusfilter en DKIM, SPF en DMARC. Een agenda via CalDAV.',mk:'Een opvolger voor agenda en vrij/bezet, en mailprogramma\'s die daarmee overweg kunnen.',ms:'Mailprovider vervangen zonder dat het archief verhuist',out:true}
@@ -955,8 +1058,10 @@ function modal(){
 }
 
 /* ---------- weergave ---------- */
-var VIEWS=[['post','Postbus'],['flow','Doorstroom'],['filt','Filters'],['gab','Adresboek'],['keys','Sleutels'],['arch','Architectuur'],['tech','Techniek'],['groei','Groeipad']];
+var VIEWS=[['post','Postbus'],['flow','Doorstroom'],['filt','Regels'],['gab','Adresboek'],['keys','Sleutels'],['arch','Architectuur'],['tech','Techniek'],['groei','Groeipad']];
+var RINIT=false;
 function render(){
+  if(!RINIT){RINIT=true;S.rl.forEach(function(r){if(r.on)rPool().forEach(function(m){if(!m.sorted&&rMatch(r,m))rApply(r,m)})});MAILS.forEach(function(m){m.hist=m.hist.filter(function(x){return x!=='Aangevuld door een regel'});if(m.by.aard)m.hist.push('Aangevuld door een regel bij binnenkomst')})}
   MAILS.forEach(auto);
   document.getElementById('top').innerHTML='<div class="ttl"><h1>ELSA<small>Electronic Letters &amp; Storage Archive</small></h1><div class="sub">'+esc(t('E-mail archiveren in XENA: elk bericht in het register, gewoon lezen in je eigen mailprogramma.'))+' <span>'+esc(t('Versie {0}',DEMO.v))+'</span> · <span>'+esc(DEMO.d)+'</span> · <button type="button" class="linkbtn" data-act="colofon">'+esc(t('Colofon'))+'</button></div></div>'
     +'<div class="seg" role="group" aria-label="'+esc(t('Weergave'))+'">'+VIEWS.map(function(v){return '<button type="button" data-act="view" data-v="'+v[0]+'" aria-pressed="'+(S.view===v[0])+'">'+esc(t(v[1]))+'</button>'}).join('')+'</div>'
@@ -972,10 +1077,10 @@ function render(){
 function w(s){S.wire=s}
 function wt(){return t.apply(null,arguments)}
 var A={
-  view:function(e){S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'ManageSieve GETSCRIPT "elsa" → OK':S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
+  view:function(e){S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'GET /register/regels?postbus=s.devries → '+wt('{0} regels',S.rl.length)+' · '+wt('Sieve-script gegenereerd door ELSA'):S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
   folder:function(e){S.folder=e.dataset.v;S.q='';var L=inFolder(S.folder);S.sel=L.length?L.slice().sort(function(a,b){return a.age-b.age})[0].id:null;w('IMAP SELECT "'+(S.folder==='inbox'?'INBOX':t(FOLDERS.filter(function(f){return f[0]===S.folder})[0][1]))+'" → '+wt('{0} berichten',L.length));render()},
   sel:function(e){var m=BY[e.dataset.id];S.sel=m.id;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;var was=m.read;m.read=true;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+(was?'':' · STORE +FLAGS (\\Seen)'));render()},
-  aard:function(e){var m=BY[S.sel],v=e.dataset.v;if(v==='persoonlijk'&&m.aard==='zakelijk'){var b=revertBlock(m);if(b){toast(t(b==='woo'?'Dit bericht valt onder een lopend Woo-verzoek en kan niet persoonlijk worden.':b==='link'?'Dit bericht is gekoppeld aan een zaak of dossier. Ontkoppel eerst.':'Het bericht is vergrendeld. Persoonlijk maken kan alleen op verzoek, bij de informatiebeheerder.'));render();return}m.hist.push('Binnen de bedenktijd teruggezet naar persoonlijk')}m.aard=v;m.sorted=true;
+  aard:function(e){var m=BY[S.sel],v=e.dataset.v;if(m.by)delete m.by.aard;if(v==='persoonlijk'&&m.aard==='zakelijk'){var b=revertBlock(m);if(b){toast(t(b==='woo'?'Dit bericht valt onder een lopend Woo-verzoek en kan niet persoonlijk worden.':b==='link'?'Dit bericht is gekoppeld aan een zaak of dossier. Ontkoppel eerst.':'Het bericht is vergrendeld. Persoonlijk maken kan alleen op verzoek, bij de informatiebeheerder.'));render();return}m.hist.push('Binnen de bedenktijd teruggezet naar persoonlijk')}m.aard=v;m.sorted=true;
     if(v==='persoonlijk'){m.enc=true;m.folder='pers';m.hist.push('Aangemerkt als persoonlijk en versleuteld');w('IMAP UID MOVE → "Persoonlijk" · '+wt('versleuteld met jouw persoonlijke sleutel')+' · '+wt('buiten het Woo-zoekbereik')+' · '+wt('keuze vastgelegd in het register'));toast(t('Verplaatst naar Persoonlijk en versleuteld. Alleen jij kunt het lezen.'))}
     else{var was=m.folder==='pers';if(was){m.folder='inbox';if(m.vertr!=='Vertrouwelijk')m.enc=false;m.shred=false;m.hist.push('Van persoonlijk naar zakelijk');w('PUT '+m.pid+' → '+wt('ontsleuteld met jouw sleutel, opnieuw opgeslagen met de sleutel van de gemeente')+' · IMAP UID MOVE → INBOX · '+wt('keuze vastgelegd in het register'));toast(t('Zakelijk gemaakt. Het bericht staat weer in Postvak IN en hoort nu bij het archief.'));render();return}
       if(m.sug&&m.sug.klass&&!m.klass)m.klass=m.sug.klass;m.hist.push('Aangemerkt als zakelijk');w('PROPPATCH register '+m.pid+' → '+wt('aard: zakelijk')+' · '+wt('bewaartermijn vastgelegd')+' · '+wt('Object Lock zodra de bedenktijd voorbij is'));toast(t('Vastgelegd als zakelijk. Vul zo nodig de metagegevens aan.'))}
@@ -989,10 +1094,10 @@ var A={
   skip:function(e){S.skip=+e.dataset.v;w(S.skip?wt('Demo: {0} dagen later',S.skip)+' · '+wt('ELSA zet niet-gescheiden berichten na tien dagen op zakelijk'):'—');render()},
   compose:function(){S.modal={to:'',sj:'',bd:''};render()},
   cclose:function(){S.modal=null;render()},
-  away:function(){if(S.awayFrom==null){S.awayFrom=S.skip;S.rules.push({id:'rv',f:'from',op:'contains',v:'',act:'vacation',arg:'Ik ben afwezig. Je bericht wordt na mijn terugkomst gelezen.',ok:true,all:true});
-      w('ManageSieve PUTSCRIPT "elsa" → OK · vacation · '+wt('register: bedenktijd staat stil'));toast(t('Afwezigheidsbericht aan. De bedenktijd van je berichten staat stil tot je terug bent.'))}
-    else{S.pz+=Math.max(0,S.skip-S.awayFrom);S.awayFrom=null;S.rules=S.rules.filter(function(r){return r.id!=='rv'});
-      w('ManageSieve PUTSCRIPT "elsa" → OK · '+wt('register: bedenktijd loopt weer'));toast(t('Welkom terug. De bedenktijd loopt weer.'))}render()},
+  away:function(){if(S.awayFrom==null){S.awayFrom=S.skip;
+      w(wt('Sieve-script opnieuw gegenereerd')+' · vacation · '+wt('register: bedenktijd staat stil'));toast(t('Afwezigheidsbericht aan. De bedenktijd van je berichten staat stil tot je terug bent.'))}
+    else{S.pz+=Math.max(0,S.skip-S.awayFrom);S.awayFrom=null;
+      w(wt('Sieve-script opnieuw gegenereerd')+' · '+wt('register: bedenktijd loopt weer'));toast(t('Welkom terug. De bedenktijd loopt weer.'))}render()},
   rq:function(){S.rq=S.sel;render();var f=document.getElementById('rq-why');if(f)f.focus()},
   rqx:function(){S.rq=null;render()},
   rqsend:function(){var m=BY[S.sel],f=document.getElementById('rq-why'),why=(f&&f.value||'').trim();if(!why){toast(t('Geef een reden op.'));if(f)f.focus();return}
@@ -1013,6 +1118,7 @@ var A={
     else{if(m.doss.indexOf(v)<0)m.doss.push(v);m.hist.push('Opgenomen in een dossier');w('Register: '+wt('verwijzing {0} → {1}',v,m.pid)+' · '+wt('geen kopie'));toast(t('Opgenomen in dossier {0}.',v))}
     S.lk={k:null,q:'',i:0,busy:false};render()},
   lkdel:function(e){var m=BY[S.sel],k=e.dataset.k,v=e.dataset.v;if(!m)return;
+    if(m.by)delete m.by[k==='zaak'?'zaak':'dos:'+v];
     if(k==='zaak'){m.zaak='';w('DELETE /zaken/api/v1/zaakinformatieobjecten/… → 204 · '+wt('kenmerk verwijderd uit het register'))}
     else{m.doss=m.doss.filter(function(d){return d!==v});w('Register: '+wt('verwijzing {0} → {1} ingetrokken',v,m.pid))}
     m.hist.push('Ontkoppeld');toast(t('Ontkoppeld van {0}.',v));render();var f=document.getElementById('lk-'+k);if(f)f.focus()},
@@ -1024,7 +1130,8 @@ var A={
     n.klass='';n.zaak='';n.doss=[];n.woo='';n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
     w('SMTP → Exchange Online · transport rule → Kafka · '+wt('brug')+' → Nextcloud → register '+n.pid+' · IMAP APPEND "Verzonden items" → '+wt('ontdubbeld op Message-ID'));toast(t('Verzonden. Het bericht staat in ELSA onder Verzonden items.'));render()},
   flow:function(){S.flow={step:-1};var go=function(){S.flow.step++;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();if(S.flow.step<FLOW.length-1)setTimeout(go,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450)};go()},
-  rdel:function(e){S.rules.splice(+e.dataset.i,1);w('ManageSieve PUTSCRIPT "elsa" → OK');render()},
+  rdel:function(e){var r=rById(e.dataset.id);if(!r||r.lvl!=='mij')return;S.rl=S.rl.filter(function(x){return x!==r});w('DELETE /register/regels/'+r.id+' → 204'+(RA[r.act][1]==='d'?' · '+wt('Sieve-script opnieuw gegenereerd'):'')+' · '+wt('aangevulde berichten blijven zoals ze zijn'));toast(t('Regel verwijderd. Berichten die hij al heeft aangevuld, blijven zoals ze zijn.'));render()},
+  rtog:function(e){var r=rById(e.dataset.id);if(!r||r.lvl!=='mij')return;r.on=!r.on;w('PATCH /register/regels/'+r.id+' → '+(r.on?wt('actief'):wt('inactief'))+(RA[r.act][1]==='d'?' · '+wt('Sieve-script opnieuw gegenereerd'):''));render()},
   gab:function(e){S.inGab=e.dataset.v==='1';w('CardDAV '+(S.inGab?'PUT':'DELETE')+' /gab/haarlem/s.devries.vcf → '+(S.inGab?'201':'204')+' · '+wt('alleen de gekozen velden'));toast(t(S.inGab?'Je staat in het gemeentelijk adresboek.':'Je vermelding is ingetrokken.'));render()},
   role:function(e){S.role=e.dataset.v;render()},
   ah:function(e){S.ah=+e.dataset.i;w(wt(SEQ[S.ah].t)+' · '+wt('{0} stappen',SEQ[S.ah].s.length));render();var x=document.querySelector('.sq');if(x&&e.closest('.conn'))x.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})},
@@ -1054,9 +1161,13 @@ document.addEventListener('keydown',function(ev){var e=ev.target;
   if(ev.key==='Escape'&&S.modal){S.modal=null;render()}});
 var lkT=null;
 function lkFocus(){var f=document.getElementById('lk-'+S.lk.k);if(f){f.focus();var n=f.value.length;f.setSelectionRange(n,n)}}
-document.addEventListener('submit',function(ev){if(ev.target.id!=='rform')return;ev.preventDefault();var r=Object.assign({},S.nr),err=ruleCheck(r);
-  if(err){w('ManageSieve PUTSCRIPT "elsa" → NO · '+t(err));render();return}
-  r.id='r'+Date.now();S.rules.push(r);S.nr={f:'from',op:'contains',v:'',act:'fileinto',arg:'Houtplein'};w('ManageSieve CHECKSCRIPT → OK · PUTSCRIPT "elsa" → OK');toast(t('Filter toegevoegd.'));render()});
+document.addEventListener('submit',function(ev){if(ev.target.id!=='rform')return;ev.preventDefault();var r=Object.assign({},S.nr),err=rCheck(r,'mij');
+  if(err){w('POST /register/regels → 422 · '+t(err));toast(t(err));render();return}
+  r.id='p'+(S.rl.filter(function(x){return x.lvl==='mij'}).length+1);while(rById(r.id))r.id+='b';r.lvl='mij';r.on=true;r.n=r.v.trim();r.v=r.v.trim();delete r.all;S.rl.push(r);var n=0;
+  if(S.nr.all&&RA[r.act][1]==='m')rPool().forEach(function(m){if(rMatch(r,m)&&(open(m)||inWindow(m))&&rApply(r,m))n++});
+  S.nr={f:'from',op:'contains',v:'',act:'klass',arg:'verg',all:true};
+  w('POST /register/regels → 201 · '+wt('getoetst aan het beleid')+(RA[r.act][1]==='d'?' · '+wt('Sieve-script opnieuw gegenereerd'):' · '+wt('{0} berichten aangevuld, met de regel als bron',n)));
+  toast(RA[r.act][1]==='d'?t('Regel aangezet. Hij geldt voor nieuwe berichten.'):n===1?t('Regel aangezet. 1 bericht aangevuld.'):t('Regel aangezet. {0} berichten aangevuld.',n));render()});
 document.addEventListener('input',function(ev){var e=ev.target;
   if(e.id==='q'){S.q=e.value;var p=e.selectionStart;var L=MAILS.filter(function(m){return !m.gone&&m.folder!=='pers'&&hit(m,S.q)});w(S.q?'IMAP UID SEARCH TEXT "'+S.q+'" → '+wt('zoekindex van ELSA')+' · '+wt('{0} berichten',L.length):'IMAP SELECT INBOX → OK');render();var q=document.getElementById('q');q.focus();q.setSelectionRange(p,p);return}
   if(e.dataset&&e.dataset.lk){var k=e.dataset.lk;S.lk={k:k,q:e.value,i:0,busy:e.value.trim().length>=2};render();lkFocus();clearTimeout(lkT);
@@ -1065,15 +1176,15 @@ document.addEventListener('input',function(ev){var e=ev.target;
     return}
   if(e.id==='apq'){S.gq=e.value;S.gsel=null;var n=e.selectionStart;w(S.gq?'CardDAV REPORT addressbook-query /gab/ (FN, TITLE, ORG contains "'+S.gq+'")':'—');render();var a=document.getElementById('apq');if(a){a.focus();a.setSelectionRange(n,n)}return}
   if(e.id==='gabq'){S.gabq=e.value;render();var g=document.getElementById('gabq');g.focus();g.setSelectionRange(e.value.length,e.value.length);return}
-  if(e.id==='nr-v'||e.id==='nr-arg'&&e.tagName==='INPUT'){S.nr[e.dataset.nr]=e.value;return}
+  if(e.id==='nr-v'||e.id==='nr-arg'&&e.tagName==='INPUT'){S.nr[e.dataset.nr]=e.value;var id=e.id,p=e.selectionStart;render();var x=document.getElementById(id);if(x){x.focus();x.setSelectionRange(p,p)}return}
   if(e.id==='c-to'){S.modal.to=e.value;S.modal.sj=(document.getElementById('c-sj')||{}).value||S.modal.sj;S.modal.bd=(document.getElementById('c-bd')||{}).value||S.modal.bd;S.modal.focus='c-to';render()}});
 document.addEventListener('change',function(ev){var e=ev.target;
   if(e.id==='lang'){setLang(e.value,true);render();return}
   if(e.id==='mv'&&e.value){var m=BY[S.sel],v=e.value;if(v==='pers'){A.aard({dataset:{v:'persoonlijk'}});return}
     if(m.folder==='pers'){A.aard({dataset:{v:'zakelijk'}});if(v!=='inbox'){m.folder=v;render()}return}
     m.folder=v;w('IMAP UID MOVE → "'+t(FOLDERS.filter(function(f){return f[0]===v})[0][1])+'" · '+wt('alleen de map verandert, het object niet'));render();return}
-  if(e.dataset&&e.dataset.f){var m2=BY[S.sel],k=e.dataset.f;m2[k]=k==='dos'?+e.value:e.value;m2.hist.push('Metagegevens aangevuld');w('PROPPATCH register '+m2.pid+' → '+k+' · '+wt('bijgewerkt'));render();return}
-  if(e.dataset&&e.dataset.nr){S.nr[e.dataset.nr]=e.value;if(e.tagName==='INPUT')return;if(e.dataset.nr==='act')S.nr.arg=e.value==='fileinto'?'Houtplein':e.value==='redirect'?'':e.value==='vacation'?t('Ik ben afwezig tot maandag.'):'';render();return}
+  if(e.dataset&&e.dataset.f){var m2=BY[S.sel],k=e.dataset.f;if(m2.by)delete m2.by[k];m2[k]=k==='dos'?+e.value:e.value;m2.hist.push('Metagegevens aangevuld');w('PROPPATCH register '+m2.pid+' → '+k+' · '+wt('bijgewerkt'));render();return}
+  if(e.dataset&&e.dataset.nr){if(e.type==='checkbox'){S.nr.all=e.checked;return}S.nr[e.dataset.nr]=e.value;if(e.tagName==='INPUT')return;if(e.dataset.nr==='act')S.nr.arg=rDefArg(e.value);render();var y=document.getElementById(e.id);if(y)y.focus();return}
   if(e.dataset&&e.dataset.sh){S.share[e.dataset.sh]=e.checked;if(S.inGab)w('CardDAV PUT /gab/haarlem/s.devries.vcf → 204 · '+wt('alleen de gekozen velden'));render()}});
 var EXTRA=['Van persoonlijk naar zakelijk','Verzoek om een zakelijk bericht persoonlijk te maken geweigerd. Het bericht blijft zakelijk.','Verzoek toegekend. Nieuwe versie versleuteld met de persoonlijke sleutel; de sleutel van de vergrendelde versie is vernietigd.','Eerste beoordeling: toekennen. Wacht op de tweede beoordelaar.','Informatiebeheerder','Tweede beoordelaar','Binnen de bedenktijd teruggezet naar persoonlijk','Verzoek om persoonlijk te maken ingediend','Na verzoek persoonlijk gemaakt; de vergrendelde versie is onleesbaar','Afscheidscadeau voor Ans','Ik was op vakantie. Het gaat om een inzameling onder collega\'s, niet over werk.','Ik ben afwezig. Je bericht wordt na mijn terugkomst gelezen.','Opgenomen in een dossier','Ontkoppeld','Na tien dagen automatisch zakelijk','Aangemerkt als persoonlijk en versleuteld','Aangemerkt als zakelijk','Versleuteld als vertrouwelijk','Metagegevens aangevuld','Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.','Verzoek van Juridische Zaken geweigerd.','Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.','Gemeentesecretaris'];
 window.__elsa={strings:function(){var o=EXTRA.slice();

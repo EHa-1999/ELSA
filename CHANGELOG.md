@@ -2,6 +2,11 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 14 · 21-10-2026
+- Regels in het paneel van de Office Assistent, op drie niveaus: van de organisatie (informatiebeheerder), het team en de medewerker zelf. Een regel zet metagegevens zodra een bericht binnenkomt: zakelijk, classificatie, zaak, dossier, en voor de organisatie ook vertrouwelijkheid en Woo-categorie. Wat een regel zet, krijgt de regel als bron en valt onder dezelfde bedenktijd.
+- Een nieuwe regel test je eerst op je berichten, en past hij desgewenst toe op berichten die nog binnen de bedenktijd vallen. Persoonlijk maken, weggooien en doorsturen naar buiten de gemeenten kan niet met een regel.
+- Regels draaien bij het register, niet in de mailserver. Alleen wat bij aflevering moet gebeuren (map, markering, doorsturen binnen de gemeenten, afwezigheid) schrijft ELSA als Sieve-script; ManageSieve staat dicht voor mailprogramma's. De weergave Filters heet nu Regels en toont het beleid per niveau. Doorstroom, Architectuur, Techniek en Groeipad zijn bijgewerkt.
+
 ## Versie 13 · 19-10-2026
 - Woo-categorie bij elk zakelijk bericht: zelf te kiezen, of overgenomen van de zaak of het dossier. Een zaak of dossier met een categorie gaat voor op de eigen keuze.
 - Openbaar maken: met een categorie uiterlijk twee weken na ontvangst of verzending (Woo, artikel 3.3 lid 4), met het einde van de bedenktijd ervoor. Zonder categorie alleen openbaar op verzoek.
