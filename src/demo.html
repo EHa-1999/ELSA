@@ -72,6 +72,7 @@ svg{display:block;flex:none}
 /* mailprogramma */
 .mc-top{display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--app);color:#fff;font-size:12.5px;flex-wrap:wrap}
 .mc-top b{font-weight:600}.mc-top .acc{margin-left:auto;opacity:.92}
+.rgrp{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nc-head{display:flex;align-items:center;gap:4px;padding:4px 10px;background:#0082c9;color:#fff;flex-wrap:wrap}.nc-logo{font-weight:700;margin-right:10px;letter-spacing:.02em}
 .nc-app{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 8px;border-radius:6px;color:#fff;font-size:10.5px;opacity:.85}.nc-app.on,.nc-app:hover{opacity:1;background:rgba(255,255,255,.15)}
 .nc-head .sp,.nc-bar .sp,.rc-bar .sp{flex:1}.nc-head input[type=search]{flex:0 1 240px;min-width:110px;padding:4px 10px;border:0;border-radius:99px;font-size:12.5px;background:rgba(255,255,255,.95)}
@@ -1306,7 +1307,7 @@ function render(){
     +'<div class="seg" role="group" aria-label="'+esc(t('Weergave'))+'">'+VIEWS.map(function(v){return '<button type="button" data-act="view" data-v="'+v[0]+'" aria-pressed="'+(S.view===v[0])+'">'+esc(t(v[1]))+'</button>'}).join('')+'</div>'
     +'<select class="lang" id="lang" aria-label="Taal / Language">'+Object.keys(LANGS).filter(function(l){return l==='nl'||I18N[l]}).map(function(l){return '<option value="'+l+'"'+(l===LANG?' selected':'')+'>'+LANGS[l]+'</option>'}).join('')+'</select>';
   document.getElementById('regie').innerHTML='<b>'+esc(t('Demo'))+'</b><span>'+esc(t('Spring vooruit in de tijd om te zien wat er na tien dagen gebeurt.'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Tijd'))+'">'+[[0,'Vandaag'],[4,'Over 4 dagen'],[10,'Over 10 dagen']].map(function(d){return '<button type="button" data-act="skip" data-v="'+d[0]+'" aria-pressed="'+(S.skip===d[0])+'">'+esc(t(d[1]))+'</button>'}).join('')+'</div>'
-    +(S.view==='post'?'<span>'+esc(t('Mailprogramma'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Mailprogramma'))+'">'+[['tb','Thunderbird'],['olc','Outlook (klassiek)'],['oln','Nieuwe Outlook'],['ncm','Nextcloud Mail'],['rc','Roundcube']].map(function(c){return '<button type="button" data-act="client" data-v="'+c[0]+'" aria-pressed="'+(S.client===c[0])+'">'+esc(t(c[1]))+'</button>'}).join('')+'</div>':'')
+    +(S.view==='post'?'<span class="rgrp"><span>'+esc(t('Mailprogramma'))+'</span><div class="seg" role="group" aria-label="'+esc(t('Mailprogramma'))+'">'+[['tb','Thunderbird'],['olc','Outlook (klassiek)'],['oln','Nieuwe Outlook'],['ncm','Nextcloud Mail'],['rc','Roundcube']].map(function(c){return '<button type="button" data-act="client" data-v="'+c[0]+'" aria-pressed="'+(S.client===c[0])+'">'+esc(t(c[1]))+'</button>'}).join('')+'</div></span>':'')
     +'<span>'+esc(t('{0} berichten nog te scheiden',MAILS.filter(function(m){return !m.gone&&open(m)}).length))+'</span>';
   document.getElementById('win').innerHTML=({post:postView,flow:flowView,filt:filterView,gab:gabView,keys:keyView,arch:archView,tech:techView,groei:groeiView,help:helpView})[S.view]();
   document.getElementById('hood').innerHTML='<b>'+esc(t('Onder de motorkap'))+'</b><code>'+esc(S.wire)+'</code>';

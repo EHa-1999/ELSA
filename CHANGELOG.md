@@ -2,6 +2,9 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 19 · 21-10-2026
+- In de demobalk staat het woord Mailprogramma nu altijd direct voor de keuzes, ook als de balk over twee regels loopt.
+
 ## Versie 18 · 21-10-2026
 - Twee mailprogramma's erbij: Nextcloud Mail, de webmail van ELSA in de Nextcloud-stack, met de assistent als Nextcloud-app in de zijbalk; en Roundcube, met de assistent als plugin. Elk met een eigen menubalk. Help en Techniek zijn bijgewerkt.
 - Een Help-weergave, zoals in de andere demo's: wat elke weergave toont, een route om te proberen, de schakelaars, veelgestelde vragen met zoeken, en de begrippen.
