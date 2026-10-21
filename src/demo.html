@@ -72,6 +72,11 @@ svg{display:block;flex:none}
 /* mailprogramma */
 .mc-top{display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--app);color:#fff;font-size:12.5px;flex-wrap:wrap}
 .mc-top b{font-weight:600}.mc-top .acc{margin-left:auto;opacity:.92}
+.dlg.wdlg{max-width:520px}.phone{border:1px solid var(--line);border-radius:18px;padding:14px 16px;max-width:290px;margin:0 auto;display:grid;gap:6px;background:var(--surface2);box-shadow:var(--shadow)}
+.phone .ph-top{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}.phone .gdl{margin:0}
+.ph-pin{display:flex;gap:8px;justify-content:center;margin-top:4px}.ph-pin i{width:12px;height:12px;border-radius:50%;border:2px solid var(--violet)}
+.ph-num{font-size:30px;font-weight:700;font-family:var(--mono);text-align:center;color:var(--accent)}
+.k3l li>span{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .seg2{display:flex;gap:2px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--surface);flex-wrap:wrap}.seg2 button{flex:1;padding:4px 8px;border-radius:6px;font-size:12.5px}.seg2 button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg,#fff)}
 .box{display:grid;gap:3px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}.box.dash{border-style:dashed;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:8px}.box.dash>span{display:block}
 .fnd{display:grid;gap:4px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}.fnd.selc{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}.fnd.done{opacity:.75}
@@ -945,16 +950,34 @@ function apClas(m){var no=noAssist(m,'Classificeren');if(no)return no;if(!m.aard
   h+=vecH('ob','Openbaarmaking','Wat mag naar buiten, en in welke vorm?',w?t('Actief openbaar te maken, uiterlijk {0}',fmtD(pub)):t('Alleen op verzoek'),w?(AM(m).ok?['Klaar voor beoordeling','p-green']:['Voorstel','p-grey']):['Op verzoek','p-grey'],w?'<p class="hint">'+esc(pp?(AM(m).ok?t('{0} persoonsgegevens geanonimiseerd en bevestigd.',pp):t('{0} persoonsgegevens worden gelakt; bevestig dat eerst in Anonimiseren.',pp)):t('Geen persoonsgegevens te lakken.'))+'</p>':'<p class="hint">'+esc(t('Zonder Woo-categorie is het bericht wel vindbaar bij een Woo-verzoek, maar niet uit zichzelf openbaar.'))+'</p>',w?[w.k==='hand'?ME.name:(w.k==='zaak'?t('Zaak {0}',w.src):t('Dossier {0}',w.src)),'Woo, artikel 3.3: de categorie bepaalt of het bericht uit zichzelf openbaar wordt.',w.k==='hand'?'Gekozen in het paneel':'Overgenomen']:['XENA-platform','Zonder categorie geldt openbaarmaking op verzoek.','Afgeleid']);
   return h+'</div>'}
 /* waarmerken: een zegel over de EML en de vaste versies van de bijlagen */
-var WMBY={mw:['Medewerker','Geavanceerde elektronische handtekening van {0}'],afd:['Afdeling','Zegel van {0}'],org:['Organisatie','Gekwalificeerd elektronisch zegel van {0}']};
-function apWaar(m){var no=noAssist(m,'Waarmerken');if(no)return no;var wm=m.wm,by=S.wmby||'org',inb=m.folder!=='sent',ext=!isGem(m.from.mail);
+var WMBY={mw:['Medewerker','Gekwalificeerde elektronische handtekening van {0}'],afd:['Afdeling','Zegel van {0}'],org:['Organisatie','Gekwalificeerd elektronisch zegel van {0}']};
+function apWaar(m){var no=noAssist(m,'Waarmerken');if(no)return no;var wm=m.wm,by=S.wmby||'org',inb=m.folder!=='sent',ext=!isGem(m.from.mail),zb=!!S.zb,rq=m.wmReq;
   var who=by==='mw'?ME.name:by==='afd'?t(ME.team):t(ME.org);
-  var h='<div class="apb">'+(wm?'<div class="note n-green">'+ic('seal')+'<span><b>'+esc(t('Gewaarmerkt'))+'</b> '+esc(t(WMBY[wm.by][1],wm.who))+' · '+esc(fmtDT(wm.at))+'. '+esc(t('Het waarmerk blijft geldig: een EML verandert nooit.'))+'</span></div>'
+  var h='<div class="apb">'+(wm?'<div class="note n-green">'+ic('seal')+'<span><b>'+esc(t('Gewaarmerkt'))+'</b> '+esc(t(WMBY[wm.by][1],wm.who))+' · '+esc(fmtDT(wm.at))+'. '+esc(t('Bevestigd met {0}.',t(wm.how)))+' '+esc(t('Het waarmerk blijft geldig: een EML verandert nooit.'))+'</span></div>'
     :'<div class="box dash"><b>'+esc(t('Dit bericht is niet gewaarmerkt'))+'</b><span class="hint">'+esc(t(inb?'Een waarmerk op een ontvangen bericht legt vast wat de gemeente op dat moment heeft ontvangen, ongewijzigd.':'Een waarmerk op een verzonden bericht legt vast wat de gemeente heeft verstuurd, ongewijzigd.'))+'</span></div>');
+  h+='<section class="vec"><header><b>'+esc(t('Drie soorten bewijs'))+'</b><span>'+esc(t('elk met een eigen handeling'))+'</span></header><ul class="pon k3l">'
+    +'<li><span><b>'+esc(t('Tijdstempel'))+'</b> '+esc(t(inb?'Bij binnenkomst, automatisch: {0}':'Bij verzending, automatisch: {0}',fmtDT(recvd(m))))+'</span><small>'+esc(t('Dat het bericht op dat moment zo bestond.'))+'</small></li>'
+    +'<li><span><b>'+esc(t('Zegel'))+'</b> <span class="pill '+(zb?'p-green':'p-grey')+'">'+esc(t(zb?'Je bent zegelbevoegd':'Je bent niet zegelbevoegd'))+'</span></span><small>'+esc(t('Dat het van de afdeling of de gemeente komt. Door een zegelbevoegde.'))+'</small></li>'
+    +'<li><span><b>'+esc(t('Handtekening'))+'</b> <span class="pill p-violet">'+esc(t('Alleen jij'))+'</span></span><small>'+esc(t('Dat jij ermee instemt. Je bevestigt in de app van de TSP.'))+'</small></li></ul>'
+    +'<button type="button" class="linkbtn" data-act="wmrole">'+esc(t(zb?'Demo: maak Sanne weer niet zegelbevoegd':'Demo: maak Sanne zegelbevoegd'))+'</button></section>';
   if(inb)h+='<div class="box"><b>'+esc(t('Herkomst bij ontvangst'))+'</b><span class="hint">'+esc(ext?t('DKIM geldig · SPF geldig · vastgelegd in het register bij binnenkomst'):t('Intern bericht, via de eigen mailprovider'))+'</span></div>';
-  if(!wm)h+='<h4>'+esc(t('Namens'))+'</h4><div class="seg2" role="group" aria-label="'+esc(t('Namens'))+'">'+Object.keys(WMBY).map(function(k){return '<button type="button" data-act="wmby" data-v="'+k+'" aria-pressed="'+(by===k)+'">'+esc(t(WMBY[k][0]))+'</button>'}).join('')+'</div><p class="hint">'+esc(t(WMBY[by][1],who))+'. '+esc(t('De assistent legt vast wie het heeft aangevraagd.'))+'</p><button type="button" class="btn pri" data-act="wmgo">'+ic('seal',14)+esc(t('Waarmerk dit bericht'))+'</button>';
+  if(!wm&&rq)h+='<div class="note n-amber">'+ic('clock')+'<span><b>'+esc(t('Zegel aangevraagd'))+'</b> '+esc(t('Bij {0}. Een zegelbevoegde beoordeelt het verzoek en zet het zegel.',t(rq.to)))+'</span></div><div class="rowb2"><button type="button" class="btn sm" data-act="wmappr">'+esc(t('Demo: de zegelbevoegde zegelt'))+'</button><button type="button" class="btn sm" data-act="wmreqx">'+esc(t('Verzoek intrekken'))+'</button></div>';
+  if(!wm&&!rq)h+='<h4>'+esc(t('Namens'))+'</h4><div class="seg2" role="group" aria-label="'+esc(t('Namens'))+'">'+Object.keys(WMBY).map(function(k){return '<button type="button" data-act="wmby" data-v="'+k+'" aria-pressed="'+(by===k)+'">'+esc(t(WMBY[k][0]))+'</button>'}).join('')+'</div>'
+    +'<p class="hint">'+esc(t(WMBY[by][1],who))+'. '+esc(t(by==='mw'?'Je bevestigt in de app van de TSP op je telefoon; je inlog bij de gemeente is daarvoor niet genoeg.':zb?'Je bent zegelbevoegd: je bevestigt met de tweede factor van je inlog.':by==='afd'?'Je bent niet zegelbevoegd: je vraagt het zegel aan bij de teamleider.':'Je bent niet zegelbevoegd: je vraagt het zegel aan bij de griffie.'))+'</p>'
+    +'<button type="button" class="btn pri" data-act="wmgo">'+ic(by==='mw'?'key':'seal',14)+esc(t(by==='mw'?'Onderteken dit bericht':zb?'Zegel dit bericht':'Vraag een zegel aan'))+'</button>';
   h+='<section class="vec"><header><b>'+esc(t('Het waarmerk omvat'))+'</b></header><ul class="pon"><li><span>'+esc(t('Het bericht in zijn oorspronkelijke vorm'))+'</span><small class="mono">EML · '+esc(m.mid)+'</small></li>'+m.atts.map(function(x){return '<li><span>'+esc(t(x.n))+'</span><small>'+esc(t('eigen object, vaste versie'))+' · <span class="mono">'+esc(x.pid)+'</span></small></li>'}).join('')+'</ul><p class="hint">'+esc(t('Bij een bericht horen de bijlagen erbij als verwijzing naar een vaste versie. Zo is later aan te tonen wat er precies in het bericht zat.'))+'</p></section>'
     +'<p class="hint">'+esc(t('De assistent voegt geen cryptografie toe. Zij zorgt dat het waarmerk op het juiste object komt, namens de juiste partij, en dat dit wordt vastgelegd.'))+'</p></div>';
   return h}
+function wmDo(by,how){var m=BY[S.sel],who=by==='mw'?ME.name:by==='afd'?t(ME.team):t(ME.org);m.wm={by:by,who:who,at:now().toISOString(),how:how};m.hist.push('Gewaarmerkt');w('POST /register/objects/'+m.pid+'/waarmerk → 202 · '+(by==='org'?wt('gekwalificeerd elektronisch zegel'):by==='afd'?wt('zegel van de afdeling'):wt('gekwalificeerde elektronische handtekening'))+' · '+wt('omvat de EML en {0} bijlagen op vaste versie',m.atts.length)+' · '+wt('tijdstempel'));toast(t('Gewaarmerkt.'));render()}
+function wdlgHtml(){var m=BY[S.sel],d=S.wdlg;
+  if(d.k==='app')return '<div class="dlg wdlg" role="dialog" aria-modal="true" aria-labelledby="wdt"><h2 id="wdt">'+esc(t('Bevestig in de app van de TSP'))+'</h2><p>'+esc(t('Op je telefoon staat een verzoek om te ondertekenen. Controleer het bericht en bevestig met je pincode of vingerafdruk.'))+'</p>'
+    +'<div class="phone"><div class="ph-top">'+esc(t('Ondertekenverzoek'))+'</div><b>'+esc(m.lit?m.subj:t(m.subj))+'</b><dl class="gdl"><dt>'+esc(t('Namens'))+'</dt><dd>'+esc(ME.name)+'</dd><dt>'+esc(t('Controlegetal'))+'</dt><dd class="mono">8D41 · 0B7E · 52C9</dd></dl><div class="ph-pin" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>'
+    +'<p class="hint">'+esc(t('Je inlog bij de gemeente is hiervoor niet genoeg. Alleen jij mag je sleutel gebruiken; dat eist de Europese regelgeving voor een gekwalificeerde handtekening.'))+'</p>'
+    +'<div class="rowb"><button type="button" class="btn" data-act="wdx">'+esc(t('Annuleren'))+'</button><button type="button" class="btn pri" data-act="wmok" data-v="app">'+esc(t('Demo: bevestigd in de app'))+'</button></div></div>';
+  return '<div class="dlg wdlg" role="dialog" aria-modal="true" aria-labelledby="wdt"><h2 id="wdt">'+esc(t('Bevestig met je tweede factor'))+'</h2><p>'+esc(t('Je bent aangemeld bij de gemeente. Voor een zegel vraagt de gemeente een extra bevestiging, met de authenticator die je ook bij het inloggen gebruikt.'))+'</p>'
+    +'<div class="phone"><div class="ph-top">'+esc(t('Aanmelden bij de gemeente'))+'</div><b>'+esc(t(d.by==='afd'?'Zegel namens de afdeling':'Zegel namens de gemeente'))+'</b><span class="hint">'+esc(t('Keur je dit verzoek goed?'))+'</span><div class="ph-num" aria-hidden="true">47</div></div>'
+    +'<p class="hint">'+esc(t('Bij een zegel bedient de zegeldienst de sleutel. Daarom volstaat je eigen inlog, samen met de rol zegelbevoegd. De assistent legt vast dat jij het hebt gevraagd.'))+'</p>'
+    +'<div class="rowb"><button type="button" class="btn" data-act="wdx">'+esc(t('Annuleren'))+'</button><button type="button" class="btn pri" data-act="wmok" data-v="mfa">'+esc(t('Demo: bevestigd met de authenticator'))+'</button></div></div>'}
 /* toegankelijkheid: bij het opstellen; een ontvangen bericht verander je niet */
 function accFind(c){var o=[],b=c.bd||'',sj=(c.sj||'').trim();
   if(!sj)o.push({k:'sj',tx:'Geef het bericht een onderwerp. Een schermlezer leest dat het eerst voor.'});
@@ -1355,6 +1378,7 @@ function colofonHtml(){
 /* ---------- opstellen ---------- */
 function modal(){
   var L=document.getElementById('layer');if(S.colo){if(!L.querySelector('.colo')){L.innerHTML=colofonHtml();L.querySelector('[data-act="coloX"]').focus()}return}
+  if(S.wdlg){L.innerHTML=wdlgHtml();var wb=L.querySelector('[data-act="wmok"]');if(wb)wb.focus();return}
   if(S.rdlg){var keep=S.rdlg.focus,pos=S.rdlg.pos;L.innerHTML=rdlgHtml();var fe=document.getElementById(keep||(S.rdlg.d.lvl==='mij'&&S.rdlg.run!==true?'rd-n':'rd-go'));if(fe&&!fe.disabled){fe.focus();if(pos!=null&&fe.setSelectionRange)fe.setSelectionRange(pos,pos)}else{var c=L.querySelector('[data-act="rdx"]');if(c)c.focus()}
     if(S.rdlg.run===true){var pv=L.querySelector('.rprev');if(pv)pv.scrollIntoView({block:'nearest'});S.rdlg.run=false}S.rdlg.focus=null;S.rdlg.pos=null;return}
   if(!S.modal){L.innerHTML='';return}
@@ -1530,7 +1554,15 @@ var A={
   wzd:function(e){S.wzd=S.wzd===e.dataset.v?null:e.dataset.v;render()},
   vtreq:function(){w('POST /register/requests → 201 · '+wt('verlaging van de vertrouwelijkheid')+' · '+wt('besluit van een bevoegde functionaris'));toast(t('Verzoek om verlaging ingediend. Een bevoegde functionaris beslist.'))},
   wmby:function(e){S.wmby=e.dataset.v;render()},
-  wmgo:function(){var m=BY[S.sel],by=S.wmby||'org',who=by==='mw'?ME.name:by==='afd'?t(ME.team):t(ME.org);m.wm={by:by,who:who,at:now().toISOString()};m.hist.push('Gewaarmerkt');w('POST /register/objects/'+m.pid+'/waarmerk → 202 · '+(by==='org'?wt('gekwalificeerd elektronisch zegel'):by==='afd'?wt('zegel van de afdeling'):wt('geavanceerde elektronische handtekening'))+' · '+wt('omvat de EML en {0} bijlagen op vaste versie',m.atts.length)+' · '+wt('tijdstempel'));toast(t('Gewaarmerkt.'));render()},
+  wmrole:function(){S.zb=!S.zb;w(wt('demo: rol zegelbevoegd')+' '+wt(S.zb?'toegekend':'ingetrokken')+' · '+wt('vastgelegd in de integratielaag'));render()},
+  wmgo:function(){var m=BY[S.sel],by=S.wmby||'org';
+    if(by==='mw'){S.wdlg={k:'app',by:by};w('POST /tsp/v1/handtekeningen {hash: 8d41…52c9} → 202 · '+wt('verzoek naar de app van de medewerker'));render();return}
+    if(S.zb){S.wdlg={k:'mfa',by:by};w('step-up: '+wt('tweede factor gevraagd')+' {acr: mfa} · '+wt('rol zegelbevoegd gecontroleerd'));render();return}
+    m.wmReq={by:by,to:by==='afd'?'de teamleider van Team Vergunningen':'de griffie'};w('POST /vera/v1/zegelverzoeken {object: '+m.pid+'} → 201 · '+wt('taak voor {0}',t(m.wmReq.to)));toast(t('Zegel aangevraagd. Je krijgt bericht als het is gezet.'));render()},
+  wdx:function(){S.wdlg=null;render()},
+  wmok:function(e){var by=S.wdlg.by;S.wdlg=null;wmDo(by,e.dataset.v==='app'?'de app van de TSP, met pincode':'de tweede factor van de eigen inlog')},
+  wmappr:function(){var m=BY[S.sel],r=m.wmReq;if(!r)return;m.wmReq=null;wmDo(r.by,'beoordeling door een zegelbevoegde')},
+  wmreqx:function(){BY[S.sel].wmReq=null;w(wt('zegelverzoek ingetrokken'));render()},
   accdemo:function(){S.modal={to:'',sj:'',bd:t('BELANGRIJK: de stukken voor het overleg staan klaar. Klik hier om ze te openen. De wijzigingen staan in het rood.'),focus:'c-to'};render()},
   accfix:function(e){var m=S.modal,el=document.getElementById('c-bd');if(el)m.bd=el.value;var sj=document.getElementById('c-sj');if(sj)m.sj=sj.value;
     if(e.dataset.v==='link')m.bd=m.bd.replace(new RegExp('(klik hier|'+t('klik hier')+')[^.]*','ig'),function(x){var r=t('open de stukken voor het overleg');return x.charAt(0)===x.charAt(0).toUpperCase()?r.charAt(0).toUpperCase()+r.slice(1):r});
@@ -1559,6 +1591,7 @@ document.addEventListener('keydown',function(ev){var e=ev.target;
     if(ev.key==='Enter'&&it.length){ev.preventDefault();A.lkpick({dataset:{k:k,v:it[S.lk.i][0]}});var f=document.getElementById('lk-'+k);if(f)f.focus();return}
     if(ev.key==='Escape'){S.lk={k:null,q:'',i:0,busy:false};render();var g=document.getElementById('lk-'+k);if(g)g.focus();return}}
   if(ev.key==='Escape'&&S.colo){S.colo=false;render();return}
+  if(ev.key==='Escape'&&S.wdlg){S.wdlg=null;render();return}
   if(ev.key==='Escape'&&S.rdlg){S.rdlg=null;render();return}
   if(ev.key==='Escape'&&S.modal){S.modal=null;render()}});
 var lkT=null;

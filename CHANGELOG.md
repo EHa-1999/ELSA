@@ -2,6 +2,13 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 21 · 21-10-2026
+- Waarmerken maakt nu onderscheid tussen drie soorten bewijs, elk met een eigen handeling voor de medewerker:
+  - Tijdstempel: automatisch bij binnenkomst of verzending; de medewerker doet niets.
+  - Zegel namens de afdeling of de gemeente: wie zegelbevoegd is bevestigt met de tweede factor van de eigen inlog; wie dat niet is vraagt het zegel aan bij de teamleider of de griffie. Een demoschakelaar maakt Sanne zegelbevoegd, en een demoknop laat de zegelbevoegde het verzoek afhandelen.
+  - Handtekening als medewerker: een gekwalificeerde elektronische handtekening, te bevestigen in de app van de TSP op de telefoon. De inlog bij de gemeente is daarvoor niet genoeg.
+- Het resultaat toont waarmee is bevestigd. Gelijk aan versie 44 van de demo over de Office Assistent; de uitwerking staat in VERA.
+
 ## Versie 20 · 21-10-2026
 - Vier assistenten erbij in het paneel, gelijk aan de e-mail in de demo over de Office Assistent:
   - Anonimiseren: Signaleren toont de vindplaatsen in kop en tekst met zekerheid en voorstel; Bij de bron toont het bericht met plaatshouders, per niveau te bekijken, per item te de-anonimiseren of te laten staan, en zelf aan te vullen door tekst te selecteren (ook over een plaatshouder heen). Bevestigen voegt een geanonimiseerde weergave toe naast het origineel; de EML blijft ongewijzigd.
