@@ -1078,5 +1078,21 @@
  "Inactief": "Inactive",
  "actief": "active",
  "inactief": "inactive",
- "—": "—"
+ "—": "—",
+ "Nog een testbericht": "Encore un message de test",
+ "Bijlagen": "Pièces jointes",
+ "nog te scheiden": "encore à trier",
+ "bron: regel o1": "source : règle o1",
+ "Een bericht onderweg": "Un message en route",
+ "Vertraagd weergegeven: in werkelijkheid duurt het geheel minder dan een seconde.": "Affiché au ralenti : en réalité, l’ensemble prend moins d’une seconde.",
+ "Stuur een testbericht om het bericht door de stappen te zien gaan.": "Envoyez un message de test pour le voir passer par les étapes.",
+ "Bericht komt binnen, nog dicht": "Le message arrive, encore fermé",
+ "In de wachtrij, nog dicht": "Dans la file d’attente, encore fermé",
+ "Uitgepakt: kop, tekst en twee bijlagen": "Décompressé : en-tête, texte et deux pièces jointes",
+ "Opgeslagen als bestand": "Enregistré comme fichier",
+ "Met eigen identificatie": "Avec son propre identifiant",
+ "Metagegevens gezet door een regel": "Métadonnées définies par une règle",
+ "Inhoud in de objectopslag": "Contenu dans le stockage objet",
+ "Doorzoekbaar": "Consultable par la recherche",
+ "In Postvak IN, nog ongelezen": "Dans la boîte de réception, encore non lu"
 }

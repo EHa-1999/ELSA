@@ -1078,5 +1078,21 @@
  "Inactief": "Off",
  "actief": "on",
  "inactief": "off",
- "—": "—"
+ "—": "—",
+ "Nog een testbericht": "Another test message",
+ "Bijlagen": "Attachments",
+ "nog te scheiden": "still to sort",
+ "bron: regel o1": "source: rule o1",
+ "Een bericht onderweg": "A message on its way",
+ "Vertraagd weergegeven: in werkelijkheid duurt het geheel minder dan een seconde.": "Shown slowed down: in reality the whole route takes less than a second.",
+ "Stuur een testbericht om het bericht door de stappen te zien gaan.": "Send a test message to watch it move through the steps.",
+ "Bericht komt binnen, nog dicht": "Message arrives, still sealed",
+ "In de wachtrij, nog dicht": "In the queue, still sealed",
+ "Uitgepakt: kop, tekst en twee bijlagen": "Unpacked: header, body and two attachments",
+ "Opgeslagen als bestand": "Stored as a file",
+ "Met eigen identificatie": "With its own identifier",
+ "Metagegevens gezet door een regel": "Metadata set by a rule",
+ "Inhoud in de objectopslag": "Content in object storage",
+ "Doorzoekbaar": "Searchable",
+ "In Postvak IN, nog ongelezen": "In the inbox, still unread"
 }

@@ -144,6 +144,45 @@ svg{display:block;flex:none}
 .ref{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
 
 /* doorstroom */
+.fl{border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,var(--surface2),var(--surface));padding:14px 14px 10px;display:grid;gap:8px;overflow:hidden}
+.flh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12.5px;color:var(--muted)}.flh b{color:var(--fg);font-size:13px}
+.flt{position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));padding-top:152px}
+.flt::before{content:"";position:absolute;left:calc(50% / var(--n));right:calc(50% / var(--n));top:calc(152px + 17px);height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 10px)}
+.flp{position:absolute;left:calc(50% / var(--n));top:calc(152px + 17px);height:3px;border-radius:2px;background:var(--accent);width:calc((100% - 100% / var(--n)) * var(--p));transition:width 1s cubic-bezier(.45,.05,.25,1)}
+.fls{position:relative;display:grid;justify-items:center;gap:5px;text-align:center;min-width:0}
+.fls .si{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);color:var(--muted);transition:border-color .4s,background .4s,color .4s,transform .4s}
+.fls small{font-size:11px;color:var(--muted);line-height:1.2;overflow-wrap:anywhere;padding:0 2px}
+.fls.done .si{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.fls.now .si{border-color:var(--accent);background:var(--accent);color:var(--accent-fg);transform:scale(1.12);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 22%,transparent);animation:flPulse 1s ease-out infinite}
+.fls.now small{color:var(--fg);font-weight:600}
+@keyframes flPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+@property --x{syntax:'<length-percentage>';inherits:true;initial-value:0%}
+.tok{position:absolute;top:0;left:0;right:0;height:0;pointer-events:none;z-index:2;--tw:230px}
+.tok>.env{position:absolute;top:0;left:clamp(14px,calc(var(--x) - 32px),calc(100% - 96px))}
+.tki{position:absolute;top:56px;width:var(--tw);left:clamp(0px,calc(var(--x) - var(--tw) / 2),calc(100% - var(--tw)));display:grid;justify-items:center;gap:4px}
+.tok .env{position:relative;width:64px;height:48px;filter:drop-shadow(0 4px 8px rgba(10,40,46,.22))}
+.tok .env>svg{width:64px;height:48px;overflow:visible}
+.tok .bdg svg{width:12px;height:12px}
+
+.tok .bdg{position:absolute;top:-8px;right:-14px;display:flex;gap:3px}
+.tok .bdg span{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px solid var(--accent);color:var(--accent);animation:flPop .45s cubic-bezier(.2,1.6,.4,1) both}
+.tok .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:3px;max-width:100%}
+.tok .tags span{font-size:10.5px;font-weight:600;line-height:16px;padding:0 6px;border-radius:99px;white-space:nowrap;animation:flPop .45s cubic-bezier(.2,1.6,.4,1) both}
+.tok .cap{max-width:100%;text-align:center;white-space:normal;font-size:11px;color:var(--fg);font-weight:500;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 7px;animation:flFade .5s both}
+.tok.mv{animation:flHop 1s cubic-bezier(.45,.05,.25,1)}
+@keyframes flPop{0%{transform:scale(0);opacity:0}100%{transform:none;opacity:1}}
+@keyframes flFade{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:none}}
+@keyframes flHop{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.env .fl-up{transform-box:fill-box;transform-origin:50% 100%}
+.env .fl-sheet{transform-box:view-box}
+.tok.s2 .fl-up{animation:flFlap .5s ease both}.tok.s2 .fl-sheet{animation:flSheet .6s ease .25s both}.tok.s4 .fl-id{animation:flFade .5s both}.tok.s8 .fl-dot{animation:flPop .45s cubic-bezier(.2,1.6,.4,1) both;transform-box:fill-box;transform-origin:center}
+@keyframes flFlap{0%{transform:scaleY(-1)}100%{transform:none}}@keyframes flSheet{0%{transform:translateY(16px)}100%{transform:none}}
+.flk{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;color:var(--muted)}.flk span{display:inline-flex;gap:5px;align-items:center}.flk i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.stp.now{background:linear-gradient(90deg,var(--accent-soft),transparent);border-radius:6px}
+.stp.done code{animation:flFade .5s both}
+@media (max-width:760px){.fls small{display:none}.fls .si{width:28px;height:28px}.fls .si svg{width:14px;height:14px}.flt{padding-top:200px}.flt::before,.flp{top:calc(200px + 13px)}.fls.now .si{transform:none;box-shadow:none}.tok .tags{max-width:150px}.tok .cap{max-width:170px}}
+@media (max-width:760px){.tok{--tw:180px}}
+@media (prefers-reduced-motion:reduce){.flp,.fls .si{transition:none}.fl-up,.fl-sheet,.fl-id,.fl-dot,.fls.now .si,.tok.mv,.tok .bdg span,.tok .tags span,.tok .cap,.stp.done code{animation:none}}
 .steps{display:grid;gap:0}
 .stp{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
 .stp .dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:var(--muted);font-size:11px;font-weight:600;background:var(--surface)}
@@ -390,6 +429,14 @@ var IC={
   case:'<rect x="3.5" y="7.5" width="17" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3.5 12.5h17" fill="none" stroke="currentColor" stroke-width="1.8"/>',
   pers:'<circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
 };
+Object.assign(IC,{
+  queue:'<rect x="4" y="4.5" width="16" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="10" width="16" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="15.5" width="16" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/>',
+  bridge:'<path d="M3 15.5h18M5 15.5V19M19 15.5V19M5 15.5c2-5 12-5 14 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 12.2v3.3M12 11.3v4.2M15 12.2v3.3" stroke="currentColor" stroke-width="1.6"/>',
+  cloud:'<path d="M7 18.5a4 4 0 0 1-.6-8A5.5 5.5 0 0 1 17 9.2a4.2 4.2 0 0 1 .5 9.3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  db:'<ellipse cx="12" cy="6" rx="7" ry="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 6v12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  search:'<circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  tag:'<path d="M3.5 12.2V4.5h7.7l9 9-7.7 7.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="9" r="1.5" fill="currentColor"/>'
+});
 function ic(k,s){s=s||16;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>'}
 function toast(m){var e=document.createElement('div');e.className='toast';e.textContent=m;document.getElementById('toasts').appendChild(e);setTimeout(function(){e.remove()},4600)}
 
@@ -691,11 +738,31 @@ var FLOW=[
  ['Objectopslag','Nextcloud schrijft de inhoud via S3 weg en meldt het versie-id terug aan het register.',388,'PUT s3://mail-haarlem/urn:oid:… → 200 · versie-id terug · Object Lock: nog niet (eerst scheiden)'],
  ['Zoekindex','De zoekindex volgt het register. Onderwerp, tekst en bijlagen worden doorzoekbaar, alleen voor wie toegang heeft.',611,'index mail-haarlem · 3 documenten · rechten: postbuseigenaar'],
  ['IMAP','Het register meldt het nieuwe bericht aan de IMAP-server. Die zet het in Postvak IN, met een verwijzing naar het object.',734,'* 14 EXISTS · * 1 RECENT · Sieve (gegenereerd): geen regel bij aflevering · INBOX']];
+var FLI=['mail','queue','bridge','cloud','book','rule','db','search','inbox'];
+var FLC=['Bericht komt binnen, nog dicht','In de wachtrij, nog dicht','Uitgepakt: kop, tekst en twee bijlagen','Opgeslagen als bestand','Met eigen identificatie','Metagegevens gezet door een regel','Inhoud in de objectopslag','Doorzoekbaar','In Postvak IN, nog ongelezen'];
+function envSvg(st){var open=st>=2,file=st>=3,c=file?'var(--accent)':'var(--blue)',f=file?'var(--accent-soft)':'var(--blue-soft)';
+  var h='<div class="env"><svg viewBox="0 0 64 48" aria-hidden="true">';
+  if(st===1)h+='<g opacity=".45"><rect x="-7" y="18" width="5" height="25" rx="1" fill="'+f+'" stroke="'+c+'"/><rect x="-14" y="20" width="5" height="23" rx="1" fill="'+f+'" stroke="'+c+'"/></g>';
+  if(open)h+='<path class="fl-up" d="M4 18L32 1l28 17z" fill="'+f+'" stroke="'+c+'" stroke-width="1.6" stroke-linejoin="round"/>'
+    +'<g class="fl-sheet"><rect x="11" y="3" width="42" height="34" rx="2" fill="var(--surface)" stroke="var(--line)" stroke-width="1.2"/><path d="M16 10h20M16 15h31M16 20h26" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round"/>'
+    +(st>=4?'<rect class="fl-id" x="33" y="5.5" width="17" height="7" rx="1.5" fill="var(--accent)"/><text x="41.5" y="10.7" font-size="5" text-anchor="middle" fill="var(--accent-fg)" font-family="monospace">urn</text>':'')+'</g>';
+  h+='<path d="M4 18h56v24a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="'+f+'" stroke="'+c+'" stroke-width="1.6"/>'
+    +'<path d="M4.5 43.5L25 29M59.5 43.5L39 29" stroke="'+c+'" stroke-width="1.4" opacity=".5"/>';
+  h+=open?'<path d="M4 18l28 16 28-16" fill="none" stroke="'+c+'" stroke-width="1.6" stroke-linejoin="round"/>':'<path d="M4 18l28 18 28-18z" fill="'+f+'" stroke="'+c+'" stroke-width="1.6" stroke-linejoin="round"/>';
+  if(st>=8)h+='<circle class="fl-dot" cx="59" cy="19" r="5" fill="var(--app)" stroke="var(--surface)" stroke-width="2"/>';
+  return h+'</svg><div class="bdg">'+(st>=2?'<span title="'+esc(t('Bijlagen'))+'">'+ic('clip',12)+'</span>':'')+(st>=6?'<span title="'+esc(t('Objectopslag'))+'">'+ic('db',12)+'</span>':'')+(st>=7?'<span title="'+esc(t('Zoekindex'))+'">'+ic('search',12)+'</span>':'')+'</div></div>'}
+function flowLane(st,run){var n=FLOW.length,cur=Math.max(st,0);
+  var tags=[];if(st>=4)tags.push(['p-grey','urn:oid:…'],['p-amber',t('nog te scheiden')]);if(st>=5){tags[1]=['p-green',t('zakelijk')];tags.push(['p-blue',t('Vergunningverlening')],['p-violet',t('bron: regel o1')])}if(st>=8)tags.push(['p-blue','INBOX · \\Recent']);
+  var tok=run?'<div class="tok'+(S.flow.mv?' mv':'')+' s'+cur+(cur===0?' st':cur>=n-1?' en':'')+'" style="--x:'+((cur+.5)/n*100)+'%" id="fltok">'+envSvg(st)+'<div class="tki"><div class="cap">'+esc(t(FLC[cur]))+'</div><div class="tags">'+tags.map(function(x){return '<span class="pill '+x[0]+'">'+esc(x[1])+'</span>'}).join('')+'</div></div></div>':'';
+  return '<div class="fl" aria-hidden="'+(run?'false':'true')+'"><div class="flh"><b>'+esc(t('Een bericht onderweg'))+'</b><span>'+esc(t(run?'Vertraagd weergegeven: in werkelijkheid duurt het geheel minder dan een seconde.':'Stuur een testbericht om het bericht door de stappen te zien gaan.'))+'</span></div>'
+   +'<div class="flt" style="--n:'+n+'"><div class="flp" style="--p:'+(run&&n>1?cur/(n-1):0)+'"></div>'+tok
+   +FLOW.map(function(s,i){var c=!run?'':i<st?'done':i===st?'now':'';return '<div class="fls '+c+'"><span class="si">'+ic(FLI[i],17)+'</span><small>'+esc(t(s[0]))+'</small></div>'}).join('')+'</div></div>'}
 function flowView(){
   var f=S.flow,run=!!f,st=f?f.step:-1;
   return '<div class="win"><div class="page"><h2>'+esc(t('Doorstroom van een bericht'))+'</h2><p class="lead">'+esc(t('Elk bericht gaat via Exchange Online en Kafka naar een kleine brug, die het in Nextcloud wegschrijft. Daarna loopt het langs dezelfde weg als een bestand op een netwerkschijf. Binnen een seconde staat het in het register, in de objectopslag en in de zoekindex. In Exchange blijft geen kopie achter.'))+'</p>'
-    +'<div><button type="button" class="btn pri" data-act="flow"'+(run&&st<FLOW.length-1?' disabled':'')+'>'+ic('mail')+esc(t('Stuur een testbericht'))+'</button></div>'
-    +'<div class="cols"><ol class="steps">'+FLOW.map(function(s,i){var c=i<=st?'done':i===st+1&&run?'now':'';return '<li class="stp '+c+'"><span class="dot">'+(i<=st?ic('check',13):i+1)+'</span><div><b>'+esc(t(s[0]))+'</b><p>'+esc(t(s[1]))+'</p>'+(i<=st?'<code>'+esc(t(s[3]))+'</code>':'')+'</div><time>'+(i<=st?'+'+s[2]+' ms':'')+'</time></li>'}).join('')+'</ol>'
+    +'<div><button type="button" class="btn pri" data-act="flow"'+(run&&st<FLOW.length-1?' disabled':'')+'>'+ic('mail')+esc(t(run&&st>=FLOW.length-1?'Nog een testbericht':'Stuur een testbericht'))+'</button></div>'
+    +flowLane(st,run)
+    +'<div class="cols"><ol class="steps">'+FLOW.map(function(s,i){var c=i<st?'done':i===st&&run?'done now':'';return '<li class="stp '+c+'"><span class="dot">'+(i<=st?ic('check',13):i+1)+'</span><div><b>'+esc(t(s[0]))+'</b><p>'+esc(t(s[1]))+'</p>'+(i<=st?'<code>'+esc(t(s[3]))+'</code>':'')+'</div><time>'+(i<=st?'+'+s[2]+' ms':'')+'</time></li>'}).join('')+'</ol>'
     +'<div class="note n-grey">'+ic('info')+'<span>'+esc(t('Ook verzonden berichten lopen via deze route. Het mailprogramma bewaart daarnaast zelf een kopie in Verzonden items via IMAP. ELSA herkent de dubbele aan de Message-ID en bewaart het bericht één keer.'))+'</span></div></div></div></div>';
 }
 
@@ -1077,7 +1144,7 @@ function render(){
 function w(s){S.wire=s}
 function wt(){return t.apply(null,arguments)}
 var A={
-  view:function(e){S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'GET /register/regels?postbus=s.devries → '+wt('{0} regels',S.rl.length)+' · '+wt('Sieve-script gegenereerd door ELSA'):S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
+  view:function(e){clearTimeout(S.flowT);if(S.flow&&S.flow.step<FLOW.length-1)S.flow=null;S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'GET /register/regels?postbus=s.devries → '+wt('{0} regels',S.rl.length)+' · '+wt('Sieve-script gegenereerd door ELSA'):S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
   folder:function(e){S.folder=e.dataset.v;S.q='';var L=inFolder(S.folder);S.sel=L.length?L.slice().sort(function(a,b){return a.age-b.age})[0].id:null;w('IMAP SELECT "'+(S.folder==='inbox'?'INBOX':t(FOLDERS.filter(function(f){return f[0]===S.folder})[0][1]))+'" → '+wt('{0} berichten',L.length));render()},
   sel:function(e){var m=BY[e.dataset.id];S.sel=m.id;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;var was=m.read;m.read=true;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+(was?'':' · STORE +FLAGS (\\Seen)'));render()},
   aard:function(e){var m=BY[S.sel],v=e.dataset.v;if(m.by)delete m.by.aard;if(v==='persoonlijk'&&m.aard==='zakelijk'){var b=revertBlock(m);if(b){toast(t(b==='woo'?'Dit bericht valt onder een lopend Woo-verzoek en kan niet persoonlijk worden.':b==='link'?'Dit bericht is gekoppeld aan een zaak of dossier. Ontkoppel eerst.':'Het bericht is vergrendeld. Persoonlijk maken kan alleen op verzoek, bij de informatiebeheerder.'));render();return}m.hist.push('Binnen de bedenktijd teruggezet naar persoonlijk')}m.aard=v;m.sorted=true;
@@ -1129,7 +1196,10 @@ var A={
     var n=M({id:'s'+Date.now(),folder:'sent',age:0,from:ME,to:[P(g?g[0]:m.to,m.to)],subj:m.sj||'(geen onderwerp)',aard:'zakelijk',sorted:true,body:[m.bd||''],read:true});
     n.klass='';n.zaak='';n.doss=[];n.woo='';n.vertr='Intern';n.enc=false;MAILS.push(n);BY[n.id]=n;S.modal=null;S.folder='sent';S.sel=n.id;
     w('SMTP → Exchange Online · transport rule → Kafka · '+wt('brug')+' → Nextcloud → register '+n.pid+' · IMAP APPEND "Verzonden items" → '+wt('ontdubbeld op Message-ID'));toast(t('Verzonden. Het bericht staat in ELSA onder Verzonden items.'));render()},
-  flow:function(){S.flow={step:-1};var go=function(){S.flow.step++;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();if(S.flow.step<FLOW.length-1)setTimeout(go,matchMedia('(prefers-reduced-motion: reduce)').matches?0:450)};go()},
+  flow:function(){clearTimeout(S.flowT);var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;S.flow={step:-1,mv:false};
+    var go=function(){if(S.view!=='flow'||!S.flow)return;var prev=S.flow.step;S.flow.step++;S.flow.mv=prev>=0;var s=FLOW[S.flow.step];w(t(s[0])+' · '+t(s[3]));render();
+      var tk=document.getElementById('fltok');if(tk&&prev>=0&&!rm&&tk.animate)var N=FLOW.length;tk.animate([{'--x':((prev+.5)/N*100)+'%'},{'--x':((S.flow.step+.5)/N*100)+'%'}],{duration:900,easing:'cubic-bezier(.45,.05,.25,1)'});
+      if(S.flow.step<FLOW.length-1)S.flowT=setTimeout(go,rm?400:1100)};go()},
   rdel:function(e){var r=rById(e.dataset.id);if(!r||r.lvl!=='mij')return;S.rl=S.rl.filter(function(x){return x!==r});w('DELETE /register/regels/'+r.id+' → 204'+(RA[r.act][1]==='d'?' · '+wt('Sieve-script opnieuw gegenereerd'):'')+' · '+wt('aangevulde berichten blijven zoals ze zijn'));toast(t('Regel verwijderd. Berichten die hij al heeft aangevuld, blijven zoals ze zijn.'));render()},
   rtog:function(e){var r=rById(e.dataset.id);if(!r||r.lvl!=='mij')return;r.on=!r.on;w('PATCH /register/regels/'+r.id+' → '+(r.on?wt('actief'):wt('inactief'))+(RA[r.act][1]==='d'?' · '+wt('Sieve-script opnieuw gegenereerd'):''));render()},
   gab:function(e){S.inGab=e.dataset.v==='1';w('CardDAV '+(S.inGab?'PUT':'DELETE')+' /gab/haarlem/s.devries.vcf → '+(S.inGab?'201':'204')+' · '+wt('alleen de gekozen velden'));toast(t(S.inGab?'Je staat in het gemeentelijk adresboek.':'Je vermelding is ingetrokken.'));render()},

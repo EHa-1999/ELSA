@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 15 · 21-10-2026
+- Doorstroom: de animatie loopt trager, ongeveer een seconde per stap, met de melding dat het in werkelijkheid binnen een seconde gaat.
+- Een envelop reist langs de negen stappen: dicht bij Exchange en in de wachtrij, opengevouwen bij de brug (met bijlagen), als bestand in Nextcloud, met eigen identificatie in het register, met metagegevens van de regel (zakelijk, classificatie, bron), en met kentekens voor objectopslag, zoekindex en een ongelezen-stip in Postvak IN. Een voortgangslijn en de actieve stap lichten op.
+
 ## Versie 14 · 21-10-2026
 - Regels in het paneel van de Office Assistent, op drie niveaus: van de organisatie (informatiebeheerder), het team en de medewerker zelf. Een regel zet metagegevens zodra een bericht binnenkomt: zakelijk, classificatie, zaak, dossier, en voor de organisatie ook vertrouwelijkheid en Woo-categorie. Wat een regel zet, krijgt de regel als bron en valt onder dezelfde bedenktijd.
 - Een nieuwe regel test je eerst op je berichten, en past hij desgewenst toe op berichten die nog binnen de bedenktijd vallen. Persoonlijk maken, weggooien en doorsturen naar buiten de gemeenten kan niet met een regel.
