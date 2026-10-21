@@ -72,6 +72,32 @@ svg{display:block;flex:none}
 /* mailprogramma */
 .mc-top{display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--app);color:#fff;font-size:12.5px;flex-wrap:wrap}
 .mc-top b{font-weight:600}.mc-top .acc{margin-left:auto;opacity:.92}
+.ol-tabs{display:flex;align-items:center;gap:2px;padding:4px 10px 0;background:var(--surface2);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ol-tabs>button{padding:6px 10px;font-size:12.5px;border-bottom:2px solid transparent;color:var(--fg)}
+.ol-tabs>button[aria-pressed="true"]{border-bottom-color:var(--app);color:var(--app);font-weight:600}
+.ol-tabs>button.file{background:var(--app);color:#fff;border-radius:4px 4px 0 0;margin-right:6px}
+.ol-tabs .sp,.tb-uni .sp,.tb-qf .sp{flex:1}
+.ol-tabs input[type=search],.tb-uni input[type=search]{flex:0 1 260px;min-width:120px;margin:0 0 4px;padding:4px 9px;border:1px solid var(--line);border-radius:5px;background:var(--surface);font-size:12.5px}
+.ribbon{display:flex;align-items:stretch;gap:0;padding:4px 6px;background:var(--surface);border-bottom:1px solid var(--line);overflow-x:auto}
+.rg{display:flex;flex-direction:column;align-items:stretch;padding:0 8px;border-right:1px solid var(--line);flex:none}
+.rgb{display:flex;align-items:flex-start;gap:2px;flex:1}.rgl{font-size:10.5px;color:var(--muted);text-align:center;padding-top:2px}
+.rb{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 6px;border-radius:4px;font-size:11.5px;max-width:84px;text-align:center;line-height:1.2;color:var(--fg)}.rb svg{color:var(--app)}
+.rb:hover:not(:disabled){background:var(--sel)}.rb:disabled{opacity:.45;cursor:default}.rb[aria-pressed="true"]{background:var(--accent-soft)}
+.rcol{display:flex;flex-direction:column;gap:1px}.rcol .tb{padding:2px 6px;font-size:11.5px}.rcol select{padding:1px 4px;border:1px solid var(--line);border-radius:4px;font-size:11.5px;background:var(--surface)}
+.tb[aria-pressed="true"]{background:var(--accent-soft)}
+.tb.pri{background:var(--app);color:#fff}.tb.pri svg{color:#fff}
+.ol-simple,.tb-uni,.tb-qf{display:flex;flex-wrap:wrap;gap:2px 4px;align-items:center;padding:5px 10px;border-bottom:1px solid var(--line);background:var(--surface)}
+.ol-simple .sep,.tb-uni .sep{width:1px;height:20px;background:var(--line);margin-inline:4px}
+.ol-simple select,.tb-qf select{padding:3px 5px;border:1px solid var(--line);border-radius:5px;background:var(--surface);font-size:12.5px}
+.tb-menu{display:flex;gap:0;padding:2px 8px;background:var(--surface2);border-bottom:1px solid var(--line);font-size:12.5px}.tb-menu button{padding:3px 9px;border-radius:4px}.tb-menu button:hover{background:var(--sel)}
+.tb-qf{background:var(--surface2);font-size:12px;gap:4px 6px}.tb-qf>span:first-child{color:var(--muted);font-weight:600}
+.tb-qf .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid var(--line);border-radius:99px;background:var(--surface);font-size:12px}
+.cl-tb .mc-top{background:var(--surface2);color:var(--fg);border-bottom:1px solid var(--line)}.cl-tb .mc-top svg{color:var(--app)}
+.cl-oln .mc-top{background:var(--app)}
+.rd-act{display:flex;flex-wrap:wrap;gap:2px;justify-content:flex-end;padding:4px 8px;border-bottom:1px solid var(--line)}.rd-act .tb{font-size:12px;padding:3px 7px}
+.mi:not(.read){border-left-color:var(--app)}.mi:not(.read) .r1 b{font-weight:700}.mi:not(.read) .sj{font-weight:700;color:var(--app)}
+.cl-tb .mi:not(.read) .sj{color:var(--fg)}
+.mi.read .r1 b{font-weight:400}
 .mc-bar{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);background:var(--surface2)}
 .mc-bar .sep{width:1px;height:20px;background:var(--line);margin-inline:4px}
 .tb{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:5px;font-size:12.5px;color:var(--fg)}
@@ -419,6 +445,19 @@ function fmtT(d){d=new Date(d);return pad(d.getHours())+':'+pad(d.getMinutes())}
 function fmtDT(d){return fmtD(d)+' '+fmtT(d)}
 function hex(n,seed){var s=Math.floor(seed||Math.random()*1e9)%2147483648,o='';for(var i=0;i<n;i++){s=(s*48271+12345)%2147483647;o+='0123456789abcdef'[s%16]}return o}
 var IC={
+  reply:'<path d="M10 7L4.5 12 10 17M5 12h8.5a6 6 0 0 1 6 6v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  replyall:'<path d="M12 7l-5.5 5 5.5 5M7 7l-5 5 5 5M7 12h7a6 6 0 0 1 6 6v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  fwd:'<path d="M14 7l5.5 5-5.5 5M19 12h-8.5a6 6 0 0 0-6 6v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  archive:'<path d="M3.5 5h17v4h-17zM5 9v10h14V9M10 13h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  sync:'<path d="M19.5 12a7.5 7.5 0 0 1-13 5.1M4.5 12a7.5 7.5 0 0 1 13-5.1M17.5 3.5v3.4h-3.4M6.5 20.5v-3.4h3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  tag:'<path d="M3.5 3.5h7.5l9.5 9.5-7.5 7.5-9.5-9.5zM7.6 7.6h.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  junk:'<path d="M12 3.5l7.5 3v5.5c0 4.5-3.2 7.6-7.5 8.5-4.3-.9-7.5-4-7.5-8.5V6.5zM9 10l6 6M15 10l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  env:'<path d="M3.5 10l8.5-6 8.5 6v9.5h-17zM3.5 10l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  srch:'<path d="M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM15.5 15.5l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  menu:'<path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  cal:'<path d="M4 5.5h16v15H4zM4 10h16M8.5 3.5v4M15.5 3.5v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  chat:'<path d="M4 5h16v11H10l-4.5 3.5V16H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  filt:'<path d="M4 5h16l-6.2 7.2V18l-3.6 2v-7.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
   flag:'<path d="M6 20.5v-16M6 5h11l-2.5 3.5L17 12H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
   rule:'<path d="M4 5h16l-6.2 7.2V18l-3.6 2v-7.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
   mail:'<rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 7l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
@@ -502,13 +541,13 @@ var MAILS=[
    body:['Er is een nieuwe aanvraag ingediend voor het adres Kleverlaan 14. De aanvraag en de tekeningen zijn als bijlage toegevoegd.','Dit bericht is automatisch verstuurd.'],
    atts:[{n:'Aanvraag omgevingsvergunning.pdf',s:'842 kB'},{n:'Tekeningen dakopbouw.pdf',s:'2,1 MB'}],
    sug:{aard:'zakelijk',klass:'verg',dos:0,why:'Afzender is het Omgevingsloket.'}}),
- M({id:'m3',folder:'inbox',age:1.4,from:P('Marco Jansen','marco.jansen@haarlem.gemeente.org','Gemeente Haarlem'),to:[ME],
+ M({id:'m3',folder:'inbox',age:1.4,read:false,from:P('Marco Jansen','marco.jansen@haarlem.gemeente.org','Gemeente Haarlem'),to:[ME],
    subj:'Lunch vrijdag?',body:['Zullen we vrijdag samen lunchen? Dan kunnen we meteen de planning voor het vierde kwartaal doornemen.'],
    sug:{aard:null,why:'Dit bericht kan zowel zakelijk als persoonlijk zijn.'}}),
- M({id:'m4',folder:'inbox',age:2.2,from:P('Ellen de Vries','ellen.devries@mail.example'),to:[ME],
+ M({id:'m4',folder:'inbox',age:2.2,read:false,from:P('Ellen de Vries','ellen.devries@mail.example'),to:[ME],
    subj:'Verjaardag oma zaterdag',body:['Hoi San, neem jij zaterdag de taart mee? Oma rekent op je. Liefs, Ellen'],
    sug:{aard:'persoonlijk',why:'Afzender is een privéadres en het bericht gaat over familie.'}}),
- M({id:'m5',folder:'inbox',age:3.1,from:P('Jeroen Kramer','jeroen.kramer@zandvoort.gemeente.org','Gemeente Zandvoort'),to:[ME],
+ M({id:'m5',folder:'inbox',age:3.1,read:false,from:P('Jeroen Kramer','jeroen.kramer@zandvoort.gemeente.org','Gemeente Zandvoort'),to:[ME],
    subj:'Afstemming evenementenvergunning circuit 2027',
    body:['Beste Sanne,','Voor het raceweekend van 2027 willen we de voorschriften voor geluid en verkeer gelijk trekken met Haarlem. Heb je volgende week tijd om dit af te stemmen?','Met vriendelijke groet, Jeroen Kramer'],
    sug:{aard:'zakelijk',klass:'inter',dos:0,why:'Afzender is een collega van een andere gemeente, over een vergunning.'}}),
@@ -669,7 +708,7 @@ function elsaBar(m){
 function readHtml(){
   var m=BY[S.sel];if(!m||m.gone)return '<div class="read-p"><p class="empty">'+esc(t('Kies een bericht.'))+'</p></div>';
   var lockedPers=m.aard==='persoonlijk'&&m.enc;
-  var h='<div class="read-p"><article class="msg"><h2>'+esc(t(m.subj))+'</h2><dl class="mh"><dt>'+esc(t('Van'))+'</dt><dd>'+esc(m.from.name)+' &lt;'+esc(m.from.mail)+'&gt;</dd><dt>'+esc(t('Aan'))+'</dt><dd>'+m.to.map(function(p){return esc(p.name)+' &lt;'+esc(p.mail)+'&gt;'}).join(', ')+'</dd><dt>'+esc(t('Datum'))+'</dt><dd>'+fmtDT(recvd(m))+'</dd></dl>';
+  var h='<div class="read-p"><div class="rd-act">'+sbtn('reply','reply','Beantwoorden')+sbtn('forward','fwd','Doorsturen')+(S.client==='tb'?sbtn('nyi','archive','Archiveren')+sbtn('nyi','junk','Ongewenst'):'')+sbtn('del','trash','Verwijderen')+'</div><article class="msg"><h2>'+(m.flag?'<span class="flg">'+ic('flag',16)+'</span> ':'')+esc(t(m.subj))+'</h2><dl class="mh"><dt>'+esc(t('Van'))+'</dt><dd>'+esc(m.from.name)+' &lt;'+esc(m.from.mail)+'&gt;</dd><dt>'+esc(t('Aan'))+'</dt><dd>'+m.to.map(function(p){return esc(p.name)+' &lt;'+esc(p.mail)+'&gt;'}).join(', ')+'</dd><dt>'+esc(t('Datum'))+'</dt><dd>'+fmtDT(recvd(m))+'</dd></dl>';
   h+='<div class="body">'+m.body.map(function(p){return '<p>'+esc(t(p))+'</p>'}).join('')+'</div>';
   if(m.atts.length)h+='<div class="atts">'+m.atts.map(function(a){return '<div class="att">'+ic('clip')+'<span>'+esc(t(a.n))+'<small>'+esc(a.s)+' · <span class="mono">'+esc(a.pid)+'</span></small></span></div>'}).join('')+'</div><p class="hint">'+esc(t('Elke bijlage is een eigen object in de opslag, verbonden met het bericht. Zo is een bijlage apart te vinden, te bewaren en te publiceren.'))+'</p>';
   h+='<div class="ref"><span>Message-ID <span class="mono">'+esc(m.mid)+'</span></span>'+(m.hist.length?'<span>'+esc(t(m.hist[m.hist.length-1]))+'</span>':'')+'</div>';
@@ -727,14 +766,31 @@ function assistPanel(m){
   return '<aside class="ap" aria-label="'+esc(t('Assistent'))+'"><div class="apm"><div class="aph">'+ic(PM.filter(function(p){return p[0]===tab})[0][2])+'<div><h3>'+esc(t(PM.filter(function(p){return p[0]===tab})[0][1]))+'</h3><p>'+esc(t('Office Assistent · E-mailarchivering'))+'</p></div></div>'+body+'</div>'
     +'<nav class="apr" aria-label="'+esc(t('Onderdelen van de assistent'))+'">'+PM.map(function(p){var n=p[0]==='ovz'?MAILS.filter(function(x){return !x.gone&&open(x)}).length:0;return '<button type="button" data-act="pm" data-v="'+p[0]+'" aria-selected="'+(tab===p[0])+'" title="'+esc(t(p[1]))+'" aria-label="'+esc(t(p[1]))+'">'+ic(p[2],18)+(n?'<i>'+n+'</i>':'')+'</button>'}).join('')+'</nav></aside>';
 }
+/* menubalken zoals in de echte mailprogramma's; alleen wat in de demo werkt, doet iets */
+function rbtn(act,icn,lab,dis,extra){return '<button type="button" class="rb" data-act="'+act+'"'+(extra||'')+(dis?' disabled':'')+'>'+ic(icn,22)+'<span>'+esc(t(lab))+'</span></button>'}
+function sbtn(act,icn,lab,dis,extra){return '<button type="button" class="tb" data-act="'+act+'"'+(extra||'')+(dis?' disabled':'')+'>'+ic(icn,16)+'<span>'+esc(t(lab))+'</span></button>'}
+function mvSel(m,can){return '<label class="tb" for="mv">'+ic('folder')+'<span>'+esc(t('Verplaatsen'))+'</span><select id="mv"'+(can?'':' disabled')+'><option value="">…</option>'+FOLDERS.filter(function(f){return !m||f[0]!==m.folder}).map(function(f){return '<option value="'+f[0]+'">'+esc(t(f[1]))+'</option>'}).join('')+'</select></label>'}
+function srch(ph){return '<input type="search" id="q" value="'+esc(S.q)+'" placeholder="'+esc(t(ph))+'" aria-label="'+esc(t(ph))+'">'}
+function chrome(m,can){var c=S.client,un=can&&m.read===false;
+  if(c==='olc'){var grp=function(lab,b){return '<div class="rg"><div class="rgb">'+b+'</div><span class="rgl">'+esc(t(lab))+'</span></div>'};
+    return '<div class="ol-tabs" role="tablist" aria-label="'+esc(t('Lint'))+'">'+['Bestand','Start','Verzenden/ontvangen','Map','Beeld','Help'].map(function(x){return '<button type="button" class="'+(x==='Bestand'?'file':'')+'" data-act="mtab" aria-pressed="'+(x==='Start')+'">'+esc(t(x))+'</button>'}).join('')+'<span class="sp"></span>'+srch('Zoeken')+'</div>'
+      +'<div class="ribbon" role="toolbar" aria-label="'+esc(t('Start'))+'">'
+      +grp('Nieuw',rbtn('compose','mail','Nieuwe e-mail')+'<div class="rcol">'+sbtn('nyi','plus','Nieuwe items')+'</div>')
+      +grp('Verwijderen',rbtn('del','trash','Verwijderen',!can)+'<div class="rcol">'+sbtn('nyi','archive','Archiveren',!can)+sbtn('nyi','junk','Ongewenst',!can)+'</div>')
+      +grp('Reageren',rbtn('reply','reply','Beantwoorden',!can)+rbtn('replyall','replyall','Allen beantwoorden',!can)+rbtn('forward','fwd','Doorsturen',!can))
+      +grp('Verplaatsen','<div class="rcol">'+mvSel(m,can)+sbtn('pmreg','rule','Regels')+'</div>')
+      +grp('Labels','<div class="rcol">'+sbtn('unread','env',un?'Markeren als gelezen':'Markeren als ongelezen',!can)+sbtn('nyi','tag','Categoriseren',!can)+sbtn('flagit','flag','Opvolgen',!can)+'</div>')
+      +grp('Zoeken','<div class="rcol">'+sbtn('pmgab','book','Adresboek')+sbtn('nyi','filt','E-mail filteren')+'</div>')
+      +grp('Invoegtoepassingen',rbtn('pane','pers','Office Assistent',false,' aria-pressed="'+S.pane+'"'))+'</div>'}
+  if(c==='tb')return '<div class="tb-menu" role="menubar" aria-label="'+esc(t('Menubalk'))+'">'+['Bestand','Bewerken','Beeld','Ga','Bericht','Extra','Help'].map(function(x){return '<button type="button" data-act="mtab" role="menuitem">'+esc(t(x))+'</button>'}).join('')+'</div>'
+    +'<div class="tb-uni" role="toolbar" aria-label="'+esc(t('Werkbalk'))+'">'+sbtn('nyi','sync','Ophalen')+sbtn('compose','plus','Opstellen')+'<span class="sep"></span>'+sbtn('pmgab','book','Adresboek')+sbtn('nyi','tag','Label',!can)+sbtn('pmreg','filt','Berichtfilters')+'<span class="sp"></span>'+srch('Zoeken…')+sbtn('pane','pers','Assistent',false,' aria-pressed="'+S.pane+'"')+'<button type="button" class="tb" data-act="mtab" aria-label="'+esc(t('Menu'))+'">'+ic('menu')+'</button></div>'
+    +'<div class="tb-qf" role="toolbar" aria-label="'+esc(t('Snelfilter'))+'"><span>'+esc(t('Snelfilter'))+'</span><button type="button" class="chip" data-act="nyi">'+ic('env',13)+esc(t('Ongelezen'))+'</button><button type="button" class="chip" data-act="nyi">'+ic('flag',13)+esc(t('Met ster'))+'</button><button type="button" class="chip" data-act="nyi">'+ic('book',13)+esc(t('Contactpersoon'))+'</button><button type="button" class="chip" data-act="nyi">'+ic('clip',13)+esc(t('Bijlage'))+'</button><span class="sp"></span>'+mvSel(m,can)+sbtn('del','trash','Verwijderen',!can)+'</div>';
+  return '<div class="ol-tabs ol-new" role="tablist" aria-label="'+esc(t('Lint'))+'">'+['Start','Weergave','Help'].map(function(x){return '<button type="button" data-act="mtab" aria-pressed="'+(x==='Start')+'">'+esc(t(x))+'</button>'}).join('')+'<span class="sp"></span>'+srch('Zoeken')+'</div>'
+    +'<div class="ol-simple" role="toolbar" aria-label="'+esc(t('Start'))+'"><button type="button" class="tb pri" data-act="compose">'+ic('mail',16)+'<span>'+esc(t('Nieuwe e-mail'))+'</span></button><span class="sep"></span>'+sbtn('del','trash','Verwijderen',!can)+sbtn('nyi','archive','Archiveren',!can)+sbtn('nyi','junk','Rapporteren',!can)+mvSel(m,can)+'<span class="sep"></span>'+sbtn('reply','reply','Beantwoorden',!can)+sbtn('replyall','replyall','Allen beantwoorden',!can)+sbtn('forward','fwd','Doorsturen',!can)+'<span class="sep"></span>'+sbtn('unread','env',un?'Gelezen':'Ongelezen',!can)+sbtn('flagit','flag','Markeren',!can)+'</div>'}
 function postView(){
   var m=BY[S.sel],can=m&&!m.gone;
-  return '<div class="win"><div class="mc-top">'+ic('mail')+'<b>'+esc(t(({tb:'Thunderbird',olc:'Outlook (klassiek)',oln:'Nieuwe Outlook'})[S.client]))+'</b><span class="acc">'+esc(t('Account'))+': '+esc(ME.mail)+' · IMAP elsa.haarlem.gemeente.org</span></div>'
-    +'<div class="mc-bar" role="toolbar" aria-label="'+esc(t('Acties'))+'"><button type="button" class="tb" data-act="compose">'+ic('plus')+esc(t('Nieuw bericht'))+'</button><span class="sep"></span>'
-    +'<button type="button" class="tb" data-act="del"'+(can?'':' disabled')+'>'+ic('trash')+esc(t('Verwijderen'))+'</button>'
-    +'<label class="tb" for="mv">'+ic('folder')+'<span>'+esc(t('Verplaatsen naar'))+'</span><select id="mv"'+(can?'':' disabled')+'><option value="">…</option>'+FOLDERS.filter(function(f){return !m||f[0]!==m.folder}).map(function(f){return '<option value="'+f[0]+'">'+esc(t(f[1]))+'</option>'}).join('')+'</select></label><span class="sep"></span>'
-    +'<input type="search" id="q" value="'+esc(S.q)+'" placeholder="'+esc(t('Zoeken in alle mappen'))+'" aria-label="'+esc(t('Zoeken in alle mappen'))+'">'
-    +(S.client!=='oln'?'<button type="button" class="tb" data-act="pane" aria-pressed="'+S.pane+'">'+ic('pers')+esc(t('Assistent'))+'</button>':'')+'</div>'
+  return '<div class="win cl-'+S.client+'"><div class="mc-top">'+ic('mail')+'<b>'+esc(t(({tb:'Thunderbird',olc:'Outlook (klassiek)',oln:'Nieuwe Outlook'})[S.client]))+'</b><span class="acc">'+esc(t('Account'))+': '+esc(ME.mail)+' · IMAP elsa.haarlem.gemeente.org</span></div>'
+    +chrome(m,can)
     +'<div class="mc'+(S.pane||S.client==='oln'?'':' nopane')+'">'+folderBar()+listHtml()+readHtml()+(S.pane||S.client==='oln'?assistPanel(m):'')+'</div></div>';
 }
 
@@ -1186,11 +1242,13 @@ function render(){
   modal();
 }
 function w(s){S.wire=s}
+/* een geopend bericht wordt pas gelezen als je het verlaat, zoals in Outlook en Thunderbird */
+function leave(){var p=BY[S.sel];if(!p||p.gone||p.read||p.stay)return '';p.read=true;return ' · '+wt('vorige bericht gelezen')+': UID STORE '+(MAILS.indexOf(p)+101)+' +FLAGS (\\Seen)'}
 function wt(){return t.apply(null,arguments)}
 var A={
   view:function(e){clearTimeout(S.flowT);if(S.flow&&S.flow.step<FLOW.length-1)S.flow=null;S.view=e.dataset.v;w(S.view==='post'?'IMAP SELECT INBOX → OK':S.view==='filt'?'GET /register/regels?postbus=s.devries → '+wt('{0} regels',S.rl.length)+' · '+wt('Sieve-script gegenereerd door ELSA'):S.view==='gab'?'CardDAV REPORT /gab/ → '+wt('{0} vermeldingen',GAB.length+(S.inGab?1:0)):S.view==='keys'?'GET /keyvault/policy → '+wt('alleen de gemeentesecretaris geeft toegang'):S.view==='flow'?'Kafka consumer group elsa-ingest → lag 0':S.view==='arch'?wt('Eén object in de opslag, twee ingangen: IMAP en WebDAV'):S.view==='tech'?wt('IMAP-server naast Nextcloud Files, op dezelfde objectopslag'):S.view==='groei'?wt('Register en objectopslag vanaf stap 1; het archief verhuist nooit'):'—');render()},
-  folder:function(e){S.folder=e.dataset.v;S.q='';var L=inFolder(S.folder);S.sel=L.length?L.slice().sort(function(a,b){return a.age-b.age})[0].id:null;w('IMAP SELECT "'+(S.folder==='inbox'?'INBOX':t(FOLDERS.filter(function(f){return f[0]===S.folder})[0][1]))+'" → '+wt('{0} berichten',L.length));render()},
-  sel:function(e){var m=BY[e.dataset.id];S.sel=m.id;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;var was=m.read;m.read=true;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+(was?'':' · STORE +FLAGS (\\Seen)'));render()},
+  folder:function(e){leave();S.folder=e.dataset.v;S.q='';var L=inFolder(S.folder);S.sel=L.length?L.slice().sort(function(a,b){return a.age-b.age})[0].id:null;w('IMAP SELECT "'+(S.folder==='inbox'?'INBOX':t(FOLDERS.filter(function(f){return f[0]===S.folder})[0][1]))+'" → '+wt('{0} berichten',L.length));render()},
+  sel:function(e){var m=BY[e.dataset.id],lf=m.id!==S.sel?leave():'';S.sel=m.id;m.stay=false;if(e.closest('.ap'))S.pm='ber';if(m.folder!==S.folder&&!S.q)S.folder=m.folder;w('IMAP UID FETCH '+(MAILS.indexOf(m)+101)+' (BODY[]) → '+(m.aard==='persoonlijk'?wt('ontsleuteld met jouw persoonlijke sleutel'):wt('uit de objectopslag'))+lf);render()},
   aard:function(e){var m=BY[S.sel],v=e.dataset.v;if(m.by)delete m.by.aard;if(v==='persoonlijk'&&m.aard==='zakelijk'){var b=revertBlock(m);if(b){toast(t(b==='woo'?'Dit bericht valt onder een lopend Woo-verzoek en kan niet persoonlijk worden.':b==='link'?'Dit bericht is gekoppeld aan een zaak of dossier. Ontkoppel eerst.':'Het bericht is vergrendeld. Persoonlijk maken kan alleen op verzoek, bij de informatiebeheerder.'));render();return}m.hist.push('Binnen de bedenktijd teruggezet naar persoonlijk')}m.aard=v;m.sorted=true;
     if(v==='persoonlijk'){m.enc=true;m.folder='pers';m.hist.push('Aangemerkt als persoonlijk en versleuteld');w('IMAP UID MOVE → "Persoonlijk" · '+wt('versleuteld met jouw persoonlijke sleutel')+' · '+wt('buiten het Woo-zoekbereik')+' · '+wt('keuze vastgelegd in het register'));toast(t('Verplaatst naar Persoonlijk en versleuteld. Alleen jij kunt het lezen.'))}
     else{var was=m.folder==='pers';if(was){m.folder='inbox';if(m.vertr!=='Vertrouwelijk')m.enc=false;m.shred=false;m.hist.push('Van persoonlijk naar zakelijk');w('PUT '+m.pid+' → '+wt('ontsleuteld met jouw sleutel, opnieuw opgeslagen met de sleutel van de gemeente')+' · IMAP UID MOVE → INBOX · '+wt('keuze vastgelegd in het register'));toast(t('Zakelijk gemaakt. Het bericht staat weer in Postvak IN en hoort nu bij het archief.'));render();return}
@@ -1269,6 +1327,15 @@ var A={
   gcopy:function(e){try{navigator.clipboard.writeText(e.dataset.v)}catch(x){}toast(t('Adres gekopieerd.'))},
   gfav:function(e){var v=e.dataset.v;if(S.fav[v])delete S.fav[v];else S.fav[v]=true;w('PUT /elsa/me/favorieten → 204 · '+wt('verwijzing naar de vermelding, geen kopie'));toast(t(S.fav[v]?'Toegevoegd aan je favorieten.':'Uit je favorieten gehaald.'));render()},
   pane:function(){S.pane=!S.pane;render()},
+  mtab:function(){toast(t('In de demo werkt alleen de balk die je ziet; de andere tabbladen en menu\'s zijn er voor de herkenning.'))},
+  nyi:function(){toast(t('Deze knop staat er voor de herkenning. In de demo doet hij niets.'))},
+  pmreg:function(){S.pane=true;S.pm='reg';render()},
+  pmgab:function(){S.pane=true;S.pm='gab';render()},
+  unread:function(){var m=BY[S.sel];if(!m)return;m.read=!m.read;m.stay=!m.read;w('IMAP UID STORE '+(MAILS.indexOf(m)+101)+(m.read?' +':' -')+'FLAGS (\\Seen) · '+wt('leesstatus staat alleen in de IMAP-server, niet in het register'));render()},
+  flagit:function(){var m=BY[S.sel];if(!m)return;m.flag=!m.flag;w('IMAP UID STORE '+(MAILS.indexOf(m)+101)+(m.flag?' +':' -')+'FLAGS (\\Flagged)');render()},
+  reply:function(e){var m=BY[S.sel];if(!m)return;var all=e.dataset.act==='replyall',to=m.folder==='sent'?m.to[0].mail:m.from.mail;S.modal={to:to+(all&&m.to.length>1?', '+m.to.filter(function(p){return p.mail!==ME.mail}).map(function(p){return p.mail}).join(', '):''),sj:(/^re:/i.test(m.subj)?'':'Re: ')+t(m.subj),bd:'',focus:'c-bd'};render()},
+  replyall:function(e){A.reply(e)},
+  forward:function(){var m=BY[S.sel];if(!m)return;S.modal={to:'',sj:'Fw: '+t(m.subj),bd:'\n\n---------- '+t('Doorgestuurd bericht')+' ----------\n'+m.from.name+' <'+m.from.mail+'>\n'+t(m.subj)+'\n\n'+m.body.map(t).join('\n'),focus:'c-to'};render()},
   client:function(e){S.client=e.dataset.v;w(S.client==='tb'?'Thunderbird: IMAP + '+wt('adapter van de Office Assistent, via de integratielaag'):S.client==='olc'?wt('Outlook (klassiek)')+': IMAP + '+wt('COM-adapter van de Office Assistent, via de integratielaag')+' · '+wt('labels als lokale categorieën'):wt('Nieuwe Outlook')+': IMAP · '+wt('geen invoegtoepassing mogelijk bij een IMAP-account'));render()},
   web:function(){toast(t('In het echte systeem opent hier de webmail van ELSA, met hetzelfde paneel.'))},
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';

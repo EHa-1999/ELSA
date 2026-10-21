@@ -2,6 +2,10 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 17 · 21-10-2026
+- Een geopend bericht wordt pas gelezen als je het verlaat, zoals in Outlook en Thunderbird: tot dan blijft het vet. Ongelezen berichten zijn duidelijker te zien. Markeren als gelezen of ongelezen en Opvolgen werken; de leesstatus staat alleen in de IMAP-server.
+- Menubalken zoals in de echte mailprogramma's: het lint van Outlook (klassiek) met de groepen Nieuw, Verwijderen, Reageren, Verplaatsen, Labels, Zoeken en Invoegtoepassingen; de menubalk, werkbalk en Snelfilter van Thunderbird; het vereenvoudigde lint van de nieuwe Outlook. Beantwoorden, Allen beantwoorden en Doorsturen openen een nieuw bericht; Regels en Adresboek openen het paneel.
+
 ## Versie 16 · 21-10-2026
 - Regels maken en wijzigen in een eigen venster van de Office Assistent, geopend vanuit het paneel. Het venster toont meteen welke berichten in je postbus aan de regel voldoen en wat er per bericht verandert.
 - Toepassen: een regel gaat ook over de berichten die er al zijn. Metagegevens alleen binnen de bedenktijd, mappen en markeringen in de hele postbus. Regels van de organisatie en het team kun je bekijken en op je eigen postbus toepassen, niet wijzigen.
