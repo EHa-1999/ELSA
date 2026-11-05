@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="generator" content="ELSA (e-mailarchief), demo versie 21, 21-10-2026">
+<meta name="generator" content="ELSA (e-mailarchief), demo versie 22, 05-11-2026">
 <title>ELSA</title>
 <style>body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -483,7 +483,7 @@ pre.sv{margin:0;font-family:var(--mono);font-size:12px;background:var(--surface2
 <script>
 (function(){
 'use strict';
-var DEMO={v:'21',d:'21-10-2026'};
+var DEMO={v:'22',d:'05-11-2026'};
 var I18N=window.I18N||{},LANG='nl',LANGS={nl:'Nederlands',de:'Deutsch',en:'English',fr:'Français'};
 function t(s){if(!s)return s==null?'':s;var d=I18N[LANG],r=s;if(LANG!=='nl'&&d){if(d[s]!==undefined)r=d[s];else if(window.__MISS)window.__MISS.add(s)}
   for(var i=1;i<arguments.length;i++)r=r.split('{'+(i-1)+'}').join(arguments[i]);return r}
@@ -1592,7 +1592,10 @@ var A={
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';
     S.keylog.push({t:now().toISOString(),who:'Gemeentesecretaris',what:tx});w('POST /keyvault/grants → '+(v==='ok'?'201 · '+wt('tijdelijke toegang, gelogd'):v==='no'?'200 · '+wt('geweigerd, gelogd'):'201 · '+wt('delegatie, gelogd')));render()}
 };
-document.addEventListener('click',function(ev){if(ev.target.id==='layer'&&S.colo){S.colo=false;render();return}
+/* Sluiten door naast de popup te klikken: alleen als de muisknop ook naast de popup is ingedrukt (slepen vanuit de popup telt niet). */
+var layerDown=null;
+document.addEventListener('mousedown',function(ev){layerDown=ev.target},true);
+document.addEventListener('click',function(ev){if(ev.target.id==='layer'&&S.colo){if(layerDown===ev.target){S.colo=false;render()}return}
   var e=ev.target.closest&&ev.target.closest('[data-act]');if(S.lk.k&&!(ev.target.closest&&ev.target.closest('.lkw'))){S.lk={k:null,q:'',i:0,busy:false};if(!e){render();return}}
   if(!e||e.disabled)return;var f=A[e.dataset.act];if(f)f(e)});
 document.addEventListener('keydown',function(ev){var e=ev.target;

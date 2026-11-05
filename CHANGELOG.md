@@ -2,6 +2,9 @@
 
 Het versienummer staat in `VERSION`. Bij elke nieuwe versie: nummer ophogen, hier een regel toevoegen, `python3 build.py` draaien.
 
+## Versie 22 · 05-11-2026
+- Het colofon blijft open als je de muis vanuit het venster naar buiten sleept, bijvoorbeeld bij het selecteren van tekst. Gelijk aan versie 45 van de demo over de Office Assistent.
+
 ## Versie 21 · 21-10-2026
 - Waarmerken maakt nu onderscheid tussen drie soorten bewijs, elk met een eigen handeling voor de medewerker:
   - Tijdstempel: automatisch bij binnenkomst of verzending; de medewerker doet niets.

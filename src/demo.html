@@ -1582,7 +1582,10 @@ var A={
   kreq:function(e){var r=S.reqs[0],v=e.dataset.v;r.state=v;var tx=v==='ok'?'Toegang gegeven aan Juridische Zaken tot de persoonlijke sleutel van R. Hendriks, voor de periode 01-03-2026 tot 30-06-2026. Vervalt na 30 dagen.':v==='no'?'Verzoek van Juridische Zaken geweigerd.':'Bevoegdheid gedelegeerd aan de concerncontroller, voor dit ene verzoek.';
     S.keylog.push({t:now().toISOString(),who:'Gemeentesecretaris',what:tx});w('POST /keyvault/grants → '+(v==='ok'?'201 · '+wt('tijdelijke toegang, gelogd'):v==='no'?'200 · '+wt('geweigerd, gelogd'):'201 · '+wt('delegatie, gelogd')));render()}
 };
-document.addEventListener('click',function(ev){if(ev.target.id==='layer'&&S.colo){S.colo=false;render();return}
+/* Sluiten door naast de popup te klikken: alleen als de muisknop ook naast de popup is ingedrukt (slepen vanuit de popup telt niet). */
+var layerDown=null;
+document.addEventListener('mousedown',function(ev){layerDown=ev.target},true);
+document.addEventListener('click',function(ev){if(ev.target.id==='layer'&&S.colo){if(layerDown===ev.target){S.colo=false;render()}return}
   var e=ev.target.closest&&ev.target.closest('[data-act]');if(S.lk.k&&!(ev.target.closest&&ev.target.closest('.lkw'))){S.lk={k:null,q:'',i:0,busy:false};if(!e){render();return}}
   if(!e||e.disabled)return;var f=A[e.dataset.act];if(f)f(e)});
 document.addEventListener('keydown',function(ev){var e=ev.target;
